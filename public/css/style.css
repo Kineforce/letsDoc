@@ -60,7 +60,7 @@ nav {
 nav span {
   width: 100%;
   cursor: pointer;
-  padding: 10px;
+  height: 100%;
 }
 
 .span-menu-generico {
@@ -71,11 +71,11 @@ nav span {
   font-size: 16px;
   opacity: 0.6;
   transition: 0.5s;
-  height: 200px;
 }
 
 .span-menu-generico:hover {
   background-color: rgba(255, 0, 0, 0.438);
+  border-radius: 20px;
   opacity: 1;
 }
 
