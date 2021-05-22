@@ -40,19 +40,25 @@
 
     <main>
         <div class="container"> 
-            <div id="tela-home" class="show">
-                Selecione alguma opção à esquerda...
+            <div id="tela-home" class="painel show">
+                <h1>Bem vindo ao letsDoc, aplicação com o objetivo de auxiliar na documentação dos sistemas do IESB.</h1><br>
+                <h2>Por favor, selecione alguma das opções no painel à esquerda para começar a navegar</h2>
+
             </div>
-            <div id="tela-arq-serv" class="hide">
-                <h1>Abrir painel para visualização e cadastro de dados a respeito da arquitetura de servidores!</h1>
+            <div id="tela-arq-serv" class="painel hide">
+                <div class="as-label_busca_dinamica">
+                    <label for="as-input_busca_dinamica" id="as-label-busca-dinamica">Busque qualquer palavra: </label></br></br>
+                    <input type="text" id="as-input_busca_dinamica" value=""/>
+                </div>
+
             </div>
-            <div id="tela-arq-db" class="hide">
+            <div id="tela-arq-db" class="painel hide">
                 <h1>Abrir painel para visualização e cadastro de dados a respeito da arquitetura do banco de dados!</h1>
             </div>
-            <div id="tela-map-job" class="hide">
+            <div id="tela-map-job" class="painel hide">
                 <h1>Abrir painel para visualização e cadastro de dados a respeito do mapeamento de jobs e triggers!</h1>
             </div>
-            <div id="tela-map-sis" class="hide">
+            <div id="tela-map-sis" class="painel hide">
                 <h1>Abrir painel para visualização e cadastro de dados a respeito do mapeamento dos sistemas!</h1>
             </div>
         </div>

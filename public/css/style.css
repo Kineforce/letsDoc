@@ -1,7 +1,11 @@
+/** Geral **/
+
 * {
   margin: 0 auto;
   box-sizing: border-box;
 }
+
+/** Tela inicial **/
 
 body,
 html {
@@ -10,6 +14,8 @@ html {
   height: 100%;
   width: 100%;
 }
+
+/** Painel lateral esquerdo **/
 
 #logo-iesb {
   position: relative;
@@ -38,14 +44,7 @@ header {
   border-right: 1px solid rgba(128, 128, 128, 0.534);
 }
 
-main {
-  position: relative;
-  overflow: auto;
-  height: 100%;
-  width: 100%;
-  background-color: rgba(255, 255, 255, 0.363);
-}
-
+/** Navegação dos menus **/
 nav {
   height: 100%;
 }
@@ -85,10 +84,15 @@ nav span {
   align-items: center;
 }
 
+/** Painel contendo informação dos menus **/
+
 main {
-  padding: 20px;
+  position: relative;
+  overflow: auto;
   height: 100%;
   width: 100%;
+  background-color: rgba(255, 255, 255, 0.363);
+  padding: 20px;
 }
 
 .container {
@@ -105,4 +109,41 @@ main {
 
 .hide {
   display: none;
+}
+
+/** Tela de introdução **/
+
+#tela-home {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+#tela-home h1 {
+  background-color: rgba(128, 128, 128, 0.151);
+  font-weight: 400;
+  padding: 10px;
+  border-radius: 5px;
+  box-shadow: 5px 5px rgba(128, 128, 128, 0.568);
+}
+
+/** Telas dos menus **/
+
+/** Arquitetura de servidores **/
+
+.as-label_busca_dinamica {
+  width: 100%;
+  padding: 10px;
+}
+
+#as-input_busca_dinamica {
+  width: 100%;
+  padding: 10px;
+  font-size: 20px;
+  border-radius: 5px;
+}
+
+#as-label-busca-dinamica {
+  font-size: 20px;
 }
