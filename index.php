@@ -40,7 +40,21 @@
 
     <main>
         <div class="container"> 
-            Selecione alguma opção à esquerda...
+            <div id="tela-home" class="show">
+                Selecione alguma opção à esquerda...
+            </div>
+            <div id="tela-arq-serv" class="hide">
+                <h1>Abrir painel para visualização e cadastro de dados a respeito da arquitetura de servidores!</h1>
+            </div>
+            <div id="tela-arq-db" class="hide">
+                <h1>Abrir painel para visualização e cadastro de dados a respeito da arquitetura do banco de dados!</h1>
+            </div>
+            <div id="tela-map-job" class="hide">
+                <h1>Abrir painel para visualização e cadastro de dados a respeito do mapeamento de jobs e triggers!</h1>
+            </div>
+            <div id="tela-map-sis" class="hide">
+                <h1>Abrir painel para visualização e cadastro de dados a respeito do mapeamento dos sistemas!</h1>
+            </div>
         </div>
     </main>
     

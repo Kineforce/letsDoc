@@ -85,6 +85,24 @@ nav span {
   align-items: center;
 }
 
-.container {
+main {
   padding: 20px;
+  height: 100%;
+  width: 100%;
+}
+
+.container {
+  border: 1px solid rgba(128, 128, 128, 0.384);
+  padding: 20px;
+  height: 100%;
+  width: 100%;
+  border-radius: 10px;
+}
+
+.show {
+  display: block;
+}
+
+.hide {
+  display: none;
 }
