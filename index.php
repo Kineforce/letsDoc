@@ -43,14 +43,17 @@
             <div id="tela-home" class="painel show">
                 <h1>Bem vindo ao letsDoc, aplicação com o objetivo de auxiliar na documentação dos sistemas do IESB.</h1><br>
                 <h2>Por favor, selecione alguma das opções no painel à esquerda para começar a navegar</h2>
-
             </div>
             <div id="tela-arq-serv" class="painel hide">
-                <div class="as-label_busca_dinamica">
-                    <label for="as-input_busca_dinamica" id="as-label-busca-dinamica">Busque qualquer palavra: </label></br></br>
-                    <input type="text" id="as-input_busca_dinamica" value=""/>
+                <div class="as-content-wrapper">
+                    <div class="as-label_busca_dinamica">
+                        <label for="as-input_busca_dinamica" id="as-label-busca-dinamica">Busque qualquer palavra: </label></br></br>
+                        <input type="text" id="as-input_busca_dinamica" value=""/>
+                    </div>
+                    <div class="as-content">  
+                        
+                    </div>
                 </div>
-
             </div>
             <div id="tela-arq-db" class="painel hide">
                 <h1>Abrir painel para visualização e cadastro de dados a respeito da arquitetura do banco de dados!</h1>
@@ -65,8 +68,7 @@
     </main>
     
 
-    <script src="https://code.jquery.com/jquery-3.6.0.slim.min.js" integrity="sha256-u7e5khyithlIdTpu22PHhENmPcRdFiHRjhAuHcs05RI=" crossorigin="anonymous"></script>
-    <script src="./public/js/scripts.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>    <script src="./public/js/scripts.js"></script>
 </body>
 </html>
 

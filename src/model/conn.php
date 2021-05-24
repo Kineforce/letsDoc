@@ -14,9 +14,6 @@ try {
 		[PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]
 	);
 
-	if ($pdo) {
-		echo "Connected to the $db database successfully!";
-	}
 
 } catch (PDOException $e) {
 
