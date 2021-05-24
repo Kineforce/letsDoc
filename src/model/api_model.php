@@ -24,9 +24,14 @@ function retornaInfoArqServers(){
 function retornaInfoArqServerFiltro($palavraBuscada){
     require_once('conn.php');
 
+    $palavraBuscada = strtolower($palavraBuscada);
+
     $sql = "    SELECT  *
                 FROM    DOCSIS.ARQSERVERS
-                WHERE   NOME LIKE '%$palavraBuscada%'
+                WHERE   lower(NOME) LIKE '%$palavraBuscada%'
+                OR      lower(OBJETIVO) LIKE '%$palavraBuscada%'
+                OR      lower(LINGUAGEM) LIKE '%$palavraBuscada%'
+                
             
             ";
 
