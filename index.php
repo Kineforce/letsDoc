@@ -47,8 +47,11 @@
             <div id="tela-arq-serv" class="painel hide">
                 <div class="as-content-wrapper">
                     <div class="as-label_busca_dinamica">
-                        <label for="as-input_busca_dinamica" id="as-label-busca-dinamica">Busque qualquer palavra: </label></br></br>
-                        <input type="text" id="as-input_busca_dinamica" value=""/>
+                        <form id="as-form_busca_dinamica" onsubmit="retornaDadosFiltrados(event)">
+                            <label for="as-input_busca_dinamica" id="as-label-busca-dinamica">Busque qualquer palavra: </label></br></br>
+                            <input type="text" id="as_input_busca_dinamica" value=""/><br><br>
+                            <input type="submit" id="pesquisa_filtrada" value="Pesquisar" />
+                        </form>
                     </div>
                     <div class="as-content">  
                         
@@ -68,7 +71,9 @@
     </main>
     
 
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>    <script src="./public/js/scripts.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>    
+    <script src="./public/js/scripts_paineis.js"></script>
+    <script src="./public/js/funcoes_arq_servers.js"></script>
 </body>
 </html>
 

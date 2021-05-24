@@ -21,4 +21,15 @@ if($_GET['retornaInfoServidores']){
     return;
 }
 
+if($_GET['retornaDataFiltrada']){
+
+    require_once('../model/api_model.php');
+
+    $palavraBuscada = htmlspecialchars((isset($_GET['retornaDataFiltrada'])) ? $_GET['retornaDataFiltrada'] : '');
+
+    $dados = retornaInfoArqServerFiltro($palavraBuscada);
+    
+    echo json_encode($dados);
+    return;
+}
 

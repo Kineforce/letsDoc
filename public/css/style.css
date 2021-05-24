@@ -73,7 +73,7 @@ nav span {
 }
 
 .span-menu-generico:hover {
-  background-color: rgba(255, 0, 0, 0.438);
+  box-shadow: 5px 5px 5px 5px rgba(128, 128, 128, 0.568);
   border-radius: 20px;
   opacity: 1;
 }
@@ -149,11 +149,15 @@ main {
   padding: 10px;
 }
 
-#as-input_busca_dinamica {
+#as_input_busca_dinamica {
   width: 100%;
   padding: 10px;
   font-size: 20px;
   border-radius: 5px;
+}
+
+#pesquisa_filtrada {
+  padding: 10px;
 }
 
 #as-label-busca-dinamica {

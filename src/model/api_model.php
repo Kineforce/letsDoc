@@ -10,7 +10,25 @@ ini_set('display_errors', 1);
 function retornaInfoArqServers(){
     require_once('conn.php');
 
-    $sql = "SELECT * FROM DOCSIS.ARQSERVERS;";
+    $sql = "    SELECT  * 
+                FROM    DOCSIS.ARQSERVERS
+                
+            ";
+
+    $result = $pdo->query($sql)->fetchAll();
+
+    return $result;
+
+}
+
+function retornaInfoArqServerFiltro($palavraBuscada){
+    require_once('conn.php');
+
+    $sql = "    SELECT  *
+                FROM    DOCSIS.ARQSERVERS
+                WHERE   NOME LIKE '%$palavraBuscada%'
+            
+            ";
 
     $result = $pdo->query($sql)->fetchAll();
 
