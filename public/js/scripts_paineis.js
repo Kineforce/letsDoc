@@ -12,7 +12,7 @@ $(document).ready(() => {
     // Carregar dados existentes no banco
     $.ajax({
       type: "GET",
-      url: `${urlServidor}src/controller/arqservers.php`,
+      url: `${urlServidor}src/routes/routes.php`,
       data: { retornaInfoServidores: 1 },
       success: (response) => {
         if (response.count == 0) {
@@ -167,7 +167,7 @@ function deletaDadosServidor(event) {
 
   $.ajax({
     type: "POST",
-    url: `${urlServidor}src/controller/arqservers.php`,
+    url: `${urlServidor}src/routes/routes.php`,
     data: { deletaIdServidor },
     success: () => {
       // Atualiza as informações na tela
@@ -271,7 +271,7 @@ function mostraSubItemsServidor(event) {
 
   $.ajax({
     type: "GET",
-    url: `${urlServidor}src/controller/arqservers.php`,
+    url: `${urlServidor}src/routes/routes.php`,
     data: { buscaSubItemsServer },
     success: (resp) => {
       let parsed_response = JSON.parse(resp);
@@ -316,7 +316,7 @@ function deletaDadosSubItemServidor(event) {
 
   $.ajax({
     type: "POST",
-    url: `${urlServidor}src/controller/arqservers.php`,
+    url: `${urlServidor}src/routes/routes.php`,
     data: { deletaInfoItemArqServer },
     success: () => {
       // Atualiza as informações na tela

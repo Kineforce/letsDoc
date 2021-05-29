@@ -1,133 +1,102 @@
 <?php
 
-error_reporting(E_ALL | E_WARNING | E_NOTICE);
-ini_set('display_errors', 1);
+require ('../helper/fetch_json_helper.php');
 
-// // Inicializa a session
-// session_start();
+class ArqServers_controller extends Helpers{
 
-// // Checa se o usuário está acessando a aplicação pelo GOnline
-// if(!$_SESSION['login']){
-//     echo json_encode(array(
-//         "error" => "Não autorizado!"
-//     ));
-//     return;
-// }
+    public $model_functions;
 
-require('../model/arqservers_model.php');
-$model_functions = new ArqServers_Model();
+    function __construct(){
+        require('../model/arqservers_model.php');
 
-// Validando método que foi requisitado
+        $this->model_functions = new ArqServers_Model();
 
-// Retorna informações na tabela da arquitetura de servidores
-if(isset($_GET['retornaInfoServidores'])){
-
-    $dados = $model_functions->retornaInfoArqServers();
-    $data_array['dados'] = fetchDataToJsonEncode($dados);
-
-    echo json_encode($data_array);
-    return;
-
-}
-
-// Retorna informações com filtro da tabela de arquitetura de servidores
-if(isset($_GET['retornaDataFiltrada'])){
-
-    $palavraBuscada = htmlspecialchars((isset($_GET['retornaDataFiltrada'])) ? $_GET['retornaDataFiltrada'] : '');
-
-    $dados = $model_functions->retornaInfoArqServerFiltro($palavraBuscada);
-    $data_array['dados'] = fetchDataToJsonEncode($dados);
-
-    echo json_encode($data_array);
-    return;
-}
-
-if(isset($_POST['cadastraDadosServidor'])){
-
-    $dadosServidor = $_POST['cadastraDadosServidor'];
-
-    $insert = $model_functions->insereInfoArqServer($dadosServidor);
-    
-    echo json_encode($insert);
-    return;
-
-}
-
-if(isset($_POST['cadastraDadosItemServidor'])){
-
-    $dadosServidor = $_POST['cadastraDadosItemServidor'];
-
-    $insert = $model_functions->insereInfoItemArqServer($dadosServidor);
-    
-    echo json_encode($insert);
-    return;
-
-}
-
-if(isset($_POST['deletaIdServidor'])){
-
-    $dadosServidor = $_POST['deletaIdServidor'];
-
-    $delete = $model_functions->deletaInfoArqServer($dadosServidor);
-    
-    echo json_encode($insert);
-    return;
-}
-
-
-if(isset($_POST['deletaInfoItemArqServer'])){
-
-    $dadosServidor = $_POST['deletaInfoItemArqServer'];
-
-    $delete_item = $model_functions->deletaInfoItemArqServer($dadosServidor);
-
-    echo json_encode($delete_item);
-    return;
-}
-
-if(isset($_POST['updateIdServidor'])){
-
-    $dadosServidor = $_POST['updateIdServidor'];
-
-    $delete = $model_functions->updateInfoArqServer($dadosServidor);
-    
-    echo json_encode($delete);
-    return;
-}
-
-
-if(isset($_POST['updateIdServidorSubItem'])){
-
-    $dadosServidor = $_POST['updateIdServidorSubItem'];
-
-    $delete = $model_functions->updateItemInfoArqServer($dadosServidor);
-    
-    echo json_encode($delete);
-    return;
-}
-
-
-if(isset($_GET['buscaSubItemsServer'])){
-
-    $dadosServidor = $_GET['buscaSubItemsServer'];
-
-    $dados = $model_functions->retornaSubItemsServer($dadosServidor);
-    $data_array['dados'] = fetchDataToJsonEncode($dados);
-
-    echo json_encode($data_array);
-    return;
-
-}
-
-/**
- * Retorna a data formatada para retornar ao front-end pelo json_encode
- */
-function fetchDataToJsonEncode($dados){
-    $data = [];
-
-    while ($row = $dados->fetch(\PDO::FETCH_ASSOC)) {
-        $data[] = $row;
     }
 
-    return $data;
+    function retornaInfoServidores(){
+
+        $dados = $this->model_functions->retornaInfoArqServers();
+        $data_array['dados'] = $this->fetchDataToJsonEncode($dados);
+    
+        echo json_encode($data_array);
+
+    }
+
+    function retornaDataFiltrada(){
+
+        $palavraBuscada = htmlspecialchars((isset($_GET['retornaDataFiltrada'])) ? $_GET['retornaDataFiltrada'] : '');
+
+        $dados = $this->model_functions->retornaInfoArqServerFiltro($palavraBuscada);
+        $data_array['dados'] = $this->fetchDataToJsonEncode($dados);
+    
+        echo json_encode($data_array);
+    }
+
+    function cadastraDadosServidor(){
+
+        $dadosServidor = $_POST['cadastraDadosServidor'];
+
+        $insert = $this->model_functions->insereInfoArqServer($dadosServidor);
+        
+        echo json_encode($insert);
+    }
+
+    function cadastraDadosItemServidor(){
+        $dadosServidor = $_POST['cadastraDadosItemServidor'];
+
+        $insert = $this->model_functions->insereInfoItemArqServer($dadosServidor);
+    
+        echo json_encode($insert);
+    }
+
+    function deletaIdServidor(){
+
+        $dadosServidor = $_POST['deletaIdServidor'];
+
+        $delete = $this->model_functions->deletaInfoArqServer($dadosServidor);
+        
+        echo json_encode($delete);
+
+    }
+
+    function deletaInfoItemArqServer(){
+        $dadosServidor = $_POST['deletaInfoItemArqServer'];
+
+        $delete_item = $this->model_functions->deletaInfoItemArqServer($dadosServidor);
+
+        echo json_encode($delete_item);
+    }
+
+    function updateIdServidor(){
+
+        $dadosServidor = $_POST['updateIdServidor'];
+
+        $delete = $this->model_functions->updateInfoArqServer($dadosServidor);
+    
+        echo json_encode($delete);
+    }
+
+    function updateIdServidorSubItem(){
+        $dadosServidor = $_POST['updateIdServidorSubItem'];
+
+        $delete = $this->model_functions->updateItemInfoArqServer($dadosServidor);
+    
+        echo json_encode($delete);
+    }
+
+    function buscaSubItemsServidor(){
+        $dadosServidor = $_GET['buscaSubItemsServer'];
+
+        $dados = $this->model_functions->retornaSubItemsServer($dadosServidor);
+        $data_array['dados'] = $this->fetchDataToJsonEncode($dados);
+
+        echo json_encode($data_array);
+
+    }
+
+
 }
+
+
+
+?>

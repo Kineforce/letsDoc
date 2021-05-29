@@ -6,7 +6,7 @@ $(document).ready(() => {
 
     $.ajax({
       type: "GET",
-      url: `${urlServidor}src/controller/arqservers.php`,
+      url: `${urlServidor}src/routes/routes.php`,
       data: { retornaDataFiltrada: palavraBuscada },
       success: (response) => {
         let data = JSON.parse(response);
@@ -53,7 +53,7 @@ $(document).ready(() => {
 
     $.ajax({
       type: "POST",
-      url: `${urlServidor}src/controller/arqservers.php`,
+      url: `${urlServidor}src/routes/routes.php`,
       data: { cadastraDadosServidor },
       success: () => {
         // Atualiza as informações na tela
@@ -79,7 +79,7 @@ $(document).ready(() => {
 
     $.ajax({
       type: "POST",
-      url: `${urlServidor}src/controller/arqservers.php`,
+      url: `${urlServidor}src/routes/routes.php`,
       data: { updateIdServidor },
       success: () => {
         // Atualiza as informações na tela
@@ -108,7 +108,7 @@ $(document).ready(() => {
 
     $.ajax({
       type: "POST",
-      url: `${urlServidor}src/controller/arqservers.php`,
+      url: `${urlServidor}src/routes/routes.php`,
       data: { updateIdServidorSubItem },
       success: () => {
         // Atualiza as informações na tela
@@ -137,7 +137,7 @@ $(document).ready(() => {
 
     $.ajax({
       type: "POST",
-      url: `${urlServidor}src/controller/arqservers.php`,
+      url: `${urlServidor}src/routes/routes.php`,
       data: { cadastraDadosItemServidor },
       success: () => {
         // Atualiza as informações na tela
