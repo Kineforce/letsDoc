@@ -28,7 +28,7 @@ figure {
   flex-direction: column;
   text-align: center;
   font-weight: 800;
-  font-size: x-large;
+  font-size: 15px;
   font-family: monospace;
   align-items: center;
 }
@@ -46,6 +46,11 @@ header {
 }
 
 /** Navegação dos menus **/
+
+#logo_menu {
+  display: flex;
+  cursor: pointer;
+}
 
 nav {
   display: flex;
@@ -66,21 +71,21 @@ nav span {
   border: none;
   color: rgb(0, 0, 0);
   text-align: center;
-  font-size: 20px;
+  font-size: 15px;
   opacity: 0.6;
   transition: 0.5s;
   font-family: monospace;
 }
 
 .span-menu-generico:hover {
-  box-shadow: 5px 5px 5px 5px rgba(128, 128, 128, 0.568);
   border-radius: 20px;
+  color: #b70b0d;
   opacity: 1;
 }
 
 .hover-span-menu-generico {
-  box-shadow: 5px 5px 5px 5px rgba(128, 128, 128, 0.568);
   border-radius: 20px;
+  color: #b70b0d;
   opacity: 1;
 }
 

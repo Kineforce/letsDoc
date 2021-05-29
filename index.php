@@ -29,12 +29,15 @@
 
     ?>
 
-    <header>
+    <header style="display: none">
         <nav>
-            <figure>
-                <img src="./iesb-logo.png" id="logo-iesb"/>
-                <figcaption>Documentação de sistemas do IESB</figcaption>
-            </figure>
+            <div id="logo_menu">
+                <figure>
+                    <img src="./iesb-logo.png" id="logo-iesb"/>
+                    <figcaption>Documentação de sistemas do IESB</figcaption>
+                </figure>
+                <i class="fa fa-times" id="btn-oculta-menu" aria-hidden="true"></i>
+            </div>
             <span id="arquitetura-servidores" class="span-menu-generico">
                 <span class="texto-menu-generico">
                     Arquitetura de servidores

@@ -3,6 +3,16 @@ urlServidor = urlServidor.replace("index.php", "");
 
 // Aguarda o carregamento do document para iniciar os event listeners
 $(document).ready(() => {
+  $("#btn-oculta-menu").on("click", () => {
+    $("header").hide();
+  });
+
+  $(document).on("mousemove", function (event) {
+    if (event.pageX <= 30) {
+      $("header").show();
+    }
+  });
+
   $("#arquitetura-servidores").on("click", () => {
     // Esconde todos os painéis
     $(".painel").hide();
