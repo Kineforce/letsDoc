@@ -3,182 +3,185 @@
 error_reporting(E_ALL | E_WARNING | E_NOTICE);
 ini_set('display_errors', 1);
 
-/**
- * Retorna informação dos servidores
- */
-function retornaInfoArqServers(){
-    require_once('conn.php');
+class ArqServers_Model {
 
-    $sql = "SELECT * FROM Aplicacoes.govTi.ARQ_SERVERS;";
+    private $pdo;
 
-    $result = mssql_query($sql);
+    function __construct(){
+        // Fazendo conexão com o banco de dados
+        require_once('conn.php');
+        $this->pdo = (new SQliteConnection())->connect();
 
-    return $result;
+    }
 
-}
+    /**
+     * Retorna informação dos servidores
+     */
+    function retornaInfoArqServers(){
 
+        $sql = "SELECT * FROM ARQ_SERVERS;";
 
-/**
- * Retorna informação dos servidores com um parâmetro de filtro
- */
-function retornaInfoArqServerFiltro($palavraBuscada){
-    require_once('conn.php');
+        $result = $this->pdo->query($sql);
 
-    $palavraBuscada = strtolower($palavraBuscada);
+        return $result;
 
-    $sql = "    SELECT  SRV.*
-                FROM    Aplicacoes.govTi.ARQ_SERVERS AS SRV 
-                JOIN    Aplicacoes.govTi.SUBITEMS_ARQ_SERVERS SUB ON SUB.ID_SERVIDOR = SRV.ID
-                WHERE   lower(SRV.NOME) LIKE '%$palavraBuscada%'
-                OR      lower(SRV.OBJETIVO) LIKE '%$palavraBuscada%'
-                OR      lower(SRV.LINGUAGEM) LIKE '%$palavraBuscada%'
-                OR      lower(SUB.ITEM) LIKE '%$palavraBuscada%'
-                OR      lower(SUB.DESCRICAO) LIKE '%$palavraBuscada%'
-            
-            ";
-
-    $result = mssql_query($sql);
-
-    return $result;
-
-}
-
-/**
- * Adiciona novo registro a respeito de servidor na tabela
- */
-function insereInfoArqServer($dadosServidor){
-    require_once('conn.php');
-    
-    $nome       = $dadosServidor['nome'];
-    $objetivo   = $dadosServidor['objetivo'];
-    $linguagem  = $dadosServidor['linguagem'];
-    $ativo      = $dadosServidor['ativo'];
-
-    $sql = "    INSERT INTO Aplicacoes.govTI.ARQ_SERVERS (NOME, OBJETIVO, LINGUAGEM, ATIVO, DATA_INSERT)
-                VALUES ('$nome', '$objetivo', '$linguagem', '$ativo', GETDATE())";
-
-    $result = mssql_query($sql);
-
-    return $result;
-}
-
-/**
- * Adiciona novo registro a respeito do item de um servidor na tabela
- */
-function insereInfoItemArqServer($dadosServidor){
-    require_once('conn.php');
-    
-    $id_servidor     = $dadosServidor['id_servidor'];
-    $nome            = $dadosServidor['nome'];
-    $descricao       = $dadosServidor['descricao'];
-    $ativo           = $dadosServidor['ativo'];
-
-    $sql = "    INSERT INTO Aplicacoes.govTI.SUBITEMS_ARQ_SERVERS (ID_SERVIDOR, ITEM, DESCRICAO, ATIVO, DATA_INSERT)
-                VALUES ('$id_servidor', '$nome', '$descricao', '$ativo', GETDATE())";
-
-    $result = mssql_query($sql);
-
-    return $result;
-}
+    }
 
 
-/**
- * Delete um registro do servidor presente na tabela
- */
-function deletaInfoArqServer($dadosServidor){
-    require_once('conn.php');
+    /**
+     * Retorna informação dos servidores com um parâmetro de filtro
+     */
+    function retornaInfoArqServerFiltro($palavraBuscada){
 
-    $id_servidor = $dadosServidor['id_servidor'];
+        $palavraBuscada = strtolower($palavraBuscada);
 
-    $sql = "    DELETE  FROM Aplicacoes.govTI.ARQ_SERVERS
-                WHERE   id = '$id_servidor'
-            ";
+        $sql = "    SELECT      SRV.*
+                    FROM        ARQ_SERVERS AS SRV 
+                    LEFT JOIN   SUBITEMS_ARQ_SERVERS SUB ON SUB.ID_SERVIDOR = SRV.ID
+                    WHERE       lower(SRV.NOME) LIKE '%$palavraBuscada%'
+                    OR          lower(SRV.OBJETIVO) LIKE '%$palavraBuscada%'
+                    OR          lower(SRV.LINGUAGEM) LIKE '%$palavraBuscada%'
+                    OR          lower(SUB.ITEM) LIKE '%$palavraBuscada%'
+                    OR          lower(SUB.DESCRICAO) LIKE '%$palavraBuscada%'
+                
+                ";
 
-    $result = mssql_query($sql);
+        $result = $this->pdo->query($sql);
 
-    return $result;
+        return $result;
 
-}
+    }
 
-/**
- * Delete um registro de um subitem de um servidor presente na tabela
- */
-function deletaInfoItemArqServer($dadosServidor){
-    require_once('conn.php');
+    /**
+     * Adiciona novo registro a respeito de servidor na tabela
+     */
+    function insereInfoArqServer($dadosServidor){
+        
+        $nome       = $dadosServidor['nome'];
+        $objetivo   = $dadosServidor['objetivo'];
+        $linguagem  = $dadosServidor['linguagem'];
+        $ativo      = $dadosServidor['ativo'];
 
-    $id_item_servidor = $dadosServidor['id_item_servidor'];
+        $sql = "    INSERT INTO ARQ_SERVERS (NOME, OBJETIVO, LINGUAGEM, ATIVO, DATA_INSERT)
+                    VALUES ('$nome', '$objetivo', '$linguagem', '$ativo', CURRENT_TIMESTAMP)";
 
-    $sql = "    DELETE  FROM Aplicacoes.govTI.SUBITEMS_ARQ_SERVERS
-                WHERE   id = '$id_item_servidor'
-            ";
+        $result = $this->pdo->query($sql);
 
-    $result = mssql_query($sql);
+        return $result;
+    }
 
-    return $result;
+    /**
+     * Adiciona novo registro a respeito do item de um servidor na tabela
+     */
+    function insereInfoItemArqServer($dadosServidor){
+        
+        $id_servidor     = $dadosServidor['id_servidor'];
+        $nome            = $dadosServidor['nome'];
+        $descricao       = $dadosServidor['descricao'];
+        $ativo           = $dadosServidor['ativo'];
 
-}
-/**
- * Atualiza um registro do servidor presente na tabela
- */
-function updateInfoArqServer($dadosServidor){
-    require_once('conn.php');
+        $sql = "    INSERT INTO SUBITEMS_ARQ_SERVERS (ID_SERVIDOR, ITEM, DESCRICAO, ATIVO, DATA_INSERT)
+                    VALUES ('$id_servidor', '$nome', '$descricao', '$ativo', CURRENT_TIMESTAMP)";
 
-    $id_servidor = $dadosServidor['id_servidor'];
-    $nome = $dadosServidor['nome'];
-    $objetivo = $dadosServidor['objetivo'];
-    $linguagem = $dadosServidor['linguagem'];
-    $ativo = $dadosServidor['ativo'];
+        $result = $this->pdo->query($sql);
 
-    $sql = "    UPDATE Aplicacoes.govTI.ARQ_SERVERS SET  NOME = '$nome'
-                                                        ,OBJETIVO = '$objetivo'
-                                                        ,LINGUAGEM = '$linguagem'
-                                                        ,ATIVO = '$ativo'
-                WHERE   ID = '$id_servidor'
-    ";
-
-    $result = mssql_query($sql);
-
-    return $result;
-    
-}
-
-/**
- * Atualiza um registro do item do servidor presente na tabela
- */
-function updateItemInfoArqServer($dadosServidor){
-    require_once('conn.php');
-
-    $id_item    = $dadosServidor['id_item'];
-    $nome       = $dadosServidor['nome'];
-    $descricao  = $dadosServidor['descricao'];
-    $ativo      = $dadosServidor['ativo'];
-
-    $sql = "    UPDATE Aplicacoes.govTI.SUBITEMS_ARQ_SERVERS SET  ITEM = '$nome'
-                                                                ,DESCRICAO = '$descricao'
-                                                                ,ATIVO = '$ativo'
-                WHERE   ID = '$id_item'
-    ";
-
-    $result = mssql_query($sql);
-
-    return $result;
-    
-}
+        return $result;
+    }
 
 
-/**
- * Efetua uma busca na tabela que armazena os sub-items relacionado ao ID do servidor fornecido
- */
-function retornaSubItemsServer($dadosServidor){
-    require_once('conn.php');
+    /**
+     * Delete um registro do servidor presente na tabela
+     */
+    function deletaInfoArqServer($dadosServidor){
 
-    $id_servidor = $dadosServidor['id_servidor'];
+        $id_servidor = $dadosServidor['id_servidor'];
 
-    $sql = "    SELECT  *
-                FROM    Aplicacoes.govTI.SUBITEMS_ARQ_SERVERS
-                WHERE   ID_SERVIDOR = '$id_servidor'";
+        $sql = "    DELETE  FROM ARQ_SERVERS
+                    WHERE   id = '$id_servidor'
+                ";
 
-    $result = mssql_query($sql);                
+        $result = $this->pdo->query($sql);
 
-    return $result;
+        return $result;
+
+    }
+
+    /**
+     * Delete um registro de um subitem de um servidor presente na tabela
+     */
+    function deletaInfoItemArqServer($dadosServidor){
+
+        $id_item_servidor = $dadosServidor['id_item_servidor'];
+
+        $sql = "    DELETE  FROM SUBITEMS_ARQ_SERVERS
+                    WHERE   id = '$id_item_servidor'
+                ";
+
+        $result = $this->pdo->query($sql);
+
+        return $result;
+
+    }
+    /**
+     * Atualiza um registro do servidor presente na tabela
+     */
+    function updateInfoArqServer($dadosServidor){
+
+        $id_servidor = $dadosServidor['id_servidor'];
+        $nome = $dadosServidor['nome'];
+        $objetivo = $dadosServidor['objetivo'];
+        $linguagem = $dadosServidor['linguagem'];
+        $ativo = $dadosServidor['ativo'];
+
+        $sql = "    UPDATE ARQ_SERVERS SET  NOME = '$nome'
+                                                            ,OBJETIVO = '$objetivo'
+                                                            ,LINGUAGEM = '$linguagem'
+                                                            ,ATIVO = '$ativo'
+                    WHERE   ID = '$id_servidor'
+        ";
+
+        $result = $this->pdo->query($sql);
+
+        return $result;
+        
+    }
+
+    /**
+     * Atualiza um registro do item do servidor presente na tabela
+     */
+    function updateItemInfoArqServer($dadosServidor){
+
+        $id_item    = $dadosServidor['id_item'];
+        $nome       = $dadosServidor['nome'];
+        $descricao  = $dadosServidor['descricao'];
+        $ativo      = $dadosServidor['ativo'];
+
+        $sql = "    UPDATE SUBITEMS_ARQ_SERVERS SET  ITEM = '$nome'
+                                                                    ,DESCRICAO = '$descricao'
+                                                                    ,ATIVO = '$ativo'
+                    WHERE   ID = '$id_item'
+        ";
+
+        $result = $this->pdo->query($sql);
+
+        return $result;
+        
+    }
+
+
+    /**
+     * Efetua uma busca na tabela que armazena os sub-items relacionado ao ID do servidor fornecido
+     */
+    function retornaSubItemsServer($dadosServidor){
+
+        $id_servidor = $dadosServidor['id_servidor'];
+
+        $sql = "    SELECT  *
+                    FROM    SUBITEMS_ARQ_SERVERS
+                    WHERE   ID_SERVIDOR = '$id_servidor'";
+
+        $result = $this->pdo->query($sql);                
+
+        return $result;
+    }
 }

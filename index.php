@@ -14,18 +14,18 @@
 
     <?php
 
-        error_reporting(E_ALL | E_WARNING | E_NOTICE);
-        ini_set('display_errors', 1);
+        // error_reporting(E_ALL | E_WARNING | E_NOTICE);
+        // ini_set('display_errors', 1);
 
-        // Inicializando sessão
-        session_start();
+        // // Inicializando sessão
+        // session_start();
 
-        // Se não existe uma variável login na sessão (herdada no login no GOnline), então o usuário não está autenticado
-        if(!isset($_SESSION['login'])){
-            // Redirecionar para o site do IESB
-            echo '<script>alert("Em construção!")</script>';
-            exit();
-        }
+        // // Se não existe uma variável login na sessão (herdada no login no GOnline), então o usuário não está autenticado
+        // if(!isset($_SESSION['login'])){
+        //     // Redirecionar para o site do IESB
+        //     echo '<script>alert("Em construção!")</script>';
+        //     exit();
+        // }
 
     ?>
 
