@@ -87,7 +87,6 @@ nav .span-menu-generico {
 .hover-span-menu-generico {
   border-radius: 20px;
   font-size: 17px;
-
   color: #b70b0d;
   opacity: 1;
 }
@@ -201,7 +200,6 @@ main {
 
 .as-content-card {
   display: flex;
-  padding: 20px;
 }
 
 .as-content-card > * {
@@ -215,14 +213,13 @@ main {
 }
 
 .as-content-server-card > * {
-  padding: 5px;
+  padding-top: 5px;
   margin-left: 50px;
 }
 
 .as-subcard-item {
   display: flex;
   flex-direction: row;
-  padding-right: 20px;
 }
 
 .as-subcard-item > * {
@@ -230,6 +227,10 @@ main {
   padding: 20px;
   background-color: rgba(0, 0, 0, 0.445);
   color: white;
+}
+
+.as-subcard-descricao-item {
+  flex: 100%;
 }
 
 .as-card-id {
@@ -252,7 +253,8 @@ main {
 /** Modal Arquitetura servidores **/
 .as_modal_open {
   display: flex;
-  margin-top: 20px;
+  margin-top: 10px;
+  margin-bottom: 10px;
   justify-content: center;
 }
 
