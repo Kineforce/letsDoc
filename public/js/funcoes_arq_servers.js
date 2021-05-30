@@ -26,7 +26,7 @@ $(document).ready(() => {
 
         $(".as-content").html(as_cards_html);
         $(".as-content").append(
-          '<span class="as_modal_open"><a href="#as_modal" rel="modal:open">Adicionar servidor</a></span>'
+          '<span class="as_modal_open"><a href="#as_modal_cria_server" rel="modal:open">Adicionar servidor</a></span>'
         );
       },
     });

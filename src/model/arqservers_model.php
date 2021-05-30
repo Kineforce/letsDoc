@@ -35,7 +35,7 @@ class ArqServers_Model {
 
         $palavraBuscada = strtolower($palavraBuscada);
 
-        $sql = "    SELECT      SRV.*
+        $sql = "    SELECT      DISTINCT SRV.*
                     FROM        ARQ_SERVERS AS SRV 
                     LEFT JOIN   SUBITEMS_ARQ_SERVERS SUB ON SUB.ID_SERVIDOR = SRV.ID
                     WHERE       lower(SRV.NOME) LIKE '%$palavraBuscada%'
