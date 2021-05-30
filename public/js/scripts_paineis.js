@@ -175,19 +175,43 @@ function deletaDadosServidor(event) {
     id_servidor: id,
   };
 
-  $.ajax({
-    type: "POST",
-    url: `${urlServidor}src/routes/routes.php`,
-    data: { deletaIdServidor },
-    success: () => {
-      // Atualiza as informações na tela
-      $("#arquitetura-servidores").click();
+  Swal.fire({
+    title: "Você tem certeza que deseja deletar?",
+    text: "Isso deletará todos os sub-itens!",
+    icon: "warning",
+    showCancelButton: true,
+    confirmButtonColor: "#3085d6",
+    cancelButtonColor: "#d33",
+    confirmButtonText: "Sim, deletar!",
+    cancelButtonText: "Cancelar",
+  }).then((result) => {
+    if (result.isConfirmed) {
+      $.ajax({
+        type: "POST",
+        url: `${urlServidor}src/routes/routes.php`,
+        data: { deletaIdServidor },
+        success: () => {
+          // Atualiza as informações na tela
+          $("#arquitetura-servidores").click();
 
-      Swal.fire("Deletado com sucesso!", "", "success");
-    },
-    error: () => {
-      Swal.fire("Algo de errado ocorreu na exclusão do registro!", "", "error");
-    },
+          Swal.fire("Deletado com sucesso!", "", "success");
+        },
+        error: () => {
+          Swal.fire(
+            "Algo de errado ocorreu na exclusão do registro!",
+            "",
+            "error"
+          );
+        },
+      });
+      Swal.fire(
+        "Deletado!",
+        "Informações do sevidor e items foram deletadas",
+        "success"
+      );
+    } else {
+      return;
+    }
   });
 }
 
@@ -324,18 +348,38 @@ function deletaDadosSubItemServidor(event) {
     id_item_servidor: sub_id,
   };
 
-  $.ajax({
-    type: "POST",
-    url: `${urlServidor}src/routes/routes.php`,
-    data: { deletaInfoItemArqServer },
-    success: () => {
-      // Atualiza as informações na tela
-      $("#arquitetura-servidores").click();
+  Swal.fire({
+    title: "Você tem certeza que deseja deletar?",
+    text: "Isso deletará este item!",
+    icon: "warning",
+    showCancelButton: true,
+    confirmButtonColor: "#3085d6",
+    cancelButtonColor: "#d33",
+    confirmButtonText: "Sim, deletar!",
+    cancelButtonText: "Cancelar",
+  }).then((result) => {
+    if (result.isConfirmed) {
+      $.ajax({
+        type: "POST",
+        url: `${urlServidor}src/routes/routes.php`,
+        data: { deletaInfoItemArqServer },
+        success: () => {
+          // Atualiza as informações na tela
+          $("#arquitetura-servidores").click();
 
-      Swal.fire("Deletado com sucesso!", "", "success");
-    },
-    error: () => {
-      Swal.fire("Algo de errado ocorreu na exclusão do registro!", "", "error");
-    },
+          Swal.fire("Deletado com sucesso!", "", "success");
+        },
+        error: () => {
+          Swal.fire(
+            "Algo de errado ocorreu na exclusão do registro!",
+            "",
+            "error"
+          );
+        },
+      });
+      Swal.fire("Deletado!", "Informações do item foram deletadas", "success");
+    } else {
+      return;
+    }
   });
 }

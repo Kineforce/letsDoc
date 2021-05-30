@@ -258,6 +258,11 @@ main {
   justify-content: center;
 }
 
+.as-subcard-nome-item {
+  max-width: 100px;
+  min-width: 100px;
+}
+
 .modal {
   max-width: 900px !important;
 }
