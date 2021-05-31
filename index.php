@@ -4,7 +4,9 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./public/css/style.css">
+    <link rel="stylesheet" href="./public/css/style_arq_servers.css">
+    <link rel="stylesheet" href="./public/css/style_geral.css">
+    <link rel="stylesheet" href="./public/css/style_arq_database.css">
     <link rel="icon" href="./favicon.ico" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -81,7 +83,17 @@
                 </div>
             </div>
             <div id="tela-arq-db" class="painel hide">
-                <h1>Abrir painel para visualização e cadastro de dados a respeito da arquitetura do banco de dados!</h1>
+                <div class="db-content-wrapper">
+                    <div class="db-label_busca_dinamica">
+                        <form id="db-form_busca_dinamica">
+                            <label for="db-input_busca_dinamica" id="db-label-busca-dinamica">Busque qualquer palavra: </label></br></br>
+                            <input type="text" id="db_input_busca_dinamica" value=""/><br><br>
+                            <input type="submit" id="db_pesquisa_filtrada" value="Pesquisar" />
+                        </form>
+                    </div>
+                    <div class="db-content">  
+                    </div>
+                </div>
             </div>
             <div id="tela-map-job" class="painel hide">
                 <h1>Abrir painel para visualização e cadastro de dados a respeito do mapeamento de jobs e triggers!</h1>
@@ -161,8 +173,14 @@
     <!-- jQuery Modal -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css" />
+    <!-- Scripts utilizados nos paineis -->
     <script src="./public/js/scripts_paineis.js"></script>
-    <script src="./public/js/funcoes_arq_servers.js"></script>
+    <!-- Scripts para a tela de arquitetura de servidores -->
+    <script src="./public/js/arq_servers/el_arq_servers.js"></script>
+    <script src="./public/js/arq_servers/funcoes_arq_servers.js"></script>
+    <!-- Scripts para a tela de arquitetura de banco de dados -->
+    <script src="./public/js/arq_database/funcoes_arq_database.js"></script>
+    <script src="./public/js/arq_database/el_arq_database.js"></script>
 </body>
 </html>
 

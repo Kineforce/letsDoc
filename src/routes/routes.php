@@ -5,68 +5,80 @@ ini_set('display_errors', 1);
 
 // Importa o controlador para ter o método chamado de acordo com o parâmetro vindo no request
 require ('../controller/arqservers.php');
-$call = new ArqServers_controller();
+require ('../controller/arqdatabase.php');
 
-// Arquivo destinado para as rotas da aplicação
+$call_arq_database = new ArqDatabase_controller();
+$call_arq_servers = new ArqServers_controller();
+
+/******** ARQUITETURA DE SERVIDORES ********/
 
 if(isset($_GET['retornaInfoServidores'])){
 
-    $call->retornaInfoServidores();
+    $call_arq_servers->retornaInfoServidores();
     return;
 
 }
 
 if(isset($_GET['retornaDataFiltrada'])){
 
-    $call->retornaDataFiltrada();
+    $call_arq_servers->retornaDataFiltrada();
     return;
 }
 
 if(isset($_POST['cadastraDadosServidor'])){
 
-    $call->cadastraDadosServidor();
+    $call_arq_servers->cadastraDadosServidor();
     return;
 
 }
 
 if(isset($_POST['cadastraDadosItemServidor'])){
 
-    $call->cadastraDadosItemServidor();
+    $call_arq_servers->cadastraDadosItemServidor();
     return;
 
 }
 
 if(isset($_POST['deletaIdServidor'])){
 
-    $call->deletaIdServidor();
+    $call_arq_servers->deletaIdServidor();
     return;
 }
 
 
 if(isset($_POST['deletaInfoItemArqServer'])){
 
-    $call->deletaInfoItemArqServer();
+    $call_arq_servers->deletaInfoItemArqServer();
     return;
 }
 
 if(isset($_POST['updateIdServidor'])){
     
-    $call->updateIdServidor();
+    $call_arq_servers->updateIdServidor();
     return;
 }
 
 
 if(isset($_POST['updateIdServidorSubItem'])){
 
-    $call->updateIdServidorSubItem();
+    $call_arq_servers->updateIdServidorSubItem();
     return;
 }
 
 
 if(isset($_GET['buscaSubItemsServer'])){
 
-    $call->buscaSubItemsServidor();
+    $call_arq_servers->buscaSubItemsServidor();
     return;
 
 }
 
+
+/******** ARQUITETURA DE BANCO DE DADOS ********/
+
+if(isset($_GET['retornaInfoDatabase'])){
+
+    $call_arq_database->retornaInfoDatabase();
+    return;
+
+}

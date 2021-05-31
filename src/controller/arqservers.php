@@ -1,6 +1,6 @@
 <?php
 
-require ('../helper/fetch_json_helper.php');
+require_once ('../helper/fetch_json_helper.php');
 
 class ArqServers_controller extends Helpers{
 
