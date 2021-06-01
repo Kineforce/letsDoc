@@ -23,6 +23,23 @@ class ArqDatabase_controller extends Helpers {
 
     }
 
+    function cadastraInfoDatabase(){
+
+        $dadosDatabase = $_POST['cadastraDadosDatabase'];
+
+        $insert = $this->model_functions->insereInfoDatabase($dadosDatabase);
+        
+        echo json_encode($insert);
+    }
+
+    function deletaIdDatabase(){
+
+        $dadosDatabase = $_POST['deletaIdDatabase'];
+
+        $delete = $this->model_functions->deletaInfoDatabase($dadosDatabase);
+
+        echo json_encode($delete);
+    }
 
 
 }

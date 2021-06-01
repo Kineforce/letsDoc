@@ -82,3 +82,16 @@ if(isset($_GET['retornaInfoDatabase'])){
     return;
 
 }
+
+if(isset($_POST['cadastraDadosDatabase'])){
+
+    $call_arq_database->cadastraInfoDatabase();
+    return;
+
+}
+
+if(isset($_POST['deletaIdDatabase'])){
+
+    $call_arq_database->deletaIdDatabase();
+    return;
+}

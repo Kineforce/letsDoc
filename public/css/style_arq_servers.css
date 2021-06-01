@@ -67,6 +67,30 @@
   margin-left: 50px;
 }
 
+.as-card-id {
+  max-width: 100px;
+  flex: 5%;
+}
+
+.as-nome {
+  min-width: 150px;
+  max-width: 150px;
+  flex: 10%;
+}
+
+.as-objetivo {
+  flex: 75%;
+  word-break: break-all;
+}
+
+.as-tipo-linguagem {
+  min-width: 100px;
+  word-break: break-word;
+  flex: 10%;
+}
+
+/** Server subcard **/
+
 .as-subcard-item {
   display: flex;
   flex-direction: row;
@@ -83,21 +107,13 @@
   flex: 100%;
 }
 
-.as-card-id {
-  flex: 5%;
+.as-subcard-nome-item {
+  max-width: 100px;
+  min-width: 100px;
 }
 
-.as-nome {
-  flex: 10%;
-}
-
-.as-objetivo {
-  flex: 75%;
-  white-space: pre;
-}
-
-.as-tipo-linguagem {
-  flex: 10%;
+#as_subitem_servidor_create_btn {
+  display: flex;
 }
 
 /** Modal Arquitetura servidores **/
@@ -106,11 +122,6 @@
   margin-top: 10px;
   margin-bottom: 10px;
   justify-content: center;
-}
-
-.as-subcard-nome-item {
-  max-width: 100px;
-  min-width: 100px;
 }
 
 .modal {
@@ -237,8 +248,4 @@ select {
 
 .fa-caret-square-down:before {
   cursor: pointer;
-}
-
-#as_subitem_servidor_create_btn {
-  display: flex;
 }

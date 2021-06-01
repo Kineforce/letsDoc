@@ -27,5 +27,39 @@ class ArqDatabase_model {
 
     }
 
+    /**
+     * Adiciona novo registro a respeito de database na tabela
+     */
+    function insereInfoDatabase($dadosServidor){
+        
+        $nome       = $dadosServidor['nome'];
+        $descricao   = $dadosServidor['descricao'];
+        $ambiente  = $dadosServidor['ambiente'];
+        $ativo      = $dadosServidor['ativo'];
+
+        $sql = "    INSERT INTO ARQ_DATABASE (NOME, DESCRICAO, AMBIENTE, ATIVO, DATA_INSERT)
+                    VALUES ('$nome', '$descricao', '$ambiente', '$ativo', CURRENT_TIMESTAMP)";
+
+        $result = $this->pdo->query($sql);
+
+        return $result;
+    }
+
+     /**
+     * Delete um registro de database presente na tabela
+     */
+    function deletaInfoDatabase($dadosServidor){
+
+        $id_database = $dadosServidor['id_database'];
+
+        $sql = "    DELETE  FROM ARQ_DATABASE
+                    WHERE   id = '$id_database'
+                ";
+
+        $result = $this->pdo->query($sql);
+
+        return $result;
+
+    }
     
 }

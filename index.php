@@ -104,70 +104,117 @@
         </div>
     </main>
 
-    <!-- Modal para insert de dados servidor -->
-    <div id="as_modal_cria_server" class="modal" style="display: none">
-        <div class="as_modal_cria_server">
-            <h2>Inserir novo registro de servidor</h2>
-            <input type="text" name="nome" id="as_nome_servidor" placeholder="Nome do servidor"/>
-            <textarea type="text" name="objetivo" id="as_objetivo_servidor" placeholder="Objetivo do servidor"></textarea>
-            <input type="text" name="linguagem" id="as_linguagem_servidor" placeholder="Linguagem do servidor"/>
-            <select id="as_ativo_servidor">
-                <option value="" selected disabled>Ativo?</option>
-                <option value="S">Sim</option>
-                <option value="N">Não</option>
-            </select>
-            <input type="submit" id="as_cadastra" value="Cadastrar" />
+    <!-- Modals para o painel de arquitetura de servidores --> 
+        <!-- Modal para insert de dados servidor -->
+        <div id="as_modal_cria_server" class="modal" style="display: none">
+            <div class="as_modal_cria_server">
+                <h2>Inserir novo registro de servidor</h2>
+                <input type="text" name="nome" id="as_nome_servidor" placeholder="Nome do servidor"/>
+                <textarea type="text" name="objetivo" id="as_objetivo_servidor" placeholder="Objetivo do servidor"></textarea>
+                <input type="text" name="linguagem" id="as_linguagem_servidor" placeholder="Linguagem do servidor"/>
+                <select id="as_ativo_servidor">
+                    <option value="" selected disabled>Ativo?</option>
+                    <option value="S">Sim</option>
+                    <option value="N">Não</option>
+                </select>
+                <input type="submit" id="as_cadastra" value="Cadastrar" />
+            </div>
         </div>
-    </div>
 
-     <!-- Modal para insert de dados subitem servidor -->
-     <div id="as_modal_cria_server_subitem" class="modal" style="display: none">
-        <div class="as_modal_cria_server_subitem">
-            <h2>Inserir novo item do servidor</h2>
-            <input type="hidden" id="id_servidor_subitem" value="" />
-            <input type="text" name="nome" id="as_nome_servidor_subitem" placeholder="Nome do item"/>
-            <textarea type="text" name="descricao" id="as_descricao_servidor_subitem" placeholder="Descrição do item"></textarea>
-            <select id="as_ativo_servidor_subitem">
-                <option value="" selected disabled>Ativo?</option>
-                <option value="S">Sim</option>
-                <option value="N">Não</option>
-            </select>
-            <input type="submit" id="as_cadastra_subitem" value="Cadastrar" />
+        <!-- Modal para insert de dados subitem servidor -->
+        <div id="as_modal_cria_server_subitem" class="modal" style="display: none">
+            <div class="as_modal_cria_server_subitem">
+                <h2>Inserir novo item do servidor</h2>
+                <input type="hidden" id="id_servidor_subitem" value="" />
+                <input type="text" name="nome" id="as_nome_servidor_subitem" placeholder="Nome do item"/>
+                <textarea type="text" name="descricao" id="as_descricao_servidor_subitem" placeholder="Descrição do item"></textarea>
+                <select id="as_ativo_servidor_subitem">
+                    <option value="" selected disabled>Ativo?</option>
+                    <option value="S">Sim</option>
+                    <option value="N">Não</option>
+                </select>
+                <input type="submit" id="as_cadastra_subitem" value="Cadastrar" />
+            </div>
         </div>
-    </div>
 
-    <!-- Modal para update de dados servidor -->
-    <div id="as_modal_update_server" class="modal" style="display: none">
-        <div class="as_modal_update_server">
-            <h2>Atualizar registro do item atual</h2>
-            <input type="hidden" name="id" id="as_id_update" value="" />
-            <input type="text" name="nome" id="as_nome_servidor_update" placeholder="Nome do servidor"/>
-            <textarea type="text" name="objetivo" id="as_objetivo_servidor_update" placeholder="Objetivo do servidor"></textarea>
-            <input type="text" name="linguagem" id="as_linguagem_servidor_update" placeholder="Linguagem do servidor"/>
-            <select id="as_ativo_servidor_update">
-                <option value="" selected disabled>Ativo?</option>
-                <option value="S">Sim</option>
-                <option value="N">Não</option>
-            </select>
-            <input type="submit" id="as_update" value="Update" />
+        <!-- Modal para update de dados servidor -->
+        <div id="as_modal_update_server" class="modal" style="display: none">
+            <div class="as_modal_update_server">
+                <h2>Atualizar registro do item atual</h2>
+                <input type="hidden" name="id" id="as_id_update" value="" />
+                <input type="text" name="nome" id="as_nome_servidor_update" placeholder="Nome do servidor"/>
+                <textarea type="text" name="objetivo" id="as_objetivo_servidor_update" placeholder="Objetivo do servidor"></textarea>
+                <input type="text" name="linguagem" id="as_linguagem_servidor_update" placeholder="Linguagem do servidor"/>
+                <select id="as_ativo_servidor_update">
+                    <option value="" selected disabled>Ativo?</option>
+                    <option value="S">Sim</option>
+                    <option value="N">Não</option>
+                </select>
+                <input type="submit" id="as_update" value="Update" />
+            </div>
         </div>
-    </div>
 
-    <!-- Modal para update de dados subitem servidor -->
-    <div id="as_modal_update_server_subitem" class="modal" style="display: none">
-        <div class="as_modal_update_server_subitem">
-            <h2>Atualizar registro atual</h2>
-            <input type="hidden" name="id" id="as_id_update_subitem" value="" />
-            <input type="text" name="nome" id="as_nome_update_subitem" placeholder="Nome do item"/>
-            <textarea type="text" name="descricao" id="as_descricao_update_subitem" placeholder="Descrição do item"></textarea>
-            <select id="as_ativo_update_subitem">
-                <option value="" selected disabled>Ativo?</option>
-                <option value="S">Sim</option>
-                <option value="N">Não</option>
-            </select>
-            <input type="submit" id="as_update_subitem" value="Update" />
+        <!-- Modal para update de dados subitem servidor -->
+        <div id="as_modal_update_server_subitem" class="modal" style="display: none">
+            <div class="as_modal_update_server_subitem">
+                <h2>Atualizar registro atual</h2>
+                <input type="hidden" name="id" id="as_id_update_subitem" value="" />
+                <input type="text" name="nome" id="as_nome_update_subitem" placeholder="Nome do item"/>
+                <textarea type="text" name="descricao" id="as_descricao_update_subitem" placeholder="Descrição do item"></textarea>
+                <select id="as_ativo_update_subitem">
+                    <option value="" selected disabled>Ativo?</option>
+                    <option value="S">Sim</option>
+                    <option value="N">Não</option>
+                </select>
+                <input type="submit" id="as_update_subitem" value="Update" />
+            </div>
         </div>
-    </div>
+
+    <!-- Modals para o painel de databases -->
+        <!-- Modal para insert de dados database -->
+        <div id="db_modal_cria_database" class="modal" style="display: none">
+            <div class="db_modal_cria_database">
+                <h2>Inserir novo registro de banco de dados</h2>
+                <input type="text" name="nome" id="db_nome_database" placeholder="Nome do banco de dados"/>
+                <textarea type="text" name="objetivo" id="db_descricao_database" placeholder="Descricao do banco de dados"></textarea>
+                <select id="db_ambiente">
+                    <option value="" selected disabled>Ambiente</option>
+                    <option value="Prod">Produção</option>
+                    <option value="Homolog">Homologação</option>
+                    <option value="Desenv">Desenvolvimento</option>
+                </select>
+                <select id="db_ativo_database">
+                    <option value="" selected disabled>Ativo?</option>
+                    <option value="S">Sim</option>
+                    <option value="N">Não</option>
+                </select>
+                <input type="submit" id="db_cadastra" value="Cadastrar" />
+            </div>
+        </div>
+
+        <!-- Modal para update de dados database -->
+        <div id="db_modal_update_database" class="modal" style="display: none">
+            <div class="db_modal_update_database">
+                <h2>Atualizar registro do item atual</h2>
+                <input type="hidden" name="id" id="db_id_update" value="" />
+                <input type="text" name="nome" id="db_nome_servidor_update" placeholder="Nome do banco de dados"/>
+                <textarea type="text" name="descricao" id="db_descricao_update" placeholder="Descrição do banco de dados"></textarea>
+                <select id="db_ambiente_update">
+                    <option value="" selected disabled>Ambiente</option>
+                    <option value="Prod">Produção</option>
+                    <option value="Homolog">Homologação</option>
+                    <option value="Desenv">Desenvolvimento</option>
+                </select>
+                 <select id="db_ativo_database_update">
+                    <option value="" selected disabled>Ativo?</option>
+                    <option value="S">Sim</option>
+                    <option value="N">Não</option>
+                </select>
+                <input type="submit" id="as_update" value="Update" />
+            </div>
+        </div>
+
+
 
     <script src="./public/jquery/jquery-3.6.0.min.js"></script>    
     <!-- jQuery Modal -->
