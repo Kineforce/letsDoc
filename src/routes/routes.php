@@ -95,3 +95,10 @@ if(isset($_POST['deletaIdDatabase'])){
     $call_arq_database->deletaIdDatabase();
     return;
 }
+
+if(isset($_POST['updateIdDatabase'])){
+
+    $call_arq_database->updateInfoDatabase();
+    return;
+
+}

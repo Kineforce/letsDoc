@@ -210,7 +210,7 @@
                     <option value="S">Sim</option>
                     <option value="N">Não</option>
                 </select>
-                <input type="submit" id="as_update" value="Update" />
+                <input type="submit" id="db_update" value="Update" />
             </div>
         </div>
 

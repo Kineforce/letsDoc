@@ -41,5 +41,14 @@ class ArqDatabase_controller extends Helpers {
         echo json_encode($delete);
     }
 
+    function updateInfoDatabase(){
+
+        $dadosServidor = $_POST['updateIdDatabase'];
+
+        $update = $this->model_functions->updateInfoDatabase($dadosServidor);
+    
+        echo json_encode($update);
+    }
+
 
 }

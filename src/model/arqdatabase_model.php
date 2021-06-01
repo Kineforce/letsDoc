@@ -61,5 +61,29 @@ class ArqDatabase_model {
         return $result;
 
     }
+
+     /**
+     * Atualiza um registro de database presente na tabela
+     */
+    function updateInfoDatabase($dadosServidor){
+
+        $id_database = $dadosServidor['id_database'];
+        $nome = $dadosServidor['nome'];
+        $descricao = $dadosServidor['descricao'];
+        $ambiente = $dadosServidor['ambiente'];
+        $ativo = $dadosServidor['ativo'];
+
+        $sql = "    UPDATE ARQ_DATABASE SET          NOME = '$nome'
+                                                    ,DESCRICAO = '$descricao'
+                                                    ,AMBIENTE = '$ambiente'
+                                                    ,ATIVO = '$ativo'
+                    WHERE   ID = '$id_database'
+        ";
+
+        $result = $this->pdo->query($sql);
+
+        return $result;
+        
+    }
     
 }

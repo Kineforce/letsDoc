@@ -38,4 +38,34 @@ $(document).ready(() => {
       },
     });
   });
+
+  // Listener que escuta o botão para fazer update e envia um post para o servidor efetuar o update
+  $("#db_update").on("click", (event) => {
+    let updateIdDatabase = {
+      id_database: $("#db_id_update").val(),
+      nome: $("#db_nome_servidor_update").val(),
+      descricao: $("#db_descricao_update").val(),
+      ambiente: $("#db_ambiente_update option:selected").val(),
+      ativo: $("#db_ativo_database_update option:selected").val(),
+    };
+
+    $.ajax({
+      type: "POST",
+      url: `${urlServidor}src/routes/routes.php`,
+      data: { updateIdDatabase },
+      success: () => {
+        // Atualiza as informações na tela
+        $("#arquitetura-banco").click();
+
+        Swal.fire("Atualizado com sucesso!", "", "success");
+      },
+      error: () => {
+        Swal.fire(
+          "Algo de errado ocorreu na atualização do registro!",
+          "",
+          "error"
+        );
+      },
+    });
+  });
 });
