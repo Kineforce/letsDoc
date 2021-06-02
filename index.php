@@ -197,7 +197,7 @@
             <div class="db_modal_update_database">
                 <h2>Atualizar registro do item atual</h2>
                 <input type="hidden" name="id" id="db_id_update" value="" />
-                <input type="text" name="nome" id="db_nome_servidor_update" placeholder="Nome do banco de dados"/>
+                <input type="text" name="nome" id="db_nome_database_update" placeholder="Nome do banco de dados"/>
                 <textarea type="text" name="descricao" id="db_descricao_update" placeholder="Descrição do banco de dados"></textarea>
                 <select id="db_ambiente_update">
                     <option value="" selected disabled>Ambiente</option>
@@ -214,6 +214,27 @@
             </div>
         </div>
 
+        <!-- Modal para insert de dados subitem database -->
+        <div id="db_modal_cria_server_subitem" class="modal" style="display: none">
+            <div class="db_modal_cria_database_subitem">
+                <h2>Inserir novo item do banco de dados</h2>
+                <input type="hidden" id="db_database_subitem" value="" />
+                <input type="text" name="nome" id="db_nome_database_subitem" placeholder="Nome da tabela"/>
+                <textarea type="text" name="descricao" id="db_descricao_database_subitem" placeholder="Descrição da tabela"></textarea>
+                <input type="submit" id="db_cadastra_subitem" value="Cadastrar" />
+            </div>
+        </div>
+
+        <!-- Modal para update de dados subitem servidor -->
+        <div id="db_modal_update_database_subitem" class="modal" style="display: none">
+            <div class="db_modal_update_database_subitem">
+                <h2>Atualizar registro atual</h2>
+                <input type="hidden" name="id" id="db_id_update_subitem" value="" />
+                <input type="text" name="nome" id="db_nome_update_subitem" placeholder="Nome do item"/>
+                <textarea type="text" name="descricao" id="db_descricao_update_subitem" placeholder="Descrição do item"></textarea>
+                <input type="submit" id="db_update_subitem_database" value="Update" />
+            </div>
+        </div>
 
 
     <script src="./public/jquery/jquery-3.6.0.min.js"></script>    

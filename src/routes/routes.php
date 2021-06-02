@@ -102,3 +102,31 @@ if(isset($_POST['updateIdDatabase'])){
     return;
 
 }
+
+if(isset($_GET['buscaSubItemsDatabase'])){
+
+    $call_arq_database->buscaSubItemsDatabase();
+    return;
+
+}
+
+if(isset($_POST['cadastraDadosItemDatabase'])){
+
+    $call_arq_database->cadastraItemDatabase();
+    return;
+
+}
+
+if(isset($_POST['deletaInfoItemDatabase'])){
+
+    $call_arq_database->deletaSubItemDatabase();
+    return;
+
+}
+
+if(isset($_POST['updateIdDatabaseSubItem'])){
+
+    $call_arq_database->updateDatabaseSubitem();
+    return;
+
+}

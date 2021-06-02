@@ -79,6 +79,7 @@
 }
 
 .as-objetivo {
+  min-width: 400px;
   flex: 75%;
   word-break: break-all;
 }

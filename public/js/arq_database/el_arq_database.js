@@ -43,7 +43,7 @@ $(document).ready(() => {
   $("#db_update").on("click", (event) => {
     let updateIdDatabase = {
       id_database: $("#db_id_update").val(),
-      nome: $("#db_nome_servidor_update").val(),
+      nome: $("#db_nome_database_update").val(),
       descricao: $("#db_descricao_update").val(),
       ambiente: $("#db_ambiente_update option:selected").val(),
       ativo: $("#db_ativo_database_update option:selected").val(),
@@ -53,6 +53,62 @@ $(document).ready(() => {
       type: "POST",
       url: `${urlServidor}src/routes/routes.php`,
       data: { updateIdDatabase },
+      success: () => {
+        // Atualiza as informações na tela
+        $("#arquitetura-banco").click();
+
+        Swal.fire("Atualizado com sucesso!", "", "success");
+      },
+      error: () => {
+        Swal.fire(
+          "Algo de errado ocorreu na atualização do registro!",
+          "",
+          "error"
+        );
+      },
+    });
+  });
+
+  // Listener que escuta o botão para criar um item de um servidor
+  $("#db_cadastra_subitem").on("click", () => {
+    let cadastraDadosItemDatabase = {
+      id_database: $("#db_database_subitem").val(),
+      nome: $("#db_nome_database_subitem").val(),
+      descricao: $("#db_descricao_database_subitem").val(),
+    };
+
+    $.ajax({
+      type: "POST",
+      url: `${urlServidor}src/routes/routes.php`,
+      data: { cadastraDadosItemDatabase },
+      success: () => {
+        // Atualiza as informações na tela
+        $("#arquitetura-banco").click();
+
+        Swal.fire("Inserido com sucesso!", "", "success");
+      },
+      error: () => {
+        Swal.fire(
+          "Algo de errado ocorreu na inserção do registro!",
+          "",
+          "error"
+        );
+      },
+    });
+  });
+
+  // Listener que escuta o botão para fazer update do item e envia um post para o servidor efetuar o update
+  $("#db_update_subitem_database").on("click", (event) => {
+    let updateIdDatabaseSubItem = {
+      id_item_database: $("#db_id_update_subitem").val(),
+      nome: $("#db_nome_update_subitem").val(),
+      descricao: $("#db_descricao_update_subitem").val(),
+    };
+
+    $.ajax({
+      type: "POST",
+      url: `${urlServidor}src/routes/routes.php`,
+      data: { updateIdDatabaseSubItem },
       success: () => {
         // Atualiza as informações na tela
         $("#arquitetura-banco").click();

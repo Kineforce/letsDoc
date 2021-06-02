@@ -62,6 +62,24 @@ class ArqDatabase_model {
 
     }
 
+    /**
+     * Delete um registro de database presente na tabela
+     */
+    function deletaInfoItemDatabase($dadosServidor){
+
+        $id_database = $dadosServidor['id_item_database'];
+
+        $sql = "    DELETE  FROM SUBITEMS_ARQ_DATABASE
+                    WHERE   id = '$id_database'
+                ";
+
+        $result = $this->pdo->query($sql);
+
+        return $result;
+
+    }
+
+
      /**
      * Atualiza um registro de database presente na tabela
      */
@@ -85,5 +103,62 @@ class ArqDatabase_model {
         return $result;
         
     }
+
+    /**
+     * Atualiza um registro de database presente na tabela
+     */
+    function updateDatabaseItem($dadosServidor){
+
+        $id_item = $dadosServidor['id_item_database'];
+        $nome = $dadosServidor['nome'];
+        $descricao = $dadosServidor['descricao'];
+
+        $sql = "    UPDATE SUBITEMS_ARQ_DATABASE SET     NOME = '$nome'
+                                                        ,DESCRICAO = '$descricao'
+                    WHERE   ID = '$id_item'
+        ";
+
+        $result = $this->pdo->query($sql);
+
+        return $result;
+        
+    }
+
+
+
+    /**
+     * Efetua uma busca na tabela que armazena os sub-items relacionado ao ID da tabela fornecida
+     */
+    function retornaSubItemsDatabase($dadosServidor){
+
+        $id_database = $dadosServidor['id_database'];
+
+        $sql = "    SELECT  *
+                    FROM    SUBITEMS_ARQ_DATABASE
+                    WHERE   ID_DATABASE = '$id_database'";
+
+        $result = $this->pdo->query($sql);                
+
+        return $result;
+    }
     
+
+    /**
+    * Adiciona novo registro a respeito do item de um servidor na tabela
+    */   
+    function insereInfoItemDatabase($dadosServidor){
+
+        $id_servidor     = $dadosServidor['id_database'];
+        $nome            = $dadosServidor['nome'];
+        $descricao       = $dadosServidor['descricao'];
+
+        $sql = "    INSERT INTO SUBITEMS_ARQ_DATABASE (ID_DATABASE, NOME, DESCRICAO, DATA_INSERT)
+                    VALUES ('$id_servidor', '$nome', '$descricao', CURRENT_TIMESTAMP)";
+
+        $result = $this->pdo->query($sql);
+
+        return $result;
+
+    }
+
 }

@@ -50,5 +50,46 @@ class ArqDatabase_controller extends Helpers {
         echo json_encode($update);
     }
 
+    function buscaSubItemsDatabase(){
+        $dadosServidor = $_GET['buscaSubItemsDatabase'];
+
+        $dados = $this->model_functions->retornaSubItemsDatabase($dadosServidor);
+        $data_array['dados'] = $this->fetchDataToJsonEncode($dados);
+
+        echo json_encode($data_array);
+
+    }
+
+    function cadastraItemDatabase(){
+
+        $dadosDatabase = $_POST['cadastraDadosItemDatabase'];
+
+        $insert = $this->model_functions->insereInfoItemDatabase($dadosDatabase);
+        
+        echo json_encode($insert);
+
+    }
+
+    function deletaSubItemDatabase(){
+
+        $dadosDatabase = $_POST['deletaInfoItemDatabase'];
+
+        $delete = $this->model_functions->deletaInfoItemDatabase($dadosDatabase);
+
+        echo json_encode($delete);
+
+    }
+
+    function updateDatabaseSubitem(){
+
+        $dadosServidor = $_POST['updateIdDatabaseSubItem'];
+
+        $update = $this->model_functions->updateDatabaseItem($dadosServidor);
+            
+        echo json_encode($update);
+
+
+    }
+
 
 }
