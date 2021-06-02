@@ -210,7 +210,7 @@ function mostraSubItemsDatabase(event) {
       curr_sub_card.css("display", "flex");
 
       $(curr_sub_card).append(
-        '<span class="as_modal_open"><a href="#db_modal_cria_server_subitem" rel="modal:open" id="db_subitem_servidor_create_btn" onclick="openModalCreateSubItemDatabase(event)">Adicionar item</a></span>'
+        '<span class="as_modal_open"><a href="#db_modal_cria_database_subitem" rel="modal:open" id="db_subitem_servidor_create_btn" onclick="openModalCreateSubItemDatabase(event)">Adicionar item</a></span>'
       );
     },
     error: () => {

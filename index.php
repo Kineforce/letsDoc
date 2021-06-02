@@ -215,7 +215,7 @@
         </div>
 
         <!-- Modal para insert de dados subitem database -->
-        <div id="db_modal_cria_server_subitem" class="modal" style="display: none">
+        <div id="db_modal_cria_database_subitem" class="modal" style="display: none">
             <div class="db_modal_cria_database_subitem">
                 <h2>Inserir novo item do banco de dados</h2>
                 <input type="hidden" id="db_database_subitem" value="" />
