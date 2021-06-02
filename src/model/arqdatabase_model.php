@@ -27,6 +27,29 @@ class ArqDatabase_model {
 
     }
 
+     /**
+     * Retorna informação dos servidores com um parâmetro de filtro
+     */
+    function retornaInfoArqServerFiltro($palavraBuscada){
+
+        $palavraBuscada = strtolower($palavraBuscada);
+
+        $sql = "    SELECT      DISTINCT DB.*
+                    FROM        ARQ_DATABASE AS DB 
+                    LEFT JOIN   SUBITEMS_ARQ_DATABASE SUB ON SUB.ID_DATABASE = DB.ID
+                    WHERE       lower(DB.NOME) LIKE '%$palavraBuscada%'
+                    OR          lower(DB.DESCRICAO) LIKE '%$palavraBuscada%'
+                    OR          lower(SUB.NOME) LIKE '%$palavraBuscada%'
+                    OR          lower(SUB.DESCRICAO) LIKE '%$palavraBuscada%'
+                
+                ";
+
+        $result = $this->pdo->query($sql);
+
+        return $result;
+
+    }
+
     /**
      * Adiciona novo registro a respeito de database na tabela
      */

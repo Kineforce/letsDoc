@@ -91,5 +91,16 @@ class ArqDatabase_controller extends Helpers {
 
     }
 
+    function retornaDataFiltradaDatabase(){
+
+        $palavraBuscada = htmlspecialchars((isset($_GET['retornaDataFiltradaDatabase'])) ? $_GET['retornaDataFiltradaDatabase'] : '');
+
+        $dados = $this->model_functions->retornaInfoArqServerFiltro($palavraBuscada);
+        $data_array['dados'] = $this->fetchDataToJsonEncode($dados);
+    
+        echo json_encode($data_array);
+
+    }
+
 
 }

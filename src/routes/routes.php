@@ -130,3 +130,10 @@ if(isset($_POST['updateIdDatabaseSubItem'])){
     return;
 
 }
+
+
+if(isset($_GET['retornaDataFiltradaDatabase'])){
+
+    $call_arq_database->retornaDataFiltradaDatabase();
+    return;
+}

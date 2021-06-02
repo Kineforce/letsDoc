@@ -1,4 +1,37 @@
 $(document).ready(() => {
+  $("#db_pesquisa_filtrada").on("click", (event) => {
+    event.preventDefault();
+
+    let palavraBuscada = $("#db_input_busca_dinamica")[0].value;
+
+    $.ajax({
+      type: "GET",
+      url: `${urlServidor}src/routes/routes.php`,
+      data: { retornaDataFiltradaDatabase: palavraBuscada },
+      success: (response) => {
+        let data = JSON.parse(response);
+
+        // Montando html dos cards
+        let as_cards_html = "";
+
+        data.dados.map((linha) => {
+          as_cards_html += retornaCardDatabaseHtml(
+            linha.ID,
+            linha.ATIVO,
+            linha.NOME,
+            linha.DESCRICAO,
+            linha.AMBIENTE
+          );
+        });
+
+        $(".db-content").html(as_cards_html);
+        $(".db-content").append(
+          '<span class="as_modal_open"><a href="#db_modal_cria_database" rel="modal:open">Adicionar database</a></span>'
+        );
+      },
+    });
+  });
+
   // Listener que escuta o botão para cadastrar e envia um post para o servidor efetuar o cadastro
   $("#db_cadastra").on("click", () => {
     let nome_database = $("#db_nome_database").val();
