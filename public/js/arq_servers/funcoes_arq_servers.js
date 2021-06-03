@@ -1,6 +1,3 @@
-let urlServidor = window.location.href;
-urlServidor = urlServidor.replace("index.php", "");
-
 function retornaDadosServidor() {
   // Carregar dados existentes no banco
   $.ajax({
@@ -10,22 +7,47 @@ function retornaDadosServidor() {
     success: (response) => {
       let data = JSON.parse(response);
 
-      // Montando html dos cards
-      let as_cards_html = "";
+      $(".as-content").html("");
 
-      data.dados.map((linha) => {
-        as_cards_html += retornaCardHtml(
-          linha.ID,
-          linha.ATIVO,
-          linha.NOME,
-          linha.OBJETIVO,
-          linha.LINGUAGEM
+      if (data.dados.length !== 0) {
+        // Montando html dos cards
+        let as_cards_html = "";
+
+        as_cards_html += "<table class='table'>";
+        as_cards_html += "<thead>";
+        as_cards_html += "<tr>";
+        as_cards_html += "<th>ID</th>";
+        as_cards_html += "<th>SUBITEMS</th>";
+        as_cards_html += "<th>STATUS</th>";
+        as_cards_html += "<th>NOME</th>";
+        as_cards_html += "<th>OBJETIVO</th>";
+        as_cards_html += "<th>LINGUAGEM</th>";
+        as_cards_html += "<th>DELETAR</th>";
+        as_cards_html += "<th>AJUSTAR</th>";
+        as_cards_html += "</tr>";
+        as_cards_html += "</thead>";
+
+        data.dados.map((linha) => {
+          as_cards_html += retornaCardHtml(
+            linha.ID,
+            linha.ATIVO,
+            linha.NOME,
+            linha.OBJETIVO,
+            linha.LINGUAGEM
+          );
+        });
+
+        as_cards_html += "</table";
+
+        $(".as-content").html(as_cards_html);
+      } else {
+        $(".as-content").append(
+          "<h2 class='d-flex justify-content-center'>Não foram encontrados registros de documentação!</h2>"
         );
-      });
+      }
 
-      $(".as-content").html(as_cards_html);
       $(".as-content").append(
-        '<span class="as_modal_open"><a href="#as_modal_cria_server" rel="modal:open">Adicionar servidor</a></span>'
+        '<span><button type="button" class="btn btn-primary mt-2 ms-2" data-bs-toggle="modal" data-bs-target="#as_modal_cria_server">Adicionar servidor</button></span>'
       );
     },
     error: (data) => {
@@ -37,44 +59,62 @@ function retornaDadosServidor() {
 function retornaCardHtml(id, ativo, nome, objetivo, linguagem) {
   let html = "";
 
-  // Gerando cards com dados
-  html += '<div class="as-card">';
-  html += '<div class="as-content-card">';
-  html += `<div class="as-card-id" name="id">`;
-  html += `${id}`;
-  html += "</div>";
-  html += '<div class="as-dropdown">';
+  // // Gerando cards com dados
+
+  html += "<tbody class='as-container-card'>";
+  html += "<tr class='as-card'>";
+  html += `<td class="as-card-id">${id}</td>`;
+  html += '<td class="as-dropdown">';
   html +=
     '<i class="fas fa-caret-square-down" onclick="mostraSubItemsServidor(event)"></i>';
-  html += "</div>";
-  html += `<div class="as-ativo" name="ativo" valor="${ativo}">`;
+  html += "</td>";
+  html += `<td class="as-ativo" name="ativo" valor="${ativo}">`;
   html += `${
     ativo == "S"
       ? '<i class="fa fa-check-circle" style="color: green" aria-hidden="true"></i>'
       : '<i class="fa fa-times-circle" style="color: red" aria-hidden="true"></i>'
   }`;
-  html += "</div>";
-  html += `<div class="as-nome" name="nome">`;
+  html += "</td>";
+  html += `<td class="as-nome" name="nome" >`;
   html += `${nome}`;
-  html += "</div>";
-  html += `<div class="as-objetivo" name="objetivo">`;
+  html += "</td>";
+  html += `<td class="as-objetivo" name="objetivo">`;
   html += `${objetivo}`;
-  html += "</div>";
-  html += `<div class="as-tipo-linguagem" name="linguagem">`;
+  html += "</td>";
+  html += `<td class="as-tipo-linguagem" name="linguagem" >`;
   html += `${linguagem}`;
-  html += "</div>";
-  html += '<div class="as-exclusao">';
+  html += "</td>";
+  html += '<td class="as-exclusao">';
   html +=
     '<i class="fa fa-trash as-excluir" aria-hidden="true" onclick="deletaDadosServidor(event)"></i>';
-  html += "</div>";
-  html += '<div class="as-update">';
+  html += "</td>";
+  html += '<td class="as-update">';
   html +=
-    '<a href="#as_modal_update_server" id="update_server" rel="modal:open" onclick="openModalUpdate(event)"><i class="fa fa-wrench as-update"></i></a>';
+    '<a data-bs-toggle="modal" data-bs-target="#as_modal_update_server" onclick="openModalUpdate(event)"><i class="fa fa-wrench as-update"></i></a>';
+  html += "</td>";
+  html += "</tr>";
+  html += "<tr class='as-content-server-card' style='display: none'>";
+  html += "<td colspan='8'>";
+  html += "<div class='as-inside-td-subtable'>";
+  html += "<table class='table table-dark'>";
+  html += "<thead>";
+  html += "<tr>";
+  html += "<th>ID</th>";
+  html += "<th>ATIVO</th>";
+  html += "<th>NOME</th>";
+  html += "<th>DESCRICAO</th>";
+  html += "<th>DELETAR</th>";
+  html += "<th>AJUSTAR</th>";
+  html += "</tr>";
+  html += "</thead>";
+  html += "<tbody>";
+  html += "</tbody>";
+  html += "</table>";
   html += "</div>";
   html += "</div>";
-  html += '<div class="as-content-server-card">';
-  html += "</div>";
-  html += "</div>";
+  html += "</td>";
+  html += "</tr>";
+  html += "</tbody>";
 
   return html;
 }
@@ -83,32 +123,33 @@ function retornaSubCardHtml(id_item, status_item, nome_item, descricao) {
   let html = "";
 
   // Gerando sub cards com dados
-  html += '<div class="as-subcard-item">';
-  html += '<div class="as-subcard-id-item">';
+
+  html += '<tr class="as-subcard-item">';
+  html += '<td class="as-subcard-id-item">';
   html += id_item;
-  html += "</div>";
-  html += `<div class="as-ativo-subitem" name="ativo" valor="${status_item}">`;
+  html += "</td>";
+  html += `<td class="as-ativo-subitem" name="ativo" valor="${status_item}">`;
   html += `${
     status_item == "S"
       ? '<i class="fa fa-check-circle" style="color: green" aria-hidden="true"></i>'
       : '<i class="fa fa-times-circle" style="color: red" aria-hidden="true"></i>'
   }`;
-  html += "</div>";
-  html += '<div class="as-subcard-nome-item">';
+  html += "</td>";
+  html += '<td class="as-subcard-nome-item">';
   html += nome_item;
-  html += "</div>";
-  html += '<div class="as-subcard-descricao-item">';
+  html += "</td>";
+  html += '<td class="as-subcard-descricao-item">';
   html += descricao;
-  html += "</div>";
-  html += '<div class="as-subcard-exclusao">';
+  html += "</td>";
+  html += '<td class="as-subcard-exclusao">';
   html +=
     '<i class="fa fa-trash as-excluir_subitem" aria-hidden="true" onclick="deletaDadosSubItemServidor(event)"></i>';
-  html += "</div>";
-  html += '<div class="as-subcard-update">';
+  html += "</td>";
+  html += '<td class="as-subcard-update">';
   html +=
-    '<a href="#as_modal_update_server_subitem" id="update_server" rel="modal:open" onclick="openModalUpdateSubItem(event)"><i class="fa fa-wrench as-update"></i></a>';
-  html += "</div>";
-  html += "</div>";
+    '<a data-bs-toggle="modal" data-bs-target="#as_modal_update_server_subitem" id="update_server" onclick="openModalUpdateSubItem(event)"><i class="fa fa-wrench as-update"></i></a>';
+  html += "</td>";
+  html += "</tr>";
 
   return html;
 }
@@ -120,7 +161,7 @@ function isEmpty(obj) {
 function deletaDadosServidor(event) {
   event.preventDefault();
 
-  let current_card = event.target.closest(".as-content-card");
+  let current_card = event.target.closest(".as-card");
   current_card = $(current_card);
 
   // Seleciona o id da linha clicada
@@ -149,7 +190,11 @@ function deletaDadosServidor(event) {
           // Atualiza as informações na tela
           $("#arquitetura-servidores").click();
 
-          Swal.fire("Deletado com sucesso!", "", "success");
+          Swal.fire(
+            "Deletado!",
+            "Informações do sevidor e items foram deletadas",
+            "success"
+          );
         },
         error: () => {
           Swal.fire(
@@ -159,11 +204,6 @@ function deletaDadosServidor(event) {
           );
         },
       });
-      Swal.fire(
-        "Deletado!",
-        "Informações do sevidor e items foram deletadas",
-        "success"
-      );
     } else {
       return;
     }
@@ -173,8 +213,7 @@ function deletaDadosServidor(event) {
 function openModalUpdate(event) {
   event.preventDefault();
 
-  // console.log(event.target.parentElement.parentElement.parentElement);
-  let current_card = event.target.closest(".as-content-card");
+  let current_card = event.target.closest(".as-card");
   current_card = $(current_card);
 
   //Seleciona os dados da linha clicada
@@ -212,8 +251,8 @@ function openModalUpdateSubItem(event) {
 function openModalCreateSubItem(event) {
   event.preventDefault();
 
-  let current_card = event.target.closest(".as-card");
-  current_card = $(current_card).find(".as-content-card").find(".as-card-id");
+  let current_card = event.target.closest(".as-container-card");
+  current_card = $(current_card).find(".as-card").find(".as-card-id");
 
   let id_servidor = current_card.text();
 
@@ -226,8 +265,10 @@ function mostraSubItemsServidor(event) {
   let dropdown_el = $(event.target);
   let current_dropdown_btn = $(event.target);
   let curr_sub_card = current_dropdown_btn
-    .closest(".as-card")
+    .closest("tbody")
     .find(".as-content-server-card");
+
+  let inner_tbody = curr_sub_card.find("tbody");
 
   let status = "";
 
@@ -243,12 +284,12 @@ function mostraSubItemsServidor(event) {
   }
 
   if (status == "hide") {
-    curr_sub_card.html("");
+    inner_tbody.html("");
     curr_sub_card.hide();
     return;
   }
 
-  let current_card = event.target.closest(".as-content-card");
+  let current_card = event.target.closest(".as-card");
   current_card = $(current_card);
 
   // Seleciona o id da linha clicada
@@ -277,11 +318,11 @@ function mostraSubItemsServidor(event) {
         );
       });
 
-      curr_sub_card.html(sub_card_html);
-      curr_sub_card.css("display", "flex");
-
-      $(curr_sub_card).append(
-        '<span class="as_modal_open"><a href="#as_modal_cria_server_subitem" rel="modal:open" id="as_subitem_servidor_create_btn" onclick="openModalCreateSubItem(event)">Adicionar item</a></span>'
+      if (sub_card_html.length > 0) {
+        inner_tbody.html(sub_card_html);
+      }
+      $(inner_tbody).append(
+        '<tr><td colspan="6"><span><button type="button" data-bs-toggle="modal" data-bs-target="#as_modal_cria_server_subitem"  class="btn btn-primary mt-2 ms-2" onclick="openModalCreateSubItem(event)">Adicionar item</button></span></td></tr>'
       );
     },
     error: () => {

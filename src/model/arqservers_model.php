@@ -10,7 +10,8 @@ class ArqServers_Model {
     function __construct(){
         // Fazendo conexão com o banco de dados
         require_once('conn.php');
-        $this->pdo = (new SQliteConnection())->connect();
+        $this->pdo = new SQliteConnection();
+        $this->pdo = $this->pdo->connect();
 
     }
 
@@ -26,7 +27,6 @@ class ArqServers_Model {
         return $result;
 
     }
-
 
     /**
      * Retorna informação dos servidores com um parâmetro de filtro
@@ -97,7 +97,11 @@ class ArqServers_Model {
         $id_servidor = $dadosServidor['id_servidor'];
 
         $sql = "    DELETE  FROM ARQ_SERVERS
-                    WHERE   id = '$id_servidor'
+                    WHERE   ID = '$id_servidor';
+
+                    DELETE FROM SUBITEMS_ARQ_SERVERS
+                    WHERE  ID_SERVIDOR = '$id_servidor';
+
                 ";
 
         $result = $this->pdo->query($sql);
@@ -185,3 +189,5 @@ class ArqServers_Model {
         return $result;
     }
 }
+
+?>

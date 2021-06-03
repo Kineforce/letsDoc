@@ -10,7 +10,8 @@ class ArqDatabase_model {
     function __construct(){
         // Fazendo conexão com o banco de dados
         require_once('conn.php');
-        $this->pdo = (new SQliteConnection())->connect();
+        $this->pdo = new SQliteConnection();
+        $this->pdo = $this->pdo->connect();
 
     }
 
@@ -56,8 +57,8 @@ class ArqDatabase_model {
     function insereInfoDatabase($dadosServidor){
         
         $nome       = $dadosServidor['nome'];
-        $descricao   = $dadosServidor['descricao'];
-        $ambiente  = $dadosServidor['ambiente'];
+        $descricao  = $dadosServidor['descricao'];
+        $ambiente   = $dadosServidor['ambiente'];
         $ativo      = $dadosServidor['ativo'];
 
         $sql = "    INSERT INTO ARQ_DATABASE (NOME, DESCRICAO, AMBIENTE, ATIVO, DATA_INSERT)
@@ -86,7 +87,7 @@ class ArqDatabase_model {
     }
 
     /**
-     * Delete um registro de database presente na tabela
+     * Delete um subitem de uma database presente na tabela
      */
     function deletaInfoItemDatabase($dadosServidor){
 
@@ -114,10 +115,10 @@ class ArqDatabase_model {
         $ambiente = $dadosServidor['ambiente'];
         $ativo = $dadosServidor['ativo'];
 
-        $sql = "    UPDATE ARQ_DATABASE SET          NOME = '$nome'
-                                                    ,DESCRICAO = '$descricao'
-                                                    ,AMBIENTE = '$ambiente'
-                                                    ,ATIVO = '$ativo'
+        $sql = "    UPDATE ARQ_DATABASE SET     NOME = '$nome'
+                                                                ,DESCRICAO = '$descricao'
+                                                                ,AMBIENTE = '$ambiente'
+                                                                ,ATIVO = '$ativo'
                     WHERE   ID = '$id_database'
         ";
 
@@ -136,8 +137,8 @@ class ArqDatabase_model {
         $nome = $dadosServidor['nome'];
         $descricao = $dadosServidor['descricao'];
 
-        $sql = "    UPDATE SUBITEMS_ARQ_DATABASE SET     NOME = '$nome'
-                                                        ,DESCRICAO = '$descricao'
+        $sql = "    UPDATE SUBITEMS_ARQ_DATABASE SET    NOME = '$nome'
+                                                                        ,DESCRICAO = '$descricao'
                     WHERE   ID = '$id_item'
         ";
 
@@ -146,7 +147,6 @@ class ArqDatabase_model {
         return $result;
         
     }
-
 
 
     /**
@@ -167,7 +167,7 @@ class ArqDatabase_model {
     
 
     /**
-    * Adiciona novo registro a respeito do item de um servidor na tabela
+    * Adiciona novo registro a respeito do item de um database na tabela
     */   
     function insereInfoItemDatabase($dadosServidor){
 

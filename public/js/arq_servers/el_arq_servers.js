@@ -1,5 +1,5 @@
 $(document).ready(() => {
-  $("#as_pesquisa_filtrada").on("click", (event) => {
+  $("#as-form_busca_dinamica").on("submit", (event) => {
     event.preventDefault();
 
     let palavraBuscada = $("#as_input_busca_dinamica")[0].value;
@@ -11,22 +11,47 @@ $(document).ready(() => {
       success: (response) => {
         let data = JSON.parse(response);
 
-        // Montando html dos cards
-        let as_cards_html = "";
+        $(".as-content").html("");
 
-        data.dados.map((linha) => {
-          as_cards_html += retornaCardHtml(
-            linha.ID,
-            linha.ATIVO,
-            linha.NOME,
-            linha.OBJETIVO,
-            linha.LINGUAGEM
+        if (data.dados.length !== 0) {
+          // Montando html dos cards
+          let as_cards_html = "";
+
+          as_cards_html += "<table class='table'>";
+          as_cards_html += "<thead>";
+          as_cards_html += "<tr>";
+          as_cards_html += "<th>ID</th>";
+          as_cards_html += "<th>SUBITEMS</th>";
+          as_cards_html += "<th>STATUS</th>";
+          as_cards_html += "<th>NOME</th>";
+          as_cards_html += "<th>OBJETIVO</th>";
+          as_cards_html += "<th>LINGUAGEM</th>";
+          as_cards_html += "<th>DELETAR</th>";
+          as_cards_html += "<th>AJUSTAR</th>";
+          as_cards_html += "</tr>";
+          as_cards_html += "</thead>";
+
+          data.dados.map((linha) => {
+            as_cards_html += retornaCardHtml(
+              linha.ID,
+              linha.ATIVO,
+              linha.NOME,
+              linha.OBJETIVO,
+              linha.LINGUAGEM
+            );
+          });
+
+          as_cards_html += "</table";
+
+          $(".as-content").html(as_cards_html);
+        } else {
+          $(".as-content").append(
+            "<h2 class='d-flex justify-content-center'>Não foram encontrados registros de documentação!</h2>"
           );
-        });
+        }
 
-        $(".as-content").html(as_cards_html);
         $(".as-content").append(
-          '<span class="as_modal_open"><a href="#as_modal_cria_server" rel="modal:open">Adicionar servidor</a></span>'
+          '<span><button type="button" class="btn btn-primary mt-2 ms-2" data-bs-toggle="modal" data-bs-target="#as_modal_cria_server">Adicionar servidor</button></span>'
         );
       },
     });

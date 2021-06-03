@@ -107,8 +107,13 @@ function deletaDadosDatabase(event) {
         success: () => {
           // Atualiza as informações na tela
           $("#arquitetura-banco").click();
+          
+          Swal.fire(
+            "Deletado!",
+            "Informações do database e items foram deletadas",
+            "success"
+          );
 
-          Swal.fire("Deletado com sucesso!", "", "success");
         },
         error: () => {
           Swal.fire(
@@ -118,11 +123,7 @@ function deletaDadosDatabase(event) {
           );
         },
       });
-      Swal.fire(
-        "Deletado!",
-        "Informações do sevidor e items foram deletadas",
-        "success"
-      );
+     
     } else {
       return;
     }
@@ -299,7 +300,6 @@ function deletaDadosSubItemDatabase(event) {
           );
         },
       });
-      Swal.fire("Deletado!", "Informações do item foram deletadas", "success");
     } else {
       return;
     }

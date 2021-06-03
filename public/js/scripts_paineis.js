@@ -1,3 +1,7 @@
+// Define url base para ser utilizada nos requests
+let urlServidor = window.location.href;
+urlServidor = urlServidor.replace("index.php", "");
+
 // Aguarda o carregamento do document para iniciar os event listeners
 $(document).ready(() => {
   // Oculta o menu ao clicar no botão
@@ -14,24 +18,31 @@ $(document).ready(() => {
 
   $("#arquitetura-servidores").on("click", () => {
     // Esconde todos os painéis
-    $(".painel").hide();
+    $(".painel").addClass("hide");
+    $(".painel").removeClass("show");
+
     $(".hover-span-menu-generico").removeClass("hover-span-menu-generico");
     $("#arquitetura-servidores").addClass("hover-span-menu-generico");
 
     retornaDadosServidor();
 
     // Exibe painél selecionado
-    $("#tela-arq-serv").show();
+    $("#tela-arq-serv").addClass("show");
+    $("#tela-arq-serv").removeClass("hide");
   });
   $("#arquitetura-banco").on("click", () => {
-    $(".painel").hide();
+    // Esconde todos os painéis
+    $(".painel").addClass("hide");
+    $(".painel").removeClass("show");
+
     $(".hover-span-menu-generico").removeClass("hover-span-menu-generico");
+    $("#arquitetura-banco").addClass("hover-span-menu-generico");
 
     retornaDadosDatabase();
 
     // Exibe painél selecionado
-    $("#arquitetura-banco").addClass("hover-span-menu-generico");
-    $("#tela-arq-db").show();
+    $("#tela-arq-db").addClass("show");
+    $("#tela-arq-db").removeClass("hide");
   });
   $("#mapeamento-jobs").on("click", () => {
     $(".painel").hide();

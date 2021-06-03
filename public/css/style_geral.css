@@ -104,44 +104,25 @@ nav .span-menu-generico {
 
 /** Painel contendo informação dos menus **/
 
-main {
-  position: relative;
-  overflow: auto;
-  height: 100%;
-  width: 100%;
-  background-color: rgba(255, 255, 255, 0.363);
-  padding: 20px;
-}
-
-.container {
-  border: 1px solid rgba(128, 128, 128, 0.384);
-  padding: 20px;
-  height: 100%;
-  width: 100%;
-  border-radius: 10px;
-}
-
 .show {
-  display: block;
+  display: flex !important;
 }
 
 .hide {
-  display: none;
+  display: none !important;
 }
 
 /** Tela de introdução **/
 
-#tela-home {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+.fa-trash {
+  cursor: pointer;
 }
 
-#tela-home h1 {
-  background-color: rgba(128, 128, 128, 0.151);
-  font-weight: 400;
-  padding: 10px;
-  border-radius: 5px;
-  box-shadow: 5px 5px rgba(128, 128, 128, 0.568);
+.fa-wrench {
+  cursor: pointer;
+  color: #daa520;
+}
+
+.fa-caret-square-down:before {
+  cursor: pointer;
 }
