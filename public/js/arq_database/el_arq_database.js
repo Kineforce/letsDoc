@@ -11,20 +11,45 @@ $(document).ready(() => {
       success: (response) => {
         let data = JSON.parse(response);
 
-        // Montando html dos cards
-        let as_cards_html = "";
+        $(".db-content").html("");
 
-        data.dados.map((linha) => {
-          as_cards_html += retornaCardDatabaseHtml(
-            linha.ID,
-            linha.ATIVO,
-            linha.NOME,
-            linha.DESCRICAO,
-            linha.AMBIENTE
+        if (data.dados.length != 0) {
+          // Montando html dos cards
+          let db_cards_html = "";
+
+          db_cards_html += "<table class='table'>";
+          db_cards_html += "<thead>";
+          db_cards_html += "<tr>";
+          db_cards_html += "<th>ID</th>";
+          db_cards_html += "<th>ITEMS</th>";
+          db_cards_html += "<th>STATUS</th>";
+          db_cards_html += "<th>NOME</th>";
+          db_cards_html += "<th>DESCRICAO</th>";
+          db_cards_html += "<th>AMBIENTE</th>";
+          db_cards_html += "<th>DELETAR</th>";
+          db_cards_html += "<th>AJUSTAR</th>";
+          db_cards_html += "</tr>";
+          db_cards_html += "</thead>";
+
+          data.dados.map((linha) => {
+            db_cards_html += retornaCardDatabaseHtml(
+              linha.ID,
+              linha.ATIVO,
+              linha.NOME,
+              linha.DESCRICAO,
+              linha.AMBIENTE
+            );
+          });
+
+          db_cards_html += "</table>";
+
+          $(".db-content").html(db_cards_html);
+        } else {
+          $(".db-content").append(
+            "<h2 class='d-flex justify-content-center'>Não foram encontrados registros de documentação!</h2>"
           );
-        });
+        }
 
-        $(".db-content").html(as_cards_html);
         $(".db-content").append(
           '<span><button type="button" class="btn btn-primary mt-2 ms-2" data-bs-toggle="modal" data-bs-target="#db_modal_cria_database">Adicionar servidor</button></span>'
         );
