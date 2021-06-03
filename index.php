@@ -89,20 +89,22 @@
                             </span>
                         </form>
                     </div>
-                    <div class="as-content d-flex flex-column mt-5 p-2 border align-self-stretch overflow-auto">  
+                    <div class="as-content d-flex flex-column mt-5 p-2 border align-self-stretch overflow-auto h-100">  
                     </div>
                 </div>
             </div>
-            <div id="tela-arq-db" class="painel hide">
-                <div class="db-content-wrapper">
+            <div id="tela-arq-db" class="painel hide container-fluid h-100">
+                <div class="db-content-wrapper d-flex flex-column w-100">
                     <div class="db-label_busca_dinamica">
-                        <form id="db-form_busca_dinamica">
-                            <label for="db-input_busca_dinamica" id="db-label-busca-dinamica">Busque qualquer palavra: </label></br></br>
-                            <input type="text" id="db_input_busca_dinamica" value=""/><br><br>
-                            <input type="submit" id="db_pesquisa_filtrada" value="Pesquisar" />
+                        <form id="db-form_busca_dinamica" class="form-group d-flex flex-column">
+                            <label for="db-input_busca_dinamica" id="db-label-busca-dinamica" class="form-label">Busque qualquer palavra: </label>
+                            <input type="text" id="db_input_busca_dinamica" class="form-control" value=""/>
+                            <span>
+                                <input type="submit" class="btn btn-primary mt-2 ms-2" id="db_pesquisa_filtrada" value="Pesquisar" />
+                            </span>
                         </form>
                     </div>
-                    <div class="db-content">  
+                    <div class="db-content d-flex flex-column mt-5 p-2 border align-self-stretch overflow-auto h-100">  
                     </div>
                 </div>
             </div>
@@ -118,6 +120,7 @@
 
             
     <!-- Modals para o painel de arquitetura de servidores --> 
+    
         <!-- Modal para insert de dados servidor -->
         <div class="modal fade" id="as_modal_cria_server" tabindex="-1">
             <div class="modal-dialog">
@@ -242,75 +245,132 @@
             </div>
         </div>
 
-    <!-- Modals para o painel de databases -->
+    <!-- Modals para o painel de arquitetura de databases -->
+
         <!-- Modal para insert de dados database -->
-        <div id="db_modal_cria_database" class="modal" style="display: none">
-            <div class="db_modal_cria_database">
-                <h2>Inserir novo registro de banco de dados</h2>
-                <input type="text" name="nome" id="db_nome_database" placeholder="Nome do banco de dados"/>
-                <textarea type="text" name="objetivo" id="db_descricao_database" placeholder="Descricao do banco de dados"></textarea>
-                <select id="db_ambiente">
-                    <option value="" selected disabled>Ambiente</option>
-                    <option value="Prod">Produção</option>
-                    <option value="Homolog">Homologação</option>
-                    <option value="Desenv">Desenvolvimento</option>
-                </select>
-                <select id="db_ativo_database">
-                    <option value="" selected disabled>Ativo?</option>
-                    <option value="S">Sim</option>
-                    <option value="N">Não</option>
-                </select>
-                <input type="submit" id="db_cadastra" value="Cadastrar" />
+        <div class="modal fade" id="db_modal_cria_database" tabindex="-1">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Inserir novo registro de banco de dados</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="mb-3">
+                            <input type="text" class="form-control" name="nome" id="db_nome_database" placeholder="Nome do banco de dados"/>
+                        </div>
+                        <div class="mb-3">
+                            <textarea type="text" class="form-control" name="descricao" id="db_descricao_database" placeholder="Descricao do banco de dados"></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <select id="db_ambiente" class="form-select">
+                                <option value="" selected disabled>Ambiente</option>
+                                <option value="Prod">Produção</option>
+                                <option value="Homolog">Homologação</option>
+                                <option value="Desenv">Desenvolvimento</option>
+                            </select>
+                        </div>
+                        <select class="form-select" id="db_ativo_database">
+                            <option value="" selected disabled>Ativo?</option>
+                            <option value="S">Sim</option>
+                            <option value="N">Não</option>
+                        </select>                    
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary" id="db_cadastra">Cadastrar</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                    </div>
+                </div>
             </div>
         </div>
-
         <!-- Modal para update de dados database -->
-        <div id="db_modal_update_database" class="modal" style="display: none">
-            <div class="db_modal_update_database">
-                <h2>Atualizar registro do item atual</h2>
-                <input type="hidden" name="id" id="db_id_update" value="" />
-                <input type="text" name="nome" id="db_nome_database_update" placeholder="Nome do banco de dados"/>
-                <textarea type="text" name="descricao" id="db_descricao_update" placeholder="Descrição do banco de dados"></textarea>
-                <select id="db_ambiente_update">
-                    <option value="" selected disabled>Ambiente</option>
-                    <option value="Prod">Produção</option>
-                    <option value="Homolog">Homologação</option>
-                    <option value="Desenv">Desenvolvimento</option>
-                </select>
-                 <select id="db_ativo_database_update">
-                    <option value="" selected disabled>Ativo?</option>
-                    <option value="S">Sim</option>
-                    <option value="N">Não</option>
-                </select>
-                <input type="submit" id="db_update" value="Update" />
+        <div class="modal fade" id="db_modal_update_database" tabindex="-1">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Atualizar registro do item atual</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <input type="hidden" name="id" id="db_id_update" value="" />
+                        <div class="mb-3">
+                            <input type="text" class="form-control" name="nome" id="db_nome_database_update" placeholder="Nome do banco de dados"/>
+                        </div>
+                        <div class="mb-3">
+                            <textarea type="text" class="form-control" name="descricao" id="db_descricao_update" placeholder="Descrição do banco de dados"></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <select id="db_ambiente_update" class="form-select">
+                                <option value="" selected disabled>Ambiente</option>
+                                <option value="Prod">Produção</option>
+                                <option value="Homolog">Homologação</option>
+                                <option value="Desenv">Desenvolvimento</option>
+                            </select>
+                        </div>
+                        <select class="form-select" id="db_ativo_database_update">
+                            <option value="" selected disabled>Ativo?</option>
+                            <option value="S">Sim</option>
+                            <option value="N">Não</option>
+                        </select>                    
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary" id="db_update">Atualizar</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                    </div>
+                </div>
             </div>
         </div>
-
         <!-- Modal para insert de dados subitem database -->
-        <div id="db_modal_cria_database_subitem" class="modal" style="display: none">
-            <div class="db_modal_cria_database_subitem">
-                <h2>Inserir novo item do banco de dados</h2>
-                <input type="hidden" id="db_database_subitem" value="" />
-                <input type="text" name="nome" id="db_nome_database_subitem" placeholder="Nome da tabela"/>
-                <textarea type="text" name="descricao" id="db_descricao_database_subitem" placeholder="Descrição da tabela"></textarea>
-                <input type="submit" id="db_cadastra_subitem" value="Cadastrar" />
+        <div class="modal fade" id="db_modal_cria_database_subitem" tabindex="-1">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Inserir novo item do banco de dados</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <input type="hidden" id="db_database_subitem" value="" />
+                        <div class="mb-3">
+                            <input type="text" class="form-control" name="nome" id="db_nome_database_subitem" placeholder="Nome da tabela"/>
+                        </div>
+                        <div class="mb-3">
+                            <textarea type="text" class="form-control" name="descricao" id="db_descricao_database_subitem" placeholder="Descrição da tabela"></textarea>
+                        </div>               
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary" id="db_cadastra_subitem">Cadastrar</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                    </div>
+                </div>
             </div>
         </div>
-
         <!-- Modal para update de dados subitem servidor -->
-        <div id="db_modal_update_database_subitem" class="modal" style="display: none">
-            <div class="db_modal_update_database_subitem">
-                <h2>Atualizar registro atual</h2>
-                <input type="hidden" name="id" id="db_id_update_subitem" value="" />
-                <input type="text" name="nome" id="db_nome_update_subitem" placeholder="Nome do item"/>
-                <textarea type="text" name="descricao" id="db_descricao_update_subitem" placeholder="Descrição do item"></textarea>
-                <input type="submit" id="db_update_subitem_database" value="Update" />
+        <div class="modal fade" id="db_modal_update_database_subitem" tabindex="-1">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Atualizar registro atual</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <input type="hidden" name="id" id="db_id_update_subitem" value="" />
+                        <div class="mb-3">
+                            <input type="text" class="form-control" name="nome" id="db_nome_update_subitem" placeholder="Nome do item"/>
+                        </div>
+                        <div class="mb-3">
+                            <textarea type="text" class="form-control" name="objetivo" id="db_descricao_update_subitem" placeholder="Descrição do item"></textarea>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary" id="db_update_subitem_database">Atualizar</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                    </div>
+                </div>
             </div>
         </div>
 
-
+    <!-- Jquery 3.6.0 -->
     <script src="./public/jquery/jquery-3.6.0.min.js"></script>    
-
     <!-- Scripts utilizados nos paineis -->
     <script src="./public/js/scripts_paineis.js"></script>
     <!-- Scripts para a tela de arquitetura de servidores -->

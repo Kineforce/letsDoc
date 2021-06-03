@@ -22,7 +22,7 @@ class ArqDatabase_model {
 
         $sql = "SELECT * FROM ARQ_DATABASE;";
 
-        $result = $this->pdo->query($sql);
+        $result = $this->pdo->query($sql)->fetchAll(PDO::FETCH_ASSOC);
 
         return $result;
 
@@ -35,17 +35,22 @@ class ArqDatabase_model {
 
         $palavraBuscada = strtolower($palavraBuscada);
 
+        $search = "%$palavraBuscada%";
+
         $sql = "    SELECT      DISTINCT DB.*
                     FROM        ARQ_DATABASE AS DB 
                     LEFT JOIN   SUBITEMS_ARQ_DATABASE SUB ON SUB.ID_DATABASE = DB.ID
-                    WHERE       lower(DB.NOME) LIKE '%$palavraBuscada%'
-                    OR          lower(DB.DESCRICAO) LIKE '%$palavraBuscada%'
-                    OR          lower(SUB.NOME) LIKE '%$palavraBuscada%'
-                    OR          lower(SUB.DESCRICAO) LIKE '%$palavraBuscada%'
+                    WHERE       lower(DB.NOME) LIKE :palavra_buscada
+                    OR          lower(DB.DESCRICAO) LIKE :palavra_buscada
+                    OR          lower(SUB.NOME) LIKE :palavra_buscada
+                    OR          lower(SUB.DESCRICAO) LIKE :palavra_buscada
                 
                 ";
 
-        $result = $this->pdo->query($sql);
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute(array('palavra_buscada' => $search));
+
+        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
         return $result;
 
@@ -62,9 +67,10 @@ class ArqDatabase_model {
         $ativo      = $dadosServidor['ativo'];
 
         $sql = "    INSERT INTO ARQ_DATABASE (NOME, DESCRICAO, AMBIENTE, ATIVO, DATA_INSERT)
-                    VALUES ('$nome', '$descricao', '$ambiente', '$ativo', CURRENT_TIMESTAMP)";
+                    VALUES ( ?, ?, ?, ?, CURRENT_TIMESTAMP)";
 
-        $result = $this->pdo->query($sql);
+        $stmt  = $this->pdo->prepare($sql);
+        $result = $stmt->execute(array($nome, $descricao, $ambiente, $ativo));
 
         return $result;
     }
@@ -77,10 +83,11 @@ class ArqDatabase_model {
         $id_database = $dadosServidor['id_database'];
 
         $sql = "    DELETE  FROM ARQ_DATABASE
-                    WHERE   id = '$id_database'
+                    WHERE   id = ?
                 ";
 
-        $result = $this->pdo->query($sql);
+        $stmt = $this->pdo->prepare($sql);
+        $result = $stmt->execute(array($id_database));
 
         return $result;
 
@@ -91,13 +98,14 @@ class ArqDatabase_model {
      */
     function deletaInfoItemDatabase($dadosServidor){
 
-        $id_database = $dadosServidor['id_item_database'];
+        $id_item = $dadosServidor['id_item_database'];
 
         $sql = "    DELETE  FROM SUBITEMS_ARQ_DATABASE
-                    WHERE   id = '$id_database'
+                    WHERE   id = ?
                 ";
 
-        $result = $this->pdo->query($sql);
+        $stmt = $this->pdo->prepare($sql);
+        $result = $stmt->execute(array($id_item));
 
         return $result;
 
@@ -109,20 +117,21 @@ class ArqDatabase_model {
      */
     function updateInfoDatabase($dadosServidor){
 
-        $id_database = $dadosServidor['id_database'];
-        $nome = $dadosServidor['nome'];
-        $descricao = $dadosServidor['descricao'];
-        $ambiente = $dadosServidor['ambiente'];
-        $ativo = $dadosServidor['ativo'];
+        $id_database    = $dadosServidor['id_database'];
+        $nome           = $dadosServidor['nome'];
+        $descricao      = $dadosServidor['descricao'];
+        $ambiente       = $dadosServidor['ambiente'];
+        $ativo          = $dadosServidor['ativo'];
 
-        $sql = "    UPDATE ARQ_DATABASE SET     NOME = '$nome'
-                                                                ,DESCRICAO = '$descricao'
-                                                                ,AMBIENTE = '$ambiente'
-                                                                ,ATIVO = '$ativo'
-                    WHERE   ID = '$id_database'
+        $sql = "    UPDATE ARQ_DATABASE SET     NOME = ?
+                                                ,DESCRICAO = ?
+                                                ,AMBIENTE = ?
+                                                ,ATIVO = ?
+                    WHERE   ID = ?
         ";
 
-        $result = $this->pdo->query($sql);
+        $stmt = $this->pdo->prepare($sql);
+        $result = $stmt->execute(array($nome, $descricao, $ambiente, $ativo, $id_database));
 
         return $result;
         
@@ -133,16 +142,17 @@ class ArqDatabase_model {
      */
     function updateDatabaseItem($dadosServidor){
 
-        $id_item = $dadosServidor['id_item_database'];
-        $nome = $dadosServidor['nome'];
-        $descricao = $dadosServidor['descricao'];
+        $id_item    = $dadosServidor['id_item_database'];
+        $nome       = $dadosServidor['nome'];
+        $descricao  = $dadosServidor['descricao'];
 
-        $sql = "    UPDATE SUBITEMS_ARQ_DATABASE SET    NOME = '$nome'
-                                                                        ,DESCRICAO = '$descricao'
-                    WHERE   ID = '$id_item'
+        $sql = "    UPDATE SUBITEMS_ARQ_DATABASE SET     NOME = ?
+                                                        ,DESCRICAO = ?
+                    WHERE   ID = ?
         ";
 
-        $result = $this->pdo->query($sql);
+        $stmt = $this->pdo->prepare($sql);
+        $result = $stmt->execute(array($nome, $descricao, $id_item));
 
         return $result;
         
@@ -158,9 +168,13 @@ class ArqDatabase_model {
 
         $sql = "    SELECT  *
                     FROM    SUBITEMS_ARQ_DATABASE
-                    WHERE   ID_DATABASE = '$id_database'";
+                    WHERE   ID_DATABASE = ?
+                ";
 
-        $result = $this->pdo->query($sql);                
+        $stmt = $this->pdo->prepare($sql);                
+        $stmt->execute(array($id_database));
+
+        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
         return $result;
     }
@@ -176,9 +190,10 @@ class ArqDatabase_model {
         $descricao       = $dadosServidor['descricao'];
 
         $sql = "    INSERT INTO SUBITEMS_ARQ_DATABASE (ID_DATABASE, NOME, DESCRICAO, DATA_INSERT)
-                    VALUES ('$id_servidor', '$nome', '$descricao', CURRENT_TIMESTAMP)";
+                    VALUES ( ?, ?, ?, CURRENT_TIMESTAMP)";
 
-        $result = $this->pdo->query($sql);
+        $stmt = $this->pdo->prepare($sql);
+        $result = $stmt->execute(array($id_servidor, $nome, $descricao));
 
         return $result;
 

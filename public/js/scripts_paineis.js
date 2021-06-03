@@ -17,39 +17,40 @@ $(document).ready(() => {
   });
 
   $("#arquitetura-servidores").on("click", () => {
-    // Esconde todos os painéis
-    $(".painel").addClass("hide");
-    $(".painel").removeClass("show");
-
-    $(".hover-span-menu-generico").removeClass("hover-span-menu-generico");
-    $("#arquitetura-servidores").addClass("hover-span-menu-generico");
-
+    escondeTodosPaineis();
+    indicaMenuSelecionado("arquitetura-servidores");
     retornaDadosServidor();
-
-    // Exibe painél selecionado
-    $("#tela-arq-serv").addClass("show");
-    $("#tela-arq-serv").removeClass("hide");
+    exibePainel("tela-arq-serv");
   });
   $("#arquitetura-banco").on("click", () => {
-    // Esconde todos os painéis
-    $(".painel").addClass("hide");
-    $(".painel").removeClass("show");
-
-    $(".hover-span-menu-generico").removeClass("hover-span-menu-generico");
-    $("#arquitetura-banco").addClass("hover-span-menu-generico");
-
+    escondeTodosPaineis();
+    indicaMenuSelecionado("arquitetura-banco");
     retornaDadosDatabase();
-
-    // Exibe painél selecionado
-    $("#tela-arq-db").addClass("show");
-    $("#tela-arq-db").removeClass("hide");
+    exibePainel("tela-arq-db");
   });
   $("#mapeamento-jobs").on("click", () => {
-    $(".painel").hide();
+    escondeTodosPaineis();
     $("#tela-map-job").show();
   });
   $("#mapeamento-sistemas").on("click", () => {
-    $(".painel").hide();
+    escondeTodosPaineis();
     $("#tela-map-sis").show();
   });
 });
+
+function exibePainel(id_menu) {
+  // Exibe painel selecionado
+  $(`#${id_menu}`).addClass("show_pannel");
+  $(`#${id_menu}`).removeClass("hide_pannel");
+}
+
+function escondeTodosPaineis() {
+  // Esconde todos os painéis
+  $(".painel").addClass("hide_pannel");
+  $(".painel").removeClass("show_pannel");
+}
+
+function indicaMenuSelecionado(id_menu) {
+  $(".hover-span-menu-generico").removeClass("hover-span-menu-generico");
+  $(`#${id_menu}`).addClass("hover-span-menu-generico");
+}

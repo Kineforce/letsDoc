@@ -17,7 +17,7 @@ function retornaDadosServidor() {
         as_cards_html += "<thead>";
         as_cards_html += "<tr>";
         as_cards_html += "<th>ID</th>";
-        as_cards_html += "<th>SUBITEMS</th>";
+        as_cards_html += "<th>ITEMS</th>";
         as_cards_html += "<th>STATUS</th>";
         as_cards_html += "<th>NOME</th>";
         as_cards_html += "<th>OBJETIVO</th>";
@@ -152,10 +152,6 @@ function retornaSubCardHtml(id_item, status_item, nome_item, descricao) {
   html += "</tr>";
 
   return html;
-}
-
-function isEmpty(obj) {
-  return Object.keys(obj).length === 0;
 }
 
 function deletaDadosServidor(event) {

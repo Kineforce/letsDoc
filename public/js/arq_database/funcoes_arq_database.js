@@ -7,22 +7,47 @@ function retornaDadosDatabase() {
     success: (response) => {
       let data = JSON.parse(response);
 
-      // Montando html dos cards
-      let as_cards_html = "";
+      $(".db-content").html("");
 
-      data.dados.map((linha) => {
-        as_cards_html += retornaCardDatabaseHtml(
-          linha.ID,
-          linha.ATIVO,
-          linha.NOME,
-          linha.DESCRICAO,
-          linha.AMBIENTE
+      if (data.dados.length != 0) {
+        // Montando html dos cards
+        let db_cards_html = "";
+
+        db_cards_html += "<table class='table'>";
+        db_cards_html += "<thead>";
+        db_cards_html += "<tr>";
+        db_cards_html += "<th>ID</th>";
+        db_cards_html += "<th>ITEMS</th>";
+        db_cards_html += "<th>STATUS</th>";
+        db_cards_html += "<th>NOME</th>";
+        db_cards_html += "<th>DESCRICAO</th>";
+        db_cards_html += "<th>AMBIENTE</th>";
+        db_cards_html += "<th>DELETAR</th>";
+        db_cards_html += "<th>AJUSTAR</th>";
+        db_cards_html += "</tr>";
+        db_cards_html += "</thead>";
+
+        data.dados.map((linha) => {
+          db_cards_html += retornaCardDatabaseHtml(
+            linha.ID,
+            linha.ATIVO,
+            linha.NOME,
+            linha.DESCRICAO,
+            linha.AMBIENTE
+          );
+        });
+
+        db_cards_html += "</table>";
+
+        $(".db-content").html(db_cards_html);
+      } else {
+        $(".db-content").append(
+          "<h2 class='d-flex justify-content-center'>Não foram encontrados registros de documentação!</h2>"
         );
-      });
+      }
 
-      $(".db-content").html(as_cards_html);
       $(".db-content").append(
-        '<span class="as_modal_open"><a href="#db_modal_cria_database" rel="modal:open">Adicionar database</a></span>'
+        '<span><button type="button" class="btn btn-primary mt-2 ms-2" data-bs-toggle="modal" data-bs-target="#db_modal_cria_database">Adicionar servidor</button></span>'
       );
     },
     error: (data) => {
@@ -34,44 +59,61 @@ function retornaDadosDatabase() {
 function retornaCardDatabaseHtml(id, ativo, nome, objetivo, linguagem) {
   let html = "";
 
-  // Gerando cards com dados
-  html += '<div class="db-card">';
-  html += '<div class="db-content-card">';
-  html += `<div class="db-card-id" name="id">`;
-  html += `${id}`;
-  html += "</div>";
-  html += '<div class="db-dropdown">';
+  // // Gerando cards com dados
+
+  html += "<tbody class='db-container-card'>";
+  html += "<tr class='db-card'>";
+  html += `<td class="db-card-id">${id}</td>`;
+  html += '<td class="db-dropdown">';
   html +=
     '<i class="fas fa-caret-square-down" onclick="mostraSubItemsDatabase(event)"></i>';
-  html += "</div>";
-  html += `<div class="db-ativo" name="ativo" valor="${ativo}">`;
+  html += "</td>";
+  html += `<td class="db-ativo" name="ativo" valor="${ativo}">`;
   html += `${
     ativo == "S"
       ? '<i class="fa fa-check-circle" style="color: green" aria-hidden="true"></i>'
       : '<i class="fa fa-times-circle" style="color: red" aria-hidden="true"></i>'
   }`;
-  html += "</div>";
-  html += `<div class="db-nome" name="nome">`;
+  html += "</td>";
+  html += `<td class="db-nome" name="nome" >`;
   html += `${nome}`;
-  html += "</div>";
-  html += `<div class="db-descricao" name="descricao">`;
+  html += "</td>";
+  html += `<td class="db-descricao" name="objetivo">`;
   html += `${objetivo}`;
-  html += "</div>";
-  html += `<div class="db-ambiente" name="ambiente">`;
+  html += "</td>";
+  html += `<td class="db-ambiente" name="linguagem" >`;
   html += `${linguagem}`;
-  html += "</div>";
-  html += '<div class="db-exclusao">';
+  html += "</td>";
+  html += '<td class="db-exclusao">';
   html +=
-    '<i class="fa fa-trash db-excluir" aria-hidden="true" onclick="deletaDadosDatabase(event)"></i>';
-  html += "</div>";
-  html += '<div class="db-update">';
+    '<i class="fa fa-trash" aria-hidden="true" onclick="deletaDadosDatabase(event)"></i>';
+  html += "</td>";
+  html += '<td class="db-update">';
   html +=
-    '<a href="#db_modal_update_database" id="update_database" rel="modal:open" onclick="openModalUpdateDatabase (event)"><i class="fa fa-wrench db-update"></i></a>';
+    '<a data-bs-toggle="modal" data-bs-target="#db_modal_update_database" onclick="openModalUpdateDatabase(event)"><i class="fa fa-wrench db-update"></i></a>';
+  html += "</td>";
+  html += "</tr>";
+  html += "<tr class='db-content-database-card' style='display: none'>";
+  html += "<td colspan='8'>";
+  html += "<div class='db-inside-td-subtable'>";
+  html += "<table class='table table-dark'>";
+  html += "<thead>";
+  html += "<tr>";
+  html += "<th>ID</th>";
+  html += "<th>NOME</th>";
+  html += "<th>DESCRICAO</th>";
+  html += "<th>DELETAR</th>";
+  html += "<th>AJUSTAR</th>";
+  html += "</tr>";
+  html += "</thead>";
+  html += "<tbody>";
+  html += "</tbody>";
+  html += "</table>";
   html += "</div>";
   html += "</div>";
-  html += '<div class="db-content-database-card">';
-  html += "</div>";
-  html += "</div>";
+  html += "</td>";
+  html += "</tr>";
+  html += "</tbody>";
 
   return html;
 }
@@ -79,7 +121,7 @@ function retornaCardDatabaseHtml(id, ativo, nome, objetivo, linguagem) {
 function deletaDadosDatabase(event) {
   event.preventDefault();
 
-  let current_card = event.target.closest(".db-content-card");
+  let current_card = event.target.closest(".db-card");
   current_card = $(current_card);
 
   // Seleciona o id da linha clicada
@@ -107,13 +149,12 @@ function deletaDadosDatabase(event) {
         success: () => {
           // Atualiza as informações na tela
           $("#arquitetura-banco").click();
-          
+
           Swal.fire(
             "Deletado!",
             "Informações do database e items foram deletadas",
             "success"
           );
-
         },
         error: () => {
           Swal.fire(
@@ -123,7 +164,6 @@ function deletaDadosDatabase(event) {
           );
         },
       });
-     
     } else {
       return;
     }
@@ -134,7 +174,7 @@ function openModalUpdateDatabase(event) {
   event.preventDefault();
 
   // console.log(event.target.parentElement.parentElement.parentElement);
-  let current_card = event.target.closest(".db-content-card");
+  let current_card = event.target.closest(".db-card");
   current_card = $(current_card);
 
   //Seleciona os dados da linha clicada
@@ -157,8 +197,13 @@ function mostraSubItemsDatabase(event) {
   let dropdown_el = $(event.target);
   let current_dropdown_btn = $(event.target);
   let curr_sub_card = current_dropdown_btn
-    .closest(".db-card")
+    .closest("tbody")
     .find(".db-content-database-card");
+
+  let inner_tbody = curr_sub_card.find("tbody");
+
+  console.log(curr_sub_card);
+  console.log(inner_tbody);
 
   let status = "";
 
@@ -179,7 +224,7 @@ function mostraSubItemsDatabase(event) {
     return;
   }
 
-  let current_card = event.target.closest(".db-content-card");
+  let current_card = event.target.closest(".db-card");
   current_card = $(current_card);
 
   // Seleciona o id da linha clicada
@@ -207,11 +252,12 @@ function mostraSubItemsDatabase(event) {
         );
       });
 
-      curr_sub_card.html(sub_card_html);
-      curr_sub_card.css("display", "flex");
+      if (sub_card_html.length > 0) {
+        inner_tbody.html(sub_card_html);
+      }
 
-      $(curr_sub_card).append(
-        '<span class="as_modal_open"><a href="#db_modal_cria_database_subitem" rel="modal:open" id="db_subitem_servidor_create_btn" onclick="openModalCreateSubItemDatabase(event)">Adicionar item</a></span>'
+      $(inner_tbody).append(
+        '<tr><td colspan="6"><span><button type="button" data-bs-toggle="modal" data-bs-target="#db_modal_cria_database_subitem" class="btn btn-primary mt-2 ms-2" onclick="openModalCreateSubItemDatabase(event)">Adicionar item</button></span></td></tr>'
       );
     },
     error: () => {
@@ -224,25 +270,26 @@ function retornaSubCardHtmlDatabase(id, nome, descricao) {
   let html = "";
 
   // Gerando sub cards com dados
-  html += '<div class="db-subcard-item">';
-  html += '<div class="db-subcard-id-item">';
+
+  html += '<tr class="db-subcard-item">';
+  html += '<td class="db-subcard-id-item">';
   html += id;
-  html += "</div>";
-  html += '<div class="db-subcard-nome-item">';
+  html += "</td>";
+  html += '<td class="db-subcard-nome-item">';
   html += nome;
-  html += "</div>";
-  html += '<div class="db-subcard-descricao-item">';
+  html += "</td>";
+  html += '<td class="db-subcard-descricao-item">';
   html += descricao;
-  html += "</div>";
-  html += '<div class="db-subcard-exclusao">';
+  html += "</td>";
+  html += '<td class="db-subcard-exclusao">';
   html +=
     '<i class="fa fa-trash db-excluir_subitem" aria-hidden="true" onclick="deletaDadosSubItemDatabase(event)"></i>';
-  html += "</div>";
-  html += '<div class="db-subcard-update">';
+  html += "</td>";
+  html += '<td class="db-subcard-update">';
   html +=
-    '<a href="#db_modal_update_database_subitem" id="update_subitem_database" rel="modal:open" onclick="openModalUpdateSubItemDatabase(event)"><i class="fa fa-wrench db-update"></i></a>';
-  html += "</div>";
-  html += "</div>";
+    '<a data-bs-toggle="modal" data-bs-target="#db_modal_update_database_subitem" id="update_subitem_database" onclick="openModalUpdateSubItemDatabase(event)"><i class="fa fa-wrench as-update"></i></a>';
+  html += "</td>";
+  html += "</tr>";
 
   return html;
 }
@@ -250,8 +297,8 @@ function retornaSubCardHtmlDatabase(id, nome, descricao) {
 function openModalCreateSubItemDatabase(event) {
   event.preventDefault();
 
-  let current_card = event.target.closest(".db-card");
-  current_card = $(current_card).find(".db-content-card").find(".db-card-id");
+  let current_card = event.target.closest(".db-container-card");
+  current_card = $(current_card).find(".db-card").find(".db-card-id");
 
   let id_servidor = current_card.text();
 

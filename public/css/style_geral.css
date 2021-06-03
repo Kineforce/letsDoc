@@ -104,11 +104,11 @@ nav .span-menu-generico {
 
 /** Painel contendo informação dos menus **/
 
-.show {
+.show_pannel {
   display: flex !important;
 }
 
-.hide {
+.hide_pannel {
   display: none !important;
 }
 
@@ -120,7 +120,7 @@ nav .span-menu-generico {
 
 .fa-wrench {
   cursor: pointer;
-  color: #daa520;
+  color: #20aada;
 }
 
 .fa-caret-square-down:before {

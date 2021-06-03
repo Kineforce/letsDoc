@@ -1,6 +1,6 @@
 <?php
 
-require_once ('../helper/fetch_json_helper.php');
+require_once ('../helper/general_helpers.php');
 
 class ArqServers_controller extends Helpers{
 
@@ -15,8 +15,7 @@ class ArqServers_controller extends Helpers{
 
     function retornaInfoServidores(){
 
-        $dados = $this->model_functions->retornaInfoArqServers();
-        $data_array['dados'] = $this->fetchDataToJsonEncode($dados);
+        $data_array['dados'] = $this->model_functions->retornaInfoArqServers();
     
         echo json_encode($data_array);
 
@@ -26,8 +25,7 @@ class ArqServers_controller extends Helpers{
 
         $palavraBuscada = htmlspecialchars((isset($_GET['retornaDataFiltrada'])) ? $_GET['retornaDataFiltrada'] : '');
 
-        $dados = $this->model_functions->retornaInfoArqServerFiltro($palavraBuscada);
-        $data_array['dados'] = $this->fetchDataToJsonEncode($dados);
+        $data_array['dados'] = $this->model_functions->retornaInfoArqServerFiltro($palavraBuscada);
     
         echo json_encode($data_array);
     }
@@ -71,24 +69,23 @@ class ArqServers_controller extends Helpers{
 
         $dadosServidor = $_POST['updateIdServidor'];
 
-        $delete = $this->model_functions->updateInfoArqServer($dadosServidor);
+        $update = $this->model_functions->updateInfoArqServer($dadosServidor);
     
-        echo json_encode($delete);
+        echo json_encode($update);
     }
 
     function updateIdServidorSubItem(){
         $dadosServidor = $_POST['updateIdServidorSubItem'];
 
-        $delete = $this->model_functions->updateItemInfoArqServer($dadosServidor);
+        $update = $this->model_functions->updateItemInfoArqServer($dadosServidor);
     
-        echo json_encode($delete);
+        echo json_encode($update);
     }
 
     function buscaSubItemsServidor(){
         $dadosServidor = $_GET['buscaSubItemsServer'];
 
-        $dados = $this->model_functions->retornaSubItemsServer($dadosServidor);
-        $data_array['dados'] = $this->fetchDataToJsonEncode($dados);
+        $data_array['dados']= $this->model_functions->retornaSubItemsServer($dadosServidor);
 
         echo json_encode($data_array);
 

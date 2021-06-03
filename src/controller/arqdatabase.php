@@ -1,6 +1,6 @@
 <?php
 
-require_once ('../helper/fetch_json_helper.php');
+require_once ('../helper/general_helpers.php');
 
 class ArqDatabase_controller extends Helpers {
 
@@ -16,8 +16,7 @@ class ArqDatabase_controller extends Helpers {
 
     function retornaInfoDatabase(){
 
-        $dados = $this->model_functions->retornaInfoDatabase();
-        $data_array['dados'] = $this->fetchDataToJsonEncode($dados);
+        $data_array['dados'] = $this->model_functions->retornaInfoDatabase();
     
         echo json_encode($data_array);
 
@@ -53,8 +52,7 @@ class ArqDatabase_controller extends Helpers {
     function buscaSubItemsDatabase(){
         $dadosServidor = $_GET['buscaSubItemsDatabase'];
 
-        $dados = $this->model_functions->retornaSubItemsDatabase($dadosServidor);
-        $data_array['dados'] = $this->fetchDataToJsonEncode($dados);
+        $data_array['dados'] = $this->model_functions->retornaSubItemsDatabase($dadosServidor);
 
         echo json_encode($data_array);
 
@@ -95,8 +93,7 @@ class ArqDatabase_controller extends Helpers {
 
         $palavraBuscada = htmlspecialchars((isset($_GET['retornaDataFiltradaDatabase'])) ? $_GET['retornaDataFiltradaDatabase'] : '');
 
-        $dados = $this->model_functions->retornaInfoArqServerFiltro($palavraBuscada);
-        $data_array['dados'] = $this->fetchDataToJsonEncode($dados);
+        $data_array['dados'] = $this->model_functions->retornaInfoArqServerFiltro($palavraBuscada);
     
         echo json_encode($data_array);
 

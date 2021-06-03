@@ -22,7 +22,7 @@ class ArqServers_Model {
 
         $sql = "SELECT * FROM ARQ_SERVERS;";
 
-        $result = $this->pdo->query($sql);
+        $result = $this->pdo->query($sql)->fetchAll(PDO::FETCH_ASSOC);
 
         return $result;
 
@@ -35,18 +35,23 @@ class ArqServers_Model {
 
         $palavraBuscada = strtolower($palavraBuscada);
 
+        $search = "%$palavraBuscada%";
+
         $sql = "    SELECT      DISTINCT SRV.*
                     FROM        ARQ_SERVERS AS SRV 
                     LEFT JOIN   SUBITEMS_ARQ_SERVERS SUB ON SUB.ID_SERVIDOR = SRV.ID
-                    WHERE       lower(SRV.NOME) LIKE '%$palavraBuscada%'
-                    OR          lower(SRV.OBJETIVO) LIKE '%$palavraBuscada%'
-                    OR          lower(SRV.LINGUAGEM) LIKE '%$palavraBuscada%'
-                    OR          lower(SUB.ITEM) LIKE '%$palavraBuscada%'
-                    OR          lower(SUB.DESCRICAO) LIKE '%$palavraBuscada%'
+                    WHERE       lower(SRV.NOME) LIKE :palavra_buscada
+                    OR          lower(SRV.OBJETIVO) LIKE :palavra_buscada
+                    OR          lower(SRV.LINGUAGEM) LIKE :palavra_buscada
+                    OR          lower(SUB.ITEM) LIKE :palavra_buscada
+                    OR          lower(SUB.DESCRICAO) LIKE :palavra_buscada
                 
                 ";
 
-        $result = $this->pdo->query($sql);
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute(array('palavra_buscada' => $search));
+
+        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
         return $result;
 
@@ -63,9 +68,10 @@ class ArqServers_Model {
         $ativo      = $dadosServidor['ativo'];
 
         $sql = "    INSERT INTO ARQ_SERVERS (NOME, OBJETIVO, LINGUAGEM, ATIVO, DATA_INSERT)
-                    VALUES ('$nome', '$objetivo', '$linguagem', '$ativo', CURRENT_TIMESTAMP)";
+                    VALUES (?, ?, ?, ?, CURRENT_TIMESTAMP)";
 
-        $result = $this->pdo->query($sql);
+        $stmt  = $this->pdo->prepare($sql);
+        $result = $stmt->execute(array($nome, $objetivo, $linguagem, $ativo));
 
         return $result;
     }
@@ -81,9 +87,10 @@ class ArqServers_Model {
         $ativo           = $dadosServidor['ativo'];
 
         $sql = "    INSERT INTO SUBITEMS_ARQ_SERVERS (ID_SERVIDOR, ITEM, DESCRICAO, ATIVO, DATA_INSERT)
-                    VALUES ('$id_servidor', '$nome', '$descricao', '$ativo', CURRENT_TIMESTAMP)";
+                    VALUES ( ?, ?, ?, ?, CURRENT_TIMESTAMP)";
 
-        $result = $this->pdo->query($sql);
+        $stmt = $this->pdo->prepare($sql);
+        $result = $stmt->execute(array($id_servidor, $nome, $descricao, $ativo));
 
         return $result;
     }
@@ -97,14 +104,15 @@ class ArqServers_Model {
         $id_servidor = $dadosServidor['id_servidor'];
 
         $sql = "    DELETE  FROM ARQ_SERVERS
-                    WHERE   ID = '$id_servidor';
+                    WHERE   ID = :id_servidor;
 
                     DELETE FROM SUBITEMS_ARQ_SERVERS
-                    WHERE  ID_SERVIDOR = '$id_servidor';
+                    WHERE  ID_SERVIDOR = ?;
 
                 ";
 
-        $result = $this->pdo->query($sql);
+        $stmt = $this->pdo->prepare($sql);
+        $result = $stmt->execute(array("id_servidor" => $id_servidor));
 
         return $result;
 
@@ -118,10 +126,11 @@ class ArqServers_Model {
         $id_item_servidor = $dadosServidor['id_item_servidor'];
 
         $sql = "    DELETE  FROM SUBITEMS_ARQ_SERVERS
-                    WHERE   id = '$id_item_servidor'
+                    WHERE   id = :id_item_servidor
                 ";
 
-        $result = $this->pdo->query($sql);
+        $stmt = $this->pdo->prepare($sql);
+        $result = $stmt->execute(array("id_item_servidor" => $id_item_servidor));
 
         return $result;
 
@@ -137,14 +146,15 @@ class ArqServers_Model {
         $linguagem = $dadosServidor['linguagem'];
         $ativo = $dadosServidor['ativo'];
 
-        $sql = "    UPDATE ARQ_SERVERS SET  NOME = '$nome'
-                                                            ,OBJETIVO = '$objetivo'
-                                                            ,LINGUAGEM = '$linguagem'
-                                                            ,ATIVO = '$ativo'
-                    WHERE   ID = '$id_servidor'
+        $sql = "    UPDATE ARQ_SERVERS SET       NOME = ?
+                                                ,OBJETIVO = ?
+                                                ,LINGUAGEM = ?
+                                                ,ATIVO = ?
+                    WHERE   ID = ?
         ";
 
-        $result = $this->pdo->query($sql);
+        $stmt = $this->pdo->prepare($sql);
+        $result = $stmt->execute(array($nome, $objetivo, $linguagem, $ativo, $id_servidor));
 
         return $result;
         
@@ -160,13 +170,14 @@ class ArqServers_Model {
         $descricao  = $dadosServidor['descricao'];
         $ativo      = $dadosServidor['ativo'];
 
-        $sql = "    UPDATE SUBITEMS_ARQ_SERVERS SET  ITEM = '$nome'
-                                                                    ,DESCRICAO = '$descricao'
-                                                                    ,ATIVO = '$ativo'
-                    WHERE   ID = '$id_item'
+        $sql = "    UPDATE SUBITEMS_ARQ_SERVERS SET  ITEM = ?
+                                                                    ,DESCRICAO = ?
+                                                                    ,ATIVO = ?
+                    WHERE   ID = ?
         ";
 
-        $result = $this->pdo->query($sql);
+        $stmt = $this->pdo->prepare($sql);
+        $result = $stmt->execute(array($nome, $descricao, $ativo, $id_item));
 
         return $result;
         
@@ -182,9 +193,12 @@ class ArqServers_Model {
 
         $sql = "    SELECT  *
                     FROM    SUBITEMS_ARQ_SERVERS
-                    WHERE   ID_SERVIDOR = '$id_servidor'";
+                    WHERE   ID_SERVIDOR = ?";
 
-        $result = $this->pdo->query($sql);                
+        $stmt = $this->pdo->prepare($sql);                
+        $stmt->execute(array($id_servidor));
+        
+        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
         return $result;
     }

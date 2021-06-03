@@ -1,5 +1,5 @@
 $(document).ready(() => {
-  $("#db_pesquisa_filtrada").on("click", (event) => {
+  $("#db-form_busca_dinamica").on("submit", (event) => {
     event.preventDefault();
 
     let palavraBuscada = $("#db_input_busca_dinamica")[0].value;
@@ -26,7 +26,7 @@ $(document).ready(() => {
 
         $(".db-content").html(as_cards_html);
         $(".db-content").append(
-          '<span class="as_modal_open"><a href="#db_modal_cria_database" rel="modal:open">Adicionar database</a></span>'
+          '<span><button type="button" class="btn btn-primary mt-2 ms-2" data-bs-toggle="modal" data-bs-target="#db_modal_cria_database">Adicionar servidor</button></span>'
         );
       },
     });
