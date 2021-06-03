@@ -72,13 +72,13 @@
 
     <main class="container-fluid p-3 bg-light bg-gradient d-flex align-items-stretch">
         <div class="container-fluid"> 
-            <div id="tela-home" class="painel show d-flex align-self-stretch h-100">
+            <div id="tela-home" class="painel show_pannel d-flex align-self-stretch h-100">
                 <div class="container-fluid border border-2 rounded d-flex flex-column p-3">
                     <h2 class="text-center">Bem vindo ao govTI, aplicação com o objetivo de auxiliar na documentação dos sistemas do IESB.</h2>
                     <h3 class="text-center">Por favor, selecione alguma das opções no painel à esquerda para começar a navegar</h3>
                 </div>
             </div>
-            <div id="tela-arq-serv" class="painel hide container-fluid h-100">
+            <div id="tela-arq-serv" class="painel hide_pannel container-fluid h-100">
                 <div class="as-content-wrapper d-flex flex-column w-100">
                     <div class="as-label_busca_dinamica">
                         <form id="as-form_busca_dinamica" class="form-group d-flex flex-column">
@@ -93,7 +93,7 @@
                     </div>
                 </div>
             </div>
-            <div id="tela-arq-db" class="painel hide container-fluid h-100">
+            <div id="tela-arq-db" class="painel hide_pannel container-fluid h-100">
                 <div class="db-content-wrapper d-flex flex-column w-100">
                     <div class="db-label_busca_dinamica">
                         <form id="db-form_busca_dinamica" class="form-group d-flex flex-column">
@@ -108,10 +108,10 @@
                     </div>
                 </div>
             </div>
-            <div id="tela-map-job" class="painel hide">
+            <div id="tela-map-job" class="painel hide_pannel">
                 <h1>Abrir painel para visualização e cadastro de dados a respeito do mapeamento de jobs e triggers!</h1>
             </div>
-            <div id="tela-map-sis" class="painel hide">
+            <div id="tela-map-sis" class="painel hide_pannel">
                 <h1>Abrir painel para visualização e cadastro de dados a respeito do mapeamento dos sistemas!</h1>
             </div>
         </div>
