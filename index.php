@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="h-100">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -19,7 +19,7 @@
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <title>govTI</title>
 </head>
-<body>
+<body class="d-flex h-100">
 
     <?php
 
@@ -37,15 +37,14 @@
         // }
 
     ?>
-
-    <header class="bg-light bg-gradient" style="display: none">
-        <nav>
-            <div id="logo_menu">
-                <figure>
-                    <img src="./iesb-logo.png" id="logo-iesb"/>
-                    <figcaption>Documentação de sistemas do IESB</figcaption>
+    <header class="p-3 bg-light bg-gradient" style="display: none">
+        <nav class="d-flex flex-column justify-content-around h-100">
+            <div id="logo_menu" class="d-flex position-relative">
+                <figure class="d-flex flex-column">
+                    <img src="./iesb-logo.png" id="logo-iesb" class="figure-img img-fluid rounded w-50 align-self-center"/>
+                    <figcaption class="text-center fs-5 mt-3">Documentação de sistemas do IESB</figcaption>
                 </figure>
-                <i class="fa fa-times" id="btn-oculta-menu" aria-hidden="true"></i>
+                <i class="fa fa-times btn position-absolute end-0 ms-2" id="btn-oculta-menu" aria-hidden="true"></i>
             </div>
             <span id="arquitetura-servidores" class="span-menu-generico">
                 <span class="texto-menu-generico">
@@ -118,234 +117,234 @@
     </main>
 
 
-            
-    <!-- Modals para o painel de arquitetura de servidores --> 
-    
-        <!-- Modal para insert de dados servidor -->
-        <div class="modal fade" id="as_modal_cria_server" tabindex="-1">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title">Inserir novo registro de servidor</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="mb-3">
-                            <input type="text" class="form-control" name="nome" id="as_nome_servidor" placeholder="Nome do servidor"/>
-                        </div>
-                        <div class="mb-3">
-                            <textarea type="text" class="form-control" name="objetivo" id="as_objetivo_servidor" placeholder="Objetivo do servidor"></textarea>
-                        </div>
-                        <div class="mb-3">
-                            <input type="text" class="form-control" name="linguagem" id="as_linguagem_servidor" placeholder="Linguagem do servidor"/>
-                        </div>
+        
+<!-- Modals para o painel de arquitetura de servidores --> 
 
-                        <select class="form-select" id="as_ativo_servidor">
-                            <option value="" selected disabled>Ativo?</option>
-                            <option value="S">Sim</option>
-                            <option value="N">Não</option>
-                        </select>                    
-                    </div>
-                    <div class="modal-footer">
-                        <button type="submit" class="btn btn-primary" id="as_cadastra">Cadastrar</button>
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
-                    </div>
+    <!-- Modal para insert de dados servidor -->
+    <div class="modal fade" id="as_modal_cria_server" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Inserir novo registro de servidor</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-            </div>
-        </div>
-        <!-- Modal para insert de dados subitem servidor -->
-        <div class="modal fade" id="as_modal_cria_server_subitem" tabindex="-1">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title">Inserir novo item do servidor</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <input type="text" class="form-control" name="nome" id="as_nome_servidor" placeholder="Nome do servidor"/>
                     </div>
-                    <div class="modal-body">
-                        <input type="hidden" id="id_servidor_subitem" value="" />
-                        <div class="mb-3">
-                            <input type="text" class="form-control" name="nome" id="as_nome_servidor_subitem" placeholder="Nome do item"/>
-                        </div>
-                        <div class="mb-3">
-                            <textarea type="text" class="form-control" name="descricao" id="as_descricao_servidor_subitem" placeholder="Descrição do item"></textarea>
-                        </div>
-                        <select class="form-select" id="as_ativo_servidor_subitem">
-                            <option value="" selected disabled>Ativo?</option>
-                            <option value="S">Sim</option>
-                            <option value="N">Não</option>
-                        </select>                    
+                    <div class="mb-3">
+                        <textarea type="text" class="form-control" name="objetivo" id="as_objetivo_servidor" placeholder="Objetivo do servidor"></textarea>
                     </div>
-                    <div class="modal-footer">
-                        <button type="submit" class="btn btn-primary" id="as_cadastra_subitem">Cadastrar</button>
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                    <div class="mb-3">
+                        <input type="text" class="form-control" name="linguagem" id="as_linguagem_servidor" placeholder="Linguagem do servidor"/>
                     </div>
-                </div>
-            </div>
-        </div>
-        <!-- Modal para update de dados servidor -->
-        <div class="modal fade" id="as_modal_update_server" tabindex="-1">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title">Atualizar registro do item atual</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <input type="hidden" name="id" id="as_id_update" value="" />
-                        <div class="mb-3">
-                            <input type="text" class="form-control" name="nome" id="as_nome_servidor_update" placeholder="Nome do servidor"/>
-                        </div>
-                        <div class="mb-3">
-                            <textarea type="text" class="form-control" name="objetivo" id="as_objetivo_servidor_update" placeholder="Objetivo do servidor"></textarea>
-                        </div>
-                        <div class="mb-3">
-                            <input type="text" class="form-control" name="linguagem" id="as_linguagem_servidor_update" placeholder="Linguagem do servidor"/>
-                        </div>
 
-                        <select class="form-select" id="as_ativo_servidor_update">
-                            <option value="" selected disabled>Ativo?</option>
-                            <option value="S">Sim</option>
-                            <option value="N">Não</option>
-                        </select>                    
-                    </div>
-                    <div class="modal-footer">
-                        <button type="submit" class="btn btn-primary" id="as_update">Atualizar</button>
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
-                    </div>
+                    <select class="form-select" id="as_ativo_servidor">
+                        <option value="" selected disabled>Ativo?</option>
+                        <option value="S">Sim</option>
+                        <option value="N">Não</option>
+                    </select>                    
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary" id="as_cadastra">Cadastrar</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
                 </div>
             </div>
         </div>
-        <!-- Modal para update de dados subitem servidor -->
-        <div class="modal fade" id="as_modal_update_server_subitem" tabindex="-1">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title">Atualizar registro do item atual</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+    </div>
+    <!-- Modal para insert de dados subitem servidor -->
+    <div class="modal fade" id="as_modal_cria_server_subitem" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Inserir novo item do servidor</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <input type="hidden" id="id_servidor_subitem" value="" />
+                    <div class="mb-3">
+                        <input type="text" class="form-control" name="nome" id="as_nome_servidor_subitem" placeholder="Nome do item"/>
                     </div>
-                    <div class="modal-body">
-                        <input type="hidden" name="id" id="as_id_update_subitem" value="" />
-                        <div class="mb-3">
-                            <input type="text" class="form-control" name="nome" id="as_nome_update_subitem" placeholder="Nome do item"/>
-                        </div>
-                        <div class="mb-3">
-                            <textarea type="text" class="form-control" name="objetivo" id="as_descricao_update_subitem" placeholder="Descrição do item"></textarea>
-                        </div>
-                        <select class="form-select" id="as_ativo_update_subitem">
-                            <option value="" selected disabled>Ativo?</option>
-                            <option value="S">Sim</option>
-                            <option value="N">Não</option>
-                        </select>                    
+                    <div class="mb-3">
+                        <textarea type="text" class="form-control" name="descricao" id="as_descricao_servidor_subitem" placeholder="Descrição do item"></textarea>
                     </div>
-                    <div class="modal-footer">
-                        <button type="submit" class="btn btn-primary" id="as_update_subitem">Atualizar</button>
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
-                    </div>
+                    <select class="form-select" id="as_ativo_servidor_subitem">
+                        <option value="" selected disabled>Ativo?</option>
+                        <option value="S">Sim</option>
+                        <option value="N">Não</option>
+                    </select>                    
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary" id="as_cadastra_subitem">Cadastrar</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
                 </div>
             </div>
         </div>
+    </div>
+    <!-- Modal para update de dados servidor -->
+    <div class="modal fade" id="as_modal_update_server" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Atualizar registro do item atual</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <input type="hidden" name="id" id="as_id_update" value="" />
+                    <div class="mb-3">
+                        <input type="text" class="form-control" name="nome" id="as_nome_servidor_update" placeholder="Nome do servidor"/>
+                    </div>
+                    <div class="mb-3">
+                        <textarea type="text" class="form-control" name="objetivo" id="as_objetivo_servidor_update" placeholder="Objetivo do servidor"></textarea>
+                    </div>
+                    <div class="mb-3">
+                        <input type="text" class="form-control" name="linguagem" id="as_linguagem_servidor_update" placeholder="Linguagem do servidor"/>
+                    </div>
 
-    <!-- Modals para o painel de arquitetura de databases -->
+                    <select class="form-select" id="as_ativo_servidor_update">
+                        <option value="" selected disabled>Ativo?</option>
+                        <option value="S">Sim</option>
+                        <option value="N">Não</option>
+                    </select>                    
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary" id="as_update">Atualizar</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Modal para update de dados subitem servidor -->
+    <div class="modal fade" id="as_modal_update_server_subitem" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Atualizar registro do item atual</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <input type="hidden" name="id" id="as_id_update_subitem" value="" />
+                    <div class="mb-3">
+                        <input type="text" class="form-control" name="nome" id="as_nome_update_subitem" placeholder="Nome do item"/>
+                    </div>
+                    <div class="mb-3">
+                        <textarea type="text" class="form-control" name="objetivo" id="as_descricao_update_subitem" placeholder="Descrição do item"></textarea>
+                    </div>
+                    <select class="form-select" id="as_ativo_update_subitem">
+                        <option value="" selected disabled>Ativo?</option>
+                        <option value="S">Sim</option>
+                        <option value="N">Não</option>
+                    </select>                    
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary" id="as_update_subitem">Atualizar</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
-        <!-- Modal para insert de dados database -->
-        <div class="modal fade" id="db_modal_cria_database" tabindex="-1">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title">Inserir novo registro de banco de dados</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+<!-- Modals para o painel de arquitetura de databases -->
+
+    <!-- Modal para insert de dados database -->
+    <div class="modal fade" id="db_modal_cria_database" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Inserir novo registro de banco de dados</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <input type="text" class="form-control" name="nome" id="db_nome_database" placeholder="Nome do banco de dados"/>
                     </div>
-                    <div class="modal-body">
-                        <div class="mb-3">
-                            <input type="text" class="form-control" name="nome" id="db_nome_database" placeholder="Nome do banco de dados"/>
-                        </div>
-                        <div class="mb-3">
-                            <textarea type="text" class="form-control" name="descricao" id="db_descricao_database" placeholder="Descricao do banco de dados"></textarea>
-                        </div>
-                        <div class="mb-3">
-                            <select id="db_ambiente" class="form-select">
-                                <option value="" selected disabled>Ambiente</option>
-                                <option value="Prod">Produção</option>
-                                <option value="Homolog">Homologação</option>
-                                <option value="Desenv">Desenvolvimento</option>
-                            </select>
-                        </div>
-                        <select class="form-select" id="db_ativo_database">
-                            <option value="" selected disabled>Ativo?</option>
-                            <option value="S">Sim</option>
-                            <option value="N">Não</option>
-                        </select>                    
+                    <div class="mb-3">
+                        <textarea type="text" class="form-control" name="descricao" id="db_descricao_database" placeholder="Descricao do banco de dados"></textarea>
                     </div>
-                    <div class="modal-footer">
-                        <button type="submit" class="btn btn-primary" id="db_cadastra">Cadastrar</button>
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                    <div class="mb-3">
+                        <select id="db_ambiente" class="form-select">
+                            <option value="" selected disabled>Ambiente</option>
+                            <option value="Prod">Produção</option>
+                            <option value="Homolog">Homologação</option>
+                            <option value="Desenv">Desenvolvimento</option>
+                        </select>
                     </div>
+                    <select class="form-select" id="db_ativo_database">
+                        <option value="" selected disabled>Ativo?</option>
+                        <option value="S">Sim</option>
+                        <option value="N">Não</option>
+                    </select>                    
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary" id="db_cadastra">Cadastrar</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
                 </div>
             </div>
         </div>
-        <!-- Modal para update de dados database -->
-        <div class="modal fade" id="db_modal_update_database" tabindex="-1">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title">Atualizar registro do item atual</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+    </div>
+    <!-- Modal para update de dados database -->
+    <div class="modal fade" id="db_modal_update_database" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Atualizar registro do item atual</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <input type="hidden" name="id" id="db_id_update" value="" />
+                    <div class="mb-3">
+                        <input type="text" class="form-control" name="nome" id="db_nome_database_update" placeholder="Nome do banco de dados"/>
                     </div>
-                    <div class="modal-body">
-                        <input type="hidden" name="id" id="db_id_update" value="" />
-                        <div class="mb-3">
-                            <input type="text" class="form-control" name="nome" id="db_nome_database_update" placeholder="Nome do banco de dados"/>
-                        </div>
-                        <div class="mb-3">
-                            <textarea type="text" class="form-control" name="descricao" id="db_descricao_update" placeholder="Descrição do banco de dados"></textarea>
-                        </div>
-                        <div class="mb-3">
-                            <select id="db_ambiente_update" class="form-select">
-                                <option value="" selected disabled>Ambiente</option>
-                                <option value="Prod">Produção</option>
-                                <option value="Homolog">Homologação</option>
-                                <option value="Desenv">Desenvolvimento</option>
-                            </select>
-                        </div>
-                        <select class="form-select" id="db_ativo_database_update">
-                            <option value="" selected disabled>Ativo?</option>
-                            <option value="S">Sim</option>
-                            <option value="N">Não</option>
-                        </select>                    
+                    <div class="mb-3">
+                        <textarea type="text" class="form-control" name="descricao" id="db_descricao_update" placeholder="Descrição do banco de dados"></textarea>
                     </div>
-                    <div class="modal-footer">
-                        <button type="submit" class="btn btn-primary" id="db_update">Atualizar</button>
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                    <div class="mb-3">
+                        <select id="db_ambiente_update" class="form-select">
+                            <option value="" selected disabled>Ambiente</option>
+                            <option value="Prod">Produção</option>
+                            <option value="Homolog">Homologação</option>
+                            <option value="Desenv">Desenvolvimento</option>
+                        </select>
                     </div>
+                    <select class="form-select" id="db_ativo_database_update">
+                        <option value="" selected disabled>Ativo?</option>
+                        <option value="S">Sim</option>
+                        <option value="N">Não</option>
+                    </select>                    
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary" id="db_update">Atualizar</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
                 </div>
             </div>
         </div>
-        <!-- Modal para insert de dados subitem database -->
-        <div class="modal fade" id="db_modal_cria_database_subitem" tabindex="-1">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title">Inserir novo item do banco de dados</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+    </div>
+    <!-- Modal para insert de dados subitem database -->
+    <div class="modal fade" id="db_modal_cria_database_subitem" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Inserir novo item do banco de dados</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <input type="hidden" id="db_database_subitem" value="" />
+                    <div class="mb-3">
+                        <input type="text" class="form-control" name="nome" id="db_nome_database_subitem" placeholder="Nome da tabela"/>
                     </div>
-                    <div class="modal-body">
-                        <input type="hidden" id="db_database_subitem" value="" />
-                        <div class="mb-3">
-                            <input type="text" class="form-control" name="nome" id="db_nome_database_subitem" placeholder="Nome da tabela"/>
-                        </div>
-                        <div class="mb-3">
-                            <textarea type="text" class="form-control" name="descricao" id="db_descricao_database_subitem" placeholder="Descrição da tabela"></textarea>
-                        </div>               
-                    </div>
-                    <div class="modal-footer">
-                        <button type="submit" class="btn btn-primary" id="db_cadastra_subitem">Cadastrar</button>
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
-                    </div>
+                    <div class="mb-3">
+                        <textarea type="text" class="form-control" name="descricao" id="db_descricao_database_subitem" placeholder="Descrição da tabela"></textarea>
+                    </div>               
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary" id="db_cadastra_subitem">Cadastrar</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
                 </div>
             </div>
         </div>
-        <!-- Modal para update de dados subitem servidor -->
-        <div class="modal fade" id="db_modal_update_database_subitem" tabindex="-1">
+    </div>
+    <!-- Modal para update de dados subitem servidor -->
+    <div class="modal fade" id="db_modal_update_database_subitem" tabindex="-1">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">

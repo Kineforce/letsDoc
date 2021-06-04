@@ -1,62 +1,8 @@
-/** Geral **/
-
-* {
-  margin: 0;
-  box-sizing: border-box;
-}
-
-/** Tela inicial **/
-
-body,
-html {
-  display: flex;
-  flex-direction: row;
-  height: 100%;
-  width: 100%;
-}
-
 /** Painel lateral esquerdo **/
-
-#logo-iesb {
-  position: relative;
-  width: 100px;
-  height: 120px;
-}
-
-figure {
-  display: flex;
-  flex-direction: column;
-  text-align: center;
-  font-weight: 800;
-  font-size: 15px;
-  font-family: monospace;
-  align-items: center;
-}
-
-figcaption {
-  color: rgb(0, 0, 0);
-  margin-top: 20px;
-}
-
-header {
-  position: relative;
-  background-color: rgba(255, 255, 255, 0.452);
-  padding: 20px;
-  border-right: 1px solid rgba(128, 128, 128, 0.534);
-}
 
 /** Navegação dos menus **/
 
-#logo_menu {
-  display: flex;
-  cursor: pointer;
-}
-
 nav {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
-  height: 100%;
   max-width: 200px;
 }
 
@@ -114,7 +60,7 @@ nav .span-menu-generico {
 
 /** Tela de introdução **/
 
-.fa-trash {
+/* .fa-trash {
   cursor: pointer;
 }
 
@@ -125,4 +71,4 @@ nav .span-menu-generico {
 
 .fa-caret-square-down:before {
   cursor: pointer;
-}
+} */
