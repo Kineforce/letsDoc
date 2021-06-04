@@ -60,7 +60,7 @@ nav .span-menu-generico {
 
 /** Tela de introdução **/
 
-/* .fa-trash {
+.fa-trash {
   cursor: pointer;
 }
 
@@ -71,4 +71,4 @@ nav .span-menu-generico {
 
 .fa-caret-square-down:before {
   cursor: pointer;
-} */
+}

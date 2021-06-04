@@ -132,6 +132,7 @@ function deletaDadosDatabase(event) {
   };
 
   Swal.fire({
+    heightAuto: false,
     title: "Você tem certeza que deseja deletar?",
     text: "Isso deletará todos os sub-itens!",
     icon: "warning",
@@ -149,19 +150,18 @@ function deletaDadosDatabase(event) {
         success: () => {
           // Atualiza as informações na tela
           $("#arquitetura-banco").click();
-
-          Swal.fire(
-            "Deletado!",
-            "Informações do database e items foram deletadas",
-            "success"
-          );
+          Swal.fire({
+            heightAuto: false,
+            icon: "success",
+            title: "Informações do database e items foram deletadas",
+          });
         },
         error: () => {
-          Swal.fire(
-            "Algo de errado ocorreu na exclusão do registro!",
-            "",
-            "error"
-          );
+          Swal.fire({
+            heightAuto: false,
+            icon: "error",
+            title: "Algo de errado ocorreu na exclusão do registro!",
+          });
         },
       });
     } else {
@@ -261,7 +261,11 @@ function mostraSubItemsDatabase(event) {
       );
     },
     error: () => {
-      Swal.fire("Algo de errado ocorreu na busca do registro!", "", "error");
+      Swal.fire({
+        heightAuto: false,
+        icon: "error",
+        title: "Algo de errado ocorreu na busca do registro!",
+      });
     },
   });
 }
@@ -319,6 +323,7 @@ function deletaDadosSubItemDatabase(event) {
   };
 
   Swal.fire({
+    heightAuto: false,
     title: "Você tem certeza que deseja deletar?",
     text: "Isso deletará este item!",
     icon: "warning",
@@ -337,14 +342,18 @@ function deletaDadosSubItemDatabase(event) {
           // Atualiza as informações na tela
           $("#arquitetura-banco").click();
 
-          Swal.fire("Deletado com sucesso!", "", "success");
+          Swal.fire({
+            heightAuto: false,
+            icon: "success",
+            title: "Deletado com sucesso!",
+          });
         },
         error: () => {
-          Swal.fire(
-            "Algo de errado ocorreu na exclusão do registro!",
-            "",
-            "error"
-          );
+          Swal.fire({
+            heightAuto: false,
+            icon: "error",
+            title: "Algo de errado ocorreu na exclusão do registro!",
+          });
         },
       });
     } else {

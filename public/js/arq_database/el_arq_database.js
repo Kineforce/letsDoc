@@ -65,12 +65,20 @@ $(document).ready(() => {
     let ativo_database = $("#db_ativo_database option:selected").val();
 
     if (!ambiente_database) {
-      Swal.fire("Selecione o ambiente do banco de dados!", "", "error");
+      Swal.fire({
+        heightAuto: false,
+        icon: "error",
+        title: "Selecione o ambiente do banco de dados!",
+      });
       return;
     }
 
     if (!ativo_database) {
-      Swal.fire("Selecione o status do servidor!", "", "error");
+      Swal.fire({
+        heightAuto: false,
+        icon: "error",
+        title: "Selecione o status do servidor!",
+      });
       return;
     }
 
@@ -89,10 +97,18 @@ $(document).ready(() => {
         // Atualiza as informações na tela
         $("#arquitetura-banco").click();
 
-        Swal.fire("Cadastrado com sucesso!", "", "success");
+        Swal.fire({
+          heightAuto: false,
+          icon: "success",
+          title: "Cadastrado com sucesso!",
+        });
       },
       error: () => {
-        Swal.fire("Algo de errado ocorreu no cadastro!", "", "error");
+        Swal.fire({
+          heightAuto: false,
+          icon: "error",
+          title: "Algo de errado ocorreu no cadastro!",
+        });
       },
     });
   });
@@ -114,15 +130,18 @@ $(document).ready(() => {
       success: () => {
         // Atualiza as informações na tela
         $("#arquitetura-banco").click();
-
-        Swal.fire("Atualizado com sucesso!", "", "success");
+        Swal.fire({
+          heightAuto: false,
+          icon: "success",
+          title: "Atualizado com sucesso!",
+        });
       },
       error: () => {
-        Swal.fire(
-          "Algo de errado ocorreu na atualização do registro!",
-          "",
-          "error"
-        );
+        Swal.fire({
+          heightAuto: false,
+          icon: "error",
+          title: "Algo de errado ocorreu na atualização do registro!",
+        });
       },
     });
   });
@@ -143,14 +162,18 @@ $(document).ready(() => {
         // Atualiza as informações na tela
         $("#arquitetura-banco").click();
 
-        Swal.fire("Inserido com sucesso!", "", "success");
+        Swal.fire({
+          heightAuto: false,
+          icon: "success",
+          title: "Inserido com sucesso!",
+        });
       },
       error: () => {
-        Swal.fire(
-          "Algo de errado ocorreu na inserção do registro!",
-          "",
-          "error"
-        );
+        Swal.fire({
+          heightAuto: false,
+          icon: "error",
+          title: "Algo de errado ocorreu na inserção do registro!",
+        });
       },
     });
   });
@@ -170,15 +193,18 @@ $(document).ready(() => {
       success: () => {
         // Atualiza as informações na tela
         $("#arquitetura-banco").click();
-
-        Swal.fire("Atualizado com sucesso!", "", "success");
+        Swal.fire({
+          heightAuto: false,
+          icon: "success",
+          title: "Atualizado com sucesso!",
+        });
       },
       error: () => {
-        Swal.fire(
-          "Algo de errado ocorreu na atualização do registro!",
-          "",
-          "error"
-        );
+        Swal.fire({
+          heightAuto: false,
+          icon: "error",
+          title: "Algo de errado ocorreu na atualização do registro!",
+        });
       },
     });
   });
