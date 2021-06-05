@@ -378,11 +378,6 @@ function deletaDadosSubItemServidor(event) {
           });
         },
       });
-      Swal.fire({
-        heightAuto: false,
-        icon: "success",
-        title: "Informações do item foram deletadas!",
-      });
     } else {
       return;
     }

@@ -20,7 +20,7 @@ class ArqDatabase_model {
      */
     function retornaInfoDatabase(){
 
-        $sql = "SELECT * FROM ARQ_DATABASE;";
+        $sql = "SELECT * FROM Aplicacoes.GovTi.ARQ_DATABASE;";
 
         $result = $this->pdo->query($sql)->fetchAll(PDO::FETCH_ASSOC);
 
@@ -38,8 +38,8 @@ class ArqDatabase_model {
         $search = "%$palavraBuscada%";
 
         $sql = "    SELECT      DISTINCT DB.*
-                    FROM        ARQ_DATABASE AS DB 
-                    LEFT JOIN   SUBITEMS_ARQ_DATABASE SUB ON SUB.ID_DATABASE = DB.ID
+                    FROM        Aplicacoes.GovTi.ARQ_DATABASE AS DB 
+                    LEFT JOIN   Aplicacoes.GovTi.SUBITEMS_ARQ_DATABASE SUB ON SUB.ID_DATABASE = DB.ID
                     WHERE       lower(DB.NOME) LIKE :palavra_buscada
                     OR          lower(DB.DESCRICAO) LIKE :palavra_buscada
                     OR          lower(SUB.NOME) LIKE :palavra_buscada
@@ -66,7 +66,7 @@ class ArqDatabase_model {
         $ambiente   = $dadosServidor['ambiente'];
         $ativo      = $dadosServidor['ativo'];
 
-        $sql = "    INSERT INTO ARQ_DATABASE (NOME, DESCRICAO, AMBIENTE, ATIVO, DATA_INSERT)
+        $sql = "    INSERT INTO Aplicacoes.GovTi.ARQ_DATABASE (NOME, DESCRICAO, AMBIENTE, ATIVO, DATA_INSERT)
                     VALUES ( ?, ?, ?, ?, CURRENT_TIMESTAMP)";
 
         $stmt  = $this->pdo->prepare($sql);
@@ -82,12 +82,15 @@ class ArqDatabase_model {
 
         $id_database = $dadosServidor['id_database'];
 
-        $sql = "    DELETE  FROM ARQ_DATABASE
-                    WHERE   id = ?
+        $sql = "    DELETE  FROM Aplicacoes.GovTi.ARQ_DATABASE
+                    WHERE   ID = :id_database;
+
+                    DELETE FROM Aplicacoes.GovTi.SUBITEMS_ARQ_DATABASE
+                    WHERE  ID_DATABASE = :id_database;
                 ";
 
         $stmt = $this->pdo->prepare($sql);
-        $result = $stmt->execute(array($id_database));
+        $result = $stmt->execute(array("id_database" => $id_database));
 
         return $result;
 
@@ -100,7 +103,7 @@ class ArqDatabase_model {
 
         $id_item = $dadosServidor['id_item_database'];
 
-        $sql = "    DELETE  FROM SUBITEMS_ARQ_DATABASE
+        $sql = "    DELETE  FROM Aplicacoes.GovTi.SUBITEMS_ARQ_DATABASE
                     WHERE   id = ?
                 ";
 
@@ -123,7 +126,7 @@ class ArqDatabase_model {
         $ambiente       = $dadosServidor['ambiente'];
         $ativo          = $dadosServidor['ativo'];
 
-        $sql = "    UPDATE ARQ_DATABASE SET     NOME = ?
+        $sql = "    UPDATE Aplicacoes.GovTi.ARQ_DATABASE SET     NOME = ?
                                                 ,DESCRICAO = ?
                                                 ,AMBIENTE = ?
                                                 ,ATIVO = ?
@@ -146,7 +149,7 @@ class ArqDatabase_model {
         $nome       = $dadosServidor['nome'];
         $descricao  = $dadosServidor['descricao'];
 
-        $sql = "    UPDATE SUBITEMS_ARQ_DATABASE SET     NOME = ?
+        $sql = "    UPDATE Aplicacoes.GovTi.SUBITEMS_ARQ_DATABASE SET     NOME = ?
                                                         ,DESCRICAO = ?
                     WHERE   ID = ?
         ";
@@ -167,7 +170,7 @@ class ArqDatabase_model {
         $id_database = $dadosServidor['id_database'];
 
         $sql = "    SELECT  *
-                    FROM    SUBITEMS_ARQ_DATABASE
+                    FROM    Aplicacoes.GovTi.SUBITEMS_ARQ_DATABASE
                     WHERE   ID_DATABASE = ?
                 ";
 
@@ -189,7 +192,7 @@ class ArqDatabase_model {
         $nome            = $dadosServidor['nome'];
         $descricao       = $dadosServidor['descricao'];
 
-        $sql = "    INSERT INTO SUBITEMS_ARQ_DATABASE (ID_DATABASE, NOME, DESCRICAO, DATA_INSERT)
+        $sql = "    INSERT INTO Aplicacoes.GovTi.SUBITEMS_ARQ_DATABASE (ID_DATABASE, NOME, DESCRICAO, DATA_INSERT)
                     VALUES ( ?, ?, ?, CURRENT_TIMESTAMP)";
 
         $stmt = $this->pdo->prepare($sql);

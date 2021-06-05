@@ -75,13 +75,13 @@ function retornaCardDatabaseHtml(id, ativo, nome, objetivo, linguagem) {
       : '<i class="fa fa-times-circle" style="color: red" aria-hidden="true"></i>'
   }`;
   html += "</td>";
-  html += `<td class="db-nome" name="nome" >`;
+  html += `<td class="db-nome" name="nome">`;
   html += `${nome}`;
   html += "</td>";
   html += `<td class="db-descricao" name="objetivo">`;
   html += `${objetivo}`;
   html += "</td>";
-  html += `<td class="db-ambiente" name="linguagem" >`;
+  html += `<td class="db-ambiente" name="linguagem">`;
   html += `${linguagem}`;
   html += "</td>";
   html += '<td class="db-exclusao">';
@@ -202,9 +202,6 @@ function mostraSubItemsDatabase(event) {
 
   let inner_tbody = curr_sub_card.find("tbody");
 
-  console.log(curr_sub_card);
-  console.log(inner_tbody);
-
   let status = "";
 
   if (dropdown_el.hasClass("fas")) {
@@ -219,7 +216,7 @@ function mostraSubItemsDatabase(event) {
   }
 
   if (status == "hide") {
-    curr_sub_card.html("");
+    inner_tbody.html("");
     curr_sub_card.hide();
     return;
   }

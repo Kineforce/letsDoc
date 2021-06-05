@@ -107,11 +107,35 @@
                     </div>
                 </div>
             </div>
-            <div id="tela-map-job" class="painel hide_pannel">
-                <h1>Abrir painel para visualização e cadastro de dados a respeito do mapeamento de jobs e triggers!</h1>
+            <div id="tela-map-job" class="painel hide_pannel container-fluid h-100">
+                <div class="db-content-wrapper d-flex flex-column w-100">
+                    <div class="db-label_busca_dinamica">
+                        <form id="db-form_busca_dinamica" class="form-group d-flex flex-column">
+                            <label for="db-input_busca_dinamica" id="db-label-busca-dinamica" class="form-label">Busque qualquer palavra: </label>
+                            <input type="text" id="db_input_busca_dinamica" class="form-control" value=""/>
+                            <span>
+                                <input type="submit" class="btn btn-primary mt-2 ms-2" id="db_pesquisa_filtrada" value="Pesquisar" />
+                            </span>
+                        </form>
+                    </div>
+                    <div class="mj-content d-flex flex-column mt-5 p-2 border align-self-stretch overflow-auto h-100">  
+                    </div>
+                </div>
             </div>
-            <div id="tela-map-sis" class="painel hide_pannel">
-                <h1>Abrir painel para visualização e cadastro de dados a respeito do mapeamento dos sistemas!</h1>
+            <div id="tela-map-sis" class="painel hide_pannel container-fluid h-100">
+                <div class="db-content-wrapper d-flex flex-column w-100">
+                    <div class="db-label_busca_dinamica">
+                        <form id="db-form_busca_dinamica" class="form-group d-flex flex-column">
+                            <label for="db-input_busca_dinamica" id="db-label-busca-dinamica" class="form-label">Busque qualquer palavra: </label>
+                            <input type="text" id="db_input_busca_dinamica" class="form-control" value=""/>
+                            <span>
+                                <input type="submit" class="btn btn-primary mt-2 ms-2" id="db_pesquisa_filtrada" value="Pesquisar" />
+                            </span>
+                        </form>
+                    </div>
+                    <div class="ms-content d-flex flex-column mt-5 p-2 border align-self-stretch overflow-auto h-100">  
+                    </div>
+                </div>
             </div>
         </div>
     </main>

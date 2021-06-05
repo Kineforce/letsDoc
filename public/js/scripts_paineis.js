@@ -30,11 +30,15 @@ $(document).ready(() => {
   });
   $("#mapeamento-jobs").on("click", () => {
     escondeTodosPaineis();
-    $("#tela-map-job").show();
+    indicaMenuSelecionado("mapeamento-jobs");
+    retornaDadosDatabase();
+    exibePainel("tela-map-job");
   });
   $("#mapeamento-sistemas").on("click", () => {
     escondeTodosPaineis();
-    $("#tela-map-sis").show();
+    indicaMenuSelecionado("mapeamento-sistemas");
+    retornaDadosDatabase();
+    exibePainel("tela-map-sis");
   });
 });
 
