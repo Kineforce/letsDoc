@@ -56,10 +56,24 @@ function retornaDadosDatabase() {
   });
 }
 
-function retornaCardDatabaseHtml(id, ativo, nome, objetivo, linguagem) {
+function retornaCardDatabaseHtml(id, ativo, nome, descricao, ambiente) {
   let html = "";
 
-  // // Gerando cards com dados
+  //Gerando cards com dados
+
+  let ambiente_desc = "";
+
+  if (ambiente == "Prod") {
+    ambiente_desc = "Produção";
+  }
+
+  if (ambiente == "Homolog") {
+    ambiente_desc = "Homologação";
+  }
+
+  if (ambiente == "Desenv") {
+    ambiente_desc = "Desenvolvimento";
+  }
 
   html += "<tbody class='db-container-card'>";
   html += "<tr class='db-card'>";
@@ -78,11 +92,11 @@ function retornaCardDatabaseHtml(id, ativo, nome, objetivo, linguagem) {
   html += `<td class="db-nome" name="nome">`;
   html += `${nome}`;
   html += "</td>";
-  html += `<td class="db-descricao" name="objetivo">`;
-  html += `${objetivo}`;
+  html += `<td class="db-descricao" name="descricao">`;
+  html += `${descricao}`;
   html += "</td>";
-  html += `<td class="db-ambiente" name="linguagem">`;
-  html += `${linguagem}`;
+  html += `<td class="db-ambiente" name="ambiente" valor="${ambiente}">`;
+  html += `${ambiente_desc}`;
   html += "</td>";
   html += '<td class="db-exclusao">';
   html +=
@@ -182,7 +196,7 @@ function openModalUpdateDatabase(event) {
   let novo_status = current_card.find(".db-ativo").attr("valor");
   let novo_nome = current_card.find(".db-nome").text();
   let nova_descricao = current_card.find(".db-descricao").text();
-  let novo_ambiente = current_card.find(".db-ambiente").text();
+  let novo_ambiente = current_card.find(".db-ambiente").attr("valor");
 
   $("#db_id_update").val(id);
   $("#db_nome_database_update").val(novo_nome);
