@@ -75,13 +75,13 @@ function retornaCardHtml(id, ativo, nome, objetivo, linguagem) {
       : '<i class="fa fa-times-circle" style="color: red" aria-hidden="true"></i>'
   }`;
   html += "</td>";
-  html += `<td class="as-nome" name="nome" >`;
+  html += `<td class="as-nome text-break" name="nome" >`;
   html += `${nome}`;
   html += "</td>";
-  html += `<td class="as-objetivo" name="objetivo">`;
+  html += `<td class="as-objetivo text-break" name="objetivo">`;
   html += `${objetivo}`;
   html += "</td>";
-  html += `<td class="as-tipo-linguagem" name="linguagem" >`;
+  html += `<td class="as-tipo-linguagem text-break" name="linguagem" >`;
   html += `${linguagem}`;
   html += "</td>";
   html += '<td class="as-exclusao">';
@@ -135,10 +135,10 @@ function retornaSubCardHtml(id_item, status_item, nome_item, descricao) {
       : '<i class="fa fa-times-circle" style="color: red" aria-hidden="true"></i>'
   }`;
   html += "</td>";
-  html += '<td class="as-subcard-nome-item">';
+  html += '<td class="as-subcard-nome-item text-break">';
   html += nome_item;
   html += "</td>";
-  html += '<td class="as-subcard-descricao-item">';
+  html += '<td class="as-subcard-descricao-item text-break">';
   html += descricao;
   html += "</td>";
   html += '<td class="as-subcard-exclusao">';

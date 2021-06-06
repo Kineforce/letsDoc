@@ -89,13 +89,13 @@ function retornaCardDatabaseHtml(id, ativo, nome, descricao, ambiente) {
       : '<i class="fa fa-times-circle" style="color: red" aria-hidden="true"></i>'
   }`;
   html += "</td>";
-  html += `<td class="db-nome" name="nome">`;
+  html += `<td class="db-nome text-break" name="nome">`;
   html += `${nome}`;
   html += "</td>";
-  html += `<td class="db-descricao" name="descricao">`;
+  html += `<td class="db-descricao text-break" name="descricao">`;
   html += `${descricao}`;
   html += "</td>";
-  html += `<td class="db-ambiente" name="ambiente" valor="${ambiente}">`;
+  html += `<td class="db-ambiente text-break" name="ambiente" valor="${ambiente}">`;
   html += `${ambiente_desc}`;
   html += "</td>";
   html += '<td class="db-exclusao">';
@@ -290,10 +290,10 @@ function retornaSubCardHtmlDatabase(id, nome, descricao) {
   html += '<td class="db-subcard-id-item">';
   html += id;
   html += "</td>";
-  html += '<td class="db-subcard-nome-item">';
+  html += '<td class="db-subcard-nome-item text-break">';
   html += nome;
   html += "</td>";
-  html += '<td class="db-subcard-descricao-item">';
+  html += '<td class="db-subcard-descricao-item text-break">';
   html += descricao;
   html += "</td>";
   html += '<td class="db-subcard-exclusao">';
