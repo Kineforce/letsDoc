@@ -6,9 +6,11 @@ ini_set('display_errors', 1);
 // Importa o controlador para ter o método chamado de acordo com o parâmetro vindo no request
 require ('../controller/arqservers.php');
 require ('../controller/arqdatabase.php');
+require ('../controller/jobtrigger.php');
 
 $call_arq_database = new ArqDatabase_controller();
 $call_arq_servers = new ArqServers_controller();
+$call_job_trigger = new JobTrigger_controller();
 
 /******** ARQUITETURA DE SERVIDORES ********/
 
@@ -137,3 +139,7 @@ if(isset($_GET['retornaDataFiltradaDatabase'])){
     $call_arq_database->retornaDataFiltradaDatabase();
     return;
 }
+
+/******** ARQUITETURA DE MAPEAMENTO DE JOBS E TRIGGERS NO BANCO ********/
+
+
