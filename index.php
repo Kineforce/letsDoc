@@ -367,7 +367,7 @@
             </div>
         </div>
     </div>
-    <!-- Modal para update de dados subitem servidor -->
+    <!-- Modal para update de dados subitem database -->
     <div class="modal fade" id="db_modal_update_database_subitem" tabindex="-1">
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -391,6 +391,73 @@
                 </div>
             </div>
         </div>
+    </div>
+
+<!-- Modals para o painel de mapeamento de jobs e triggers -->
+
+    <!-- Modal para insert de dados job/trigger -->
+    <div class="modal fade" id="mj_modal_cria_jobtrigger" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Inserir novo registro de job/trigger</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <input type="text" class="form-control" name="nome" id="mj_nome_jobtrigger" placeholder="Nome do registro"/>
+                    </div>
+                    <div class="mb-3">
+                        <textarea type="text" class="form-control" name="descricao" id="mj_descricao_jobtrigger" placeholder="Descricao do registro"></textarea>
+                    </div>
+                    <div class="mb-3">
+                        <input type="text" class="form-control" name="origem" id="mj_origem" placeholder="Origem do registro"/>
+                    </div>
+                    <select class="form-select" id="mj_ativo_jobtrigger">
+                        <option value="" selected disabled>Ativo?</option>
+                        <option value="S">Sim</option>
+                        <option value="N">Não</option>
+                    </select>                    
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary" id="mj_cadastra">Cadastrar</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Modal para update de dados job/trigger -->
+    <div class="modal fade" id="mj_modal_update_jobtrigger" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Atualizar registro do item atual</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <input type="hidden" name="id" id="mj_id_update" value="" />
+                    <div class="mb-3">
+                        <input type="text" class="form-control" name="nome" id="mj_nome_jobtrigger_update" placeholder="Nome do registro"/>
+                    </div>
+                    <div class="mb-3">
+                        <textarea type="text" class="form-control" name="descricao" id="mj_descricao_update" placeholder="Descrição do registro"></textarea>
+                    </div>
+                    <div class="mb-3">
+                        <input type="text" class="form-control" name="origem" id="mj_origem_update" placeholder="Origem do registro" />
+                    </div>
+                    <select class="form-select" id="mj_ativo_jobtrigger_update">
+                        <option value="" selected disabled>Ativo?</option>
+                        <option value="S">Sim</option>
+                        <option value="N">Não</option>
+                    </select>                    
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary" id="mj_update">Atualizar</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <!-- Jquery 3.6.0 -->
     <script src="./public/jquery/jquery-3.6.0.min.js"></script>    
@@ -402,6 +469,9 @@
     <!-- Scripts para a tela de arquitetura de banco de dados -->
     <script src="./public/js/arq_database/funcoes_arq_database.js"></script>
     <script src="./public/js/arq_database/el_arq_database.js"></script>
+    <!-- Scripts para a tela de mapeamento de jobs e triggers -->
+    <script src="./public/js/job_trigger/el_job_trigger.js"></script>
+    <script src="./public/js/job_trigger/funcoes_job_trigger.js"></script>
 
     <!-- Bundle Bootstrap 5 -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>

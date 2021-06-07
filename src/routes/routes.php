@@ -143,3 +143,30 @@ if(isset($_GET['retornaDataFiltradaDatabase'])){
 /******** ARQUITETURA DE MAPEAMENTO DE JOBS E TRIGGERS NO BANCO ********/
 
 
+if(isset($_GET['retornaDadosJobTrigger'])){
+
+    $call_job_trigger->retornaDadosJobTrigger();
+    return;
+
+}
+
+if(isset($_POST['cadastraDadosJobTrigger'])){
+
+    $call_job_trigger->cadastraDadosJobTrigger();
+    return;
+
+}
+
+if(isset($_POST['deletaIdJobTrigger'])){
+
+    $call_job_trigger->deletaRegistroJobTrigger();
+    return;
+
+}
+
+if(isset($_POST['updateIdJobTrigger'])){
+
+    $call_job_trigger->updateJobTrigger();
+    return;
+
+}

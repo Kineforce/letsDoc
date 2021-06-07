@@ -11,7 +11,39 @@ class JobTrigger_controller extends Helpers{
     }
 
 
-    
+    function retornaDadosJobTrigger(){
+        
+        $result['dados'] = $this->model_functions->buscaDadosJobTrigger();
+        echo json_encode($result);
+
+    }
+
+    function cadastraDadosJobTrigger(){
+
+        $dados_job_trigger = $_POST['cadastraDadosJobTrigger'];
+
+        $result = $this->model_functions->insereDadosJobTrigger($dados_job_trigger);
+        echo json_encode($result);  
+
+    }
+
+    function deletaRegistroJobTrigger(){
+
+        $id_job_trigger = $_POST['deletaIdJobTrigger'];
+
+        $result = $this->model_functions->deletaDadosJobTrigger($id_job_trigger);
+        echo json_encode($result);
+
+    }
+
+    function updateJobTrigger(){
+
+        $dados_job_trigger = $_POST['updateIdJobTrigger'];
+
+        $result = $this->model_functions->updateJobTrigger($dados_job_trigger);
+        echo json_encode($result);
+
+    }
 
 }
 

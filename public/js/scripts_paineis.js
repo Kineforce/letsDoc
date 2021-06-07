@@ -31,7 +31,7 @@ $(document).ready(() => {
   $("#mapeamento-jobs").on("click", () => {
     escondeTodosPaineis();
     indicaMenuSelecionado("mapeamento-jobs");
-    retornaDadosDatabase();
+    retornaDadosJobTrigger();
     exibePainel("tela-map-job");
   });
   $("#mapeamento-sistemas").on("click", () => {

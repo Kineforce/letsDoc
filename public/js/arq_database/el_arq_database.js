@@ -51,7 +51,7 @@ $(document).ready(() => {
         }
 
         $(".db-content").append(
-          '<span><button type="button" class="btn btn-primary mt-2 ms-2" data-bs-toggle="modal" data-bs-target="#db_modal_cria_database">Adicionar servidor</button></span>'
+          '<span><button type="button" class="btn btn-primary mt-2 ms-2" data-bs-toggle="modal" data-bs-target="#db_modal_cria_database">Adicionar database</button></span>'
         );
       },
     });
