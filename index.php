@@ -411,7 +411,10 @@
                         <textarea type="text" class="form-control" name="descricao" id="mj_descricao_jobtrigger" placeholder="Descricao do registro"></textarea>
                     </div>
                     <div class="mb-3">
-                        <input type="text" class="form-control" name="origem" id="mj_origem" placeholder="Origem do registro"/>
+                        <input type="text" class="form-control" name="tabela" id="mj_tabela" placeholder="Tabela do registro"/>
+                    </div>
+                    <div class="mb-3">
+                        <input type="text" class="form-control" name="database" id="mj_database" placeholder="Database do registro"/>
                     </div>
                     <select class="form-select" id="mj_ativo_jobtrigger">
                         <option value="" selected disabled>Ativo?</option>
@@ -443,7 +446,10 @@
                         <textarea type="text" class="form-control" name="descricao" id="mj_descricao_update" placeholder="Descrição do registro"></textarea>
                     </div>
                     <div class="mb-3">
-                        <input type="text" class="form-control" name="origem" id="mj_origem_update" placeholder="Origem do registro" />
+                        <input type="text" class="form-control" name="tabela" id="mj_tabela_update" placeholder="Tabela do registro" />
+                    </div>
+                    <div class="mb-3">
+                        <input type="text" class="form-control" name="database" id="mj_database_update" placeholder="Database do registro" />
                     </div>
                     <select class="form-select" id="mj_ativo_jobtrigger_update">
                         <option value="" selected disabled>Ativo?</option>

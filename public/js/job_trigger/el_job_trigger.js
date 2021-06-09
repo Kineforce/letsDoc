@@ -60,14 +60,15 @@ $(document).ready(() => {
   $("#mj_cadastra").on("click", () => {
     let nome_jobtrigger = $("#mj_nome_jobtrigger").val();
     let descricao_jobtrigger = $("#mj_descricao_jobtrigger").val();
-    let origem_jobtrigger = $("#mj_origem").val();
+    let tabela_jobtrigger = $("#mj_tabela").val();
+    let database_jobtrigger = $("#mj_database").val();
     let ativo_jobtrigger = $("#mj_ativo_jobtrigger option:selected").val();
 
-    if (!origem_jobtrigger) {
+    if (!nome_jobtrigger) {
       Swal.fire({
         heightAuto: false,
         icon: "error",
-        title: "Selecione a origem do registro!",
+        title: "Digite um nome do registro!",
       });
       return;
     }
@@ -84,7 +85,8 @@ $(document).ready(() => {
     let cadastraDadosJobTrigger = {
       nome: nome_jobtrigger,
       descricao: descricao_jobtrigger,
-      origem: origem_jobtrigger,
+      tabela: tabela_jobtrigger,
+      database: database_jobtrigger,
       ativo: ativo_jobtrigger,
     };
 
@@ -118,7 +120,8 @@ $(document).ready(() => {
       id_job_trigger: $("#mj_id_update").val(),
       nome: $("#mj_nome_jobtrigger_update").val(),
       descricao: $("#mj_descricao_update").val(),
-      origem: $("#mj_origem_update").val(),
+      tabela: $("#mj_tabela_update").val(),
+      database: $("#mj_database_update").val(),
       ativo: $("#mj_ativo_jobtrigger_update option:selected").val(),
     };
 

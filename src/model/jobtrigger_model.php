@@ -28,14 +28,15 @@ class JobTrigger_model {
 
         $nome = $dados_job_trigger['nome'];
         $descricao = $dados_job_trigger['descricao'];
-        $origem = $dados_job_trigger['origem'];
+        $tabela = $dados_job_trigger['tabela'];
+        $database = $dados_job_trigger['database'];
         $ativo = $dados_job_trigger['ativo'];
 
-        $sql = "    INSERT INTO MAP_JOB_TRIGGER (NOME, DESCRICAO, ATIVO, ORIGEM, DATA_INSERT)
-                    VALUES  (?, ?, ?, ?, CURRENT_TIMESTAMP)";
+        $sql = "    INSERT INTO MAP_JOB_TRIGGER (NOME, DESCRICAO, ATIVO, TABELA, DATABASE, DATA_INSERT)
+                    VALUES  (?, ?, ?, ?, ?, CURRENT_TIMESTAMP)";
 
         $stmt = $this->pdo->prepare($sql);
-        $result = $stmt->execute(array($nome, $descricao, $ativo, $origem));
+        $result = $stmt->execute(array($nome, $descricao, $ativo, $tabela, $database));
         
         return $result;
         
@@ -61,17 +62,20 @@ class JobTrigger_model {
         $id = $dados_job_trigger['id_job_trigger'];
         $nome = $dados_job_trigger['nome'];
         $descricao = $dados_job_trigger['descricao'];
-        $origem = $dados_job_trigger['origem'];
+        $tabela = $dados_job_trigger['tabela'];
+        $database = $dados_job_trigger['database'];
         $ativo = $dados_job_trigger['ativo'];
 
-        $sql = "    UPDATE MAP_JOB_TRIGGER SET  NOME = ?
-                                                DESCRICAO = ?
-                                                ATIVO = ?
-                                                ORIGEM = ?
+        $sql = "    UPDATE MAP_JOB_TRIGGER SET  NOME = ?,
+                                                DESCRICAO = ?,
+                                                ATIVO = ?,
+                                                TABELA = ?,
+                                                DATABASE = ?
+
                     WHERE   ID = ?";
 
         $stmt = $this->pdo->prepare($sql);                                            
-        $result = $stmt->execute(array($nome, $descricao, $ativo, $origem, $id));
+        $result = $stmt->execute(array($nome, $descricao, $ativo, $tabela, $database, $id));
     
         return $result;
     }

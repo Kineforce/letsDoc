@@ -20,7 +20,8 @@ function retornaDadosJobTrigger() {
         mj_cards_html += "<th>STATUS</th>";
         mj_cards_html += "<th>NOME</th>";
         mj_cards_html += "<th>DESCRICAO</th>";
-        mj_cards_html += "<th>ORIGEM</th>";
+        mj_cards_html += "<th>TABELA</th>";
+        mj_cards_html += "<th>DATABASE</th>";
         mj_cards_html += "<th>DELETAR</th>";
         mj_cards_html += "<th>AJUSTAR</th>";
         mj_cards_html += "</tr>";
@@ -32,7 +33,8 @@ function retornaDadosJobTrigger() {
             linha.ATIVO,
             linha.NOME,
             linha.DESCRICAO,
-            linha.ORIGEM
+            linha.TABELA,
+            linha.DATABASE
           );
         });
 
@@ -55,7 +57,7 @@ function retornaDadosJobTrigger() {
   });
 }
 
-function retornaCardJobTrigger(id, ativo, nome, descricao, origem) {
+function retornaCardJobTrigger(id, ativo, nome, descricao, tabela, database) {
   let html = "";
 
   //Gerando cards com dados
@@ -76,8 +78,11 @@ function retornaCardJobTrigger(id, ativo, nome, descricao, origem) {
   html += `<td class="mj-descricao text-break" name="descricao">`;
   html += `${descricao}`;
   html += "</td>";
-  html += `<td class="mj-origem text-break" name="origem" valor="${origem}">`;
-  html += `${origem}`;
+  html += `<td class="mj-tabela text-break" name="tabela">`;
+  html += `${tabela}`;
+  html += "</td>";
+  html += `<td class="mj-database text-break" name="database">`;
+  html += `${database}`;
   html += "</td>";
   html += '<td class="mj-exclusao">';
   html +=
@@ -157,11 +162,13 @@ function openModalUpdateJobTrigger(event) {
   let novo_status = current_card.find(".mj-ativo").attr("valor");
   let novo_nome = current_card.find(".mj-nome").text();
   let nova_descricao = current_card.find(".mj-descricao").text();
-  let novo_origem = current_card.find(".mj-origem").attr("valor");
+  let nova_tabela = current_card.find(".mj-tabela").text();
+  let novo_database = current_card.find(".mj-database").text();
 
   $("#mj_id_update").val(id);
   $("#mj_nome_jobtrigger_update").val(novo_nome);
   $("#mj_descricao_update").val(nova_descricao);
-  $("#mj_origem_update").val(novo_origem);
+  $("#mj_tabela_update").val(nova_tabela);
+  $("#mj_database_update").val(novo_database);
   $("#mj_ativo_jobtrigger_update").val(novo_status);
 }
