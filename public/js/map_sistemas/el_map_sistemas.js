@@ -7,7 +7,7 @@ $(document).ready(() => {
     $.ajax({
       type: "GET",
       url: `${urlServidor}src/routes/routes.php`,
-      data: { retornaDataFiltradamapsistemas: palavraBuscada },
+      data: { retornaDataFiltradaMapSistemas: palavraBuscada },
       success: (response) => {
         let data = JSON.parse(response);
 
@@ -58,7 +58,7 @@ $(document).ready(() => {
         }
 
         $(".ms-content").append(
-          '<span><button type="button" class="btn btn-primary mt-2 ms-2" data-bs-toggle="modal" data-bs-target="#ms_modal_cria_mapsistemas">Adicionar sistema ou processo</button></span>'
+          '<span><button type="button" class="btn btn-primary mt-2 ms-2" data-bs-toggle="modal" data-bs-target="#ms_modal_cria_mapsis">Adicionar sistema ou processo</button></span>'
         );
       },
       error: (data) => {

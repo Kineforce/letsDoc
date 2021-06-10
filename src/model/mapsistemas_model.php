@@ -15,6 +15,36 @@ class MapSistemas_model {
 
     }
 
+         /**
+     * Retorna informação dos servidores com um parâmetro de filtro
+     */
+    function retornaInfoMapSistemasFiltro($palavraBuscada){
+
+        $palavraBuscada = strtolower($palavraBuscada);
+
+        $search = "%$palavraBuscada%";
+
+        $sql = "    SELECT      DISTINCT MS.*
+                    FROM        MAP_SISTEMAS AS MS 
+                    WHERE       lower(MS.NOME) LIKE :palavra_buscada
+                    OR          lower(MS.DESCRICAO) LIKE :palavra_buscada
+                    OR          lower(MS.ANEXO) LIKE :palavra_buscada
+                    OR          lower(MS.DATABASE) LIKE :palavra_buscada
+                    OR          lower(MS.SERVIDOR) LIKE :palavra_buscada
+                    OR          lower(MS.SETOR) LIKE :palavra_buscada
+                    OR          lower(MS.OCORRENCIA) LIKE :palavra_buscada
+                
+                ";
+
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute(array('palavra_buscada' => $search));
+
+        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        return $result;
+
+    }
+
     function buscaDadosMapSistemas(){
 
         $sql = "    SELECT  * 

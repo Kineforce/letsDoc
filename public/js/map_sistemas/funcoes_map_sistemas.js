@@ -54,7 +54,7 @@ function retornaDadosMapSistemas() {
       }
 
       $(".ms-content").append(
-        '<span><button type="button" class="btn btn-primary mt-2 ms-2" data-bs-toggle="modal" data-bs-target="#ms_modal_cria_jobtrigger">Adicionar sistema ou processo</button></span>'
+        '<span><button type="button" class="btn btn-primary mt-2 ms-2" data-bs-toggle="modal" data-bs-target="#ms_modal_cria_mapsis">Adicionar sistema ou processo</button></span>'
       );
     },
     error: (data) => {
@@ -194,7 +194,7 @@ function openModalUpdateMapSistemas(event) {
   let nova_ocorrencia = current_card.find(".ms-ocorrencia").text();
 
   $("#ms_id_update").val(id);
-  $("#ms_ativo_jobtrigger_update").val(novo_status);
+  $("#ms_ativo_mapsis_update").val(novo_status);
   $("#ms_nome_mapsis_update").val(novo_nome);
   $("#ms_descricao_mapsis_update").val(nova_descricao);
   $("#ms_anexo_mapsis_update").val(novo_anexo);

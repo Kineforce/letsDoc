@@ -175,6 +175,13 @@ if(isset($_POST['updateIdJobTrigger'])){
 
 /******** MAPEAMENTO DE SISTEMAS OU PROCESSOS ********/
 
+if(isset($_GET['retornaDataFiltradaMapSistemas'])){
+
+    $call_map_sistemas->retornaDataFiltradaMapSistemas();
+    return;
+
+}
+
 if(isset($_GET['retornaDadosMapSistemas'])){
 
     $call_map_sistemas->retornaDadosMapSistemas();

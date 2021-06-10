@@ -11,6 +11,16 @@ class MapSistemas_controller extends Helpers{
     }
 
 
+    function retornaDataFiltradaMapSistemas(){
+
+        $palavraBuscada = htmlspecialchars((isset($_GET['retornaDataFiltradaMapSistemas'])) ? $_GET['retornaDataFiltradaMapSistemas'] : '');
+
+        $data_array['dados'] = $this->model_functions->retornaInfoMapSistemasFiltro($palavraBuscada);
+    
+        echo json_encode($data_array);
+    }
+
+
     function retornaDadosMapSistemas(){
         
         $result['dados'] = $this->model_functions->buscaDadosMapSistemas();

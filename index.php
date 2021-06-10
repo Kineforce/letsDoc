@@ -466,7 +466,7 @@
     </div>
 <!-- Modals para o painel de mapeamento de sistemas -->
     <!-- Modal para insert de dados job/trigger -->
-    <div class="modal fade" id="ms_modal_cria_jobtrigger" tabindex="-1">
+    <div class="modal fade" id="ms_modal_cria_mapsis" tabindex="-1">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
