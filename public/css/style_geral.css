@@ -17,6 +17,7 @@ nav .span-menu-generico {
   border: none;
   color: rgb(0, 0, 0);
   align-items: center;
+  justify-content: center;
   text-align: center;
   font-size: 15px;
   opacity: 0.6;

@@ -7,10 +7,12 @@ ini_set('display_errors', 1);
 require ('../controller/arqservers.php');
 require ('../controller/arqdatabase.php');
 require ('../controller/jobtrigger.php');
+require ('../controller/mapsistemas.php');
 
 $call_arq_database = new ArqDatabase_controller();
 $call_arq_servers = new ArqServers_controller();
 $call_job_trigger = new JobTrigger_controller();
+$call_map_sistemas = new MapSistemas_controller();
 
 /******** ARQUITETURA DE SERVIDORES ********/
 
@@ -140,7 +142,7 @@ if(isset($_GET['retornaDataFiltradaDatabase'])){
     return;
 }
 
-/******** ARQUITETURA DE MAPEAMENTO DE JOBS E TRIGGERS NO BANCO ********/
+/******** MAPEAMENTO DE JOBS E TRIGGERS NO BANCO ********/
 
 
 if(isset($_GET['retornaDadosJobTrigger'])){
@@ -167,6 +169,36 @@ if(isset($_POST['deletaIdJobTrigger'])){
 if(isset($_POST['updateIdJobTrigger'])){
 
     $call_job_trigger->updateJobTrigger();
+    return;
+
+}
+
+/******** MAPEAMENTO DE SISTEMAS OU PROCESSOS ********/
+
+if(isset($_GET['retornaDadosMapSistemas'])){
+
+    $call_map_sistemas->retornaDadosMapSistemas();
+    return;
+
+}
+
+if(isset($_POST['cadastraDadosMapSistemas'])){
+
+    $call_map_sistemas->cadastraDadosMapSistemas();
+    return;
+
+}
+
+if(isset($_POST['deletaMapSistemas'])){
+
+    $call_map_sistemas->deletaRegistroMapSistemas();
+    return;
+
+}
+
+if(isset($_POST['updateMapSistemas'])){
+
+    $call_map_sistemas->updateMapSistemas();
     return;
 
 }

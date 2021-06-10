@@ -37,7 +37,7 @@ $(document).ready(() => {
   $("#mapeamento-sistemas").on("click", () => {
     escondeTodosPaineis();
     indicaMenuSelecionado("mapeamento-sistemas");
-    retornaDadosDatabase();
+    retornaDadosMapSistemas();
     exibePainel("tela-map-sis");
   });
 });
