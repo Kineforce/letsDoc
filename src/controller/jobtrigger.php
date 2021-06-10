@@ -10,6 +10,15 @@ class JobTrigger_controller extends Helpers{
         $this->model_functions = new JobTrigger_model();
     }
 
+    function retornaDataFiltradaJobTrigger(){
+
+        $palavraBuscada = htmlspecialchars((isset($_GET['retornaDataFiltradaJobTrigger'])) ? $_GET['retornaDataFiltradaJobTrigger'] : '');
+
+        $data_array['dados'] = $this->model_functions->retornaInfoJobTriggerFiltro($palavraBuscada);
+    
+        echo json_encode($data_array);
+
+    }
 
     function retornaDadosJobTrigger(){
         

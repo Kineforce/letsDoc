@@ -16,7 +16,7 @@ class MapSistemas_model {
     }
 
          /**
-     * Retorna informação dos servidores com um parâmetro de filtro
+     * Retorna informação com um parâmetro de filtro
      */
     function retornaInfoMapSistemasFiltro($palavraBuscada){
 

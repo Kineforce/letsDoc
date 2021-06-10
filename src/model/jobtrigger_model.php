@@ -15,6 +15,33 @@ class JobTrigger_model {
 
     }
 
+    /**
+     * Retorna informação com um parâmetro de filtro
+     */
+    function retornaInfoJobTriggerFiltro($palavraBuscada){
+
+        $palavraBuscada = strtolower($palavraBuscada);
+
+        $search = "%$palavraBuscada%";
+
+        $sql = "    SELECT      DISTINCT JB.*
+                    FROM        MAP_JOB_TRIGGER AS JB 
+                    WHERE       lower(JB.NOME) LIKE :palavra_buscada
+                    OR          lower(JB.DESCRICAO) LIKE :palavra_buscada
+                    OR          lower(JB.TABELA) LIKE :palavra_buscada
+                    OR          lower(JB.DATABASE) LIKE :palavra_buscada
+                
+                ";
+
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute(array('palavra_buscada' => $search));
+
+        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        return $result;
+
+    }
+
     function buscaDadosJobTrigger(){
 
         $sql = "    SELECT  * 

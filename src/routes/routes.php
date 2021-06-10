@@ -144,6 +144,13 @@ if(isset($_GET['retornaDataFiltradaDatabase'])){
 
 /******** MAPEAMENTO DE JOBS E TRIGGERS NO BANCO ********/
 
+if(isset($_GET['retornaDataFiltradaJobTrigger'])){
+
+    $call_job_trigger->retornaDataFiltradaJobTrigger();
+    return;
+
+}
+
 
 if(isset($_GET['retornaDadosJobTrigger'])){
 
