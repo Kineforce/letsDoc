@@ -178,7 +178,6 @@ function deletaDadosMapSistemas(event) {
 function openModalUpdateMapSistemas(event) {
   event.preventDefault();
 
-  // console.log(event.target.parentElement.parentElement.parentElement);
   let current_card = event.target.closest(".ms-card");
   current_card = $(current_card);
 

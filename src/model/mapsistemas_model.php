@@ -54,11 +54,10 @@ class MapSistemas_model {
         return $result;
     }
 
-    function insereDadosMapSistemas($dados_map_sistemas){
+    function insereDadosMapSistemas($dados_map_sistemas, $nome_anexo){
 
         $nome = $dados_map_sistemas['nome'];
         $descricao = $dados_map_sistemas['descricao'];
-        $anexo = $dados_map_sistemas['anexo'];
         $database = $dados_map_sistemas['database'];
         $servidor = $dados_map_sistemas['servidor'];
         $setor = $dados_map_sistemas['setor'];
@@ -69,7 +68,7 @@ class MapSistemas_model {
                     VALUES  (?, ?, ?, ?, ?, ?, ?, ?, CURRENT_TIMESTAMP)";
 
         $stmt = $this->pdo->prepare($sql);
-        $result = $stmt->execute(array($nome, $descricao, $anexo, $database, $servidor, $setor, $ocorrencia, $ativo));
+        $result = $stmt->execute(array($nome, $descricao, $nome_anexo, $database, $servidor, $setor, $ocorrencia, $ativo));
         
         return $result;
         

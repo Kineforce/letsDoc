@@ -30,9 +30,21 @@ class MapSistemas_controller extends Helpers{
 
     function cadastraDadosMapSistemas(){
 
-        $dados_map_sistemas = $_POST['cadastraDadosMapSistemas'];
+        $nome_anexo = "";
+        $dados_map_sistemas = $_POST;
 
-        $result = $this->model_functions->insereDadosMapSistemas($dados_map_sistemas);
+        // Verifica se existe algum anexo enviado junto com o post
+        if (!empty($_FILES)){
+            $nome_anexo = $_FILES['anexo']['name'];
+            $momento_atual = date("Y_m_d_H_i_s");
+            $novo_nome_arquivo = "$momento_atual";
+            $caminho_temp_anexo = $_FILES['anexo']['tmp_name'];
+            $caminho_salva_anexo = "../uploads_anexos/" . $novo_nome_arquivo . "_" . $nome_anexo;
+            move_uploaded_file($caminho_temp_anexo, $caminho_salva_anexo);
+
+        }
+        
+        $result = $this->model_functions->insereDadosMapSistemas($dados_map_sistemas, $nome_anexo);
         echo json_encode($result);  
 
     }

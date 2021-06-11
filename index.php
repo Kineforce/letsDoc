@@ -465,7 +465,7 @@
         </div>
     </div>
 <!-- Modals para o painel de mapeamento de sistemas -->
-    <!-- Modal para insert de dados job/trigger -->
+    <!-- Modal para insert de dados de sistema ou processo -->
     <div class="modal fade" id="ms_modal_cria_mapsis" tabindex="-1">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -481,7 +481,7 @@
                         <textarea type="text" class="form-control" name="descricao" id="ms_descricao_mapsis" placeholder="Descricao do registro"></textarea>
                     </div>
                     <div class="mb-3">
-                        <textarea type="text" class="form-control" name="anexo" id="ms_anexo_mapsis" placeholder="Anexo do registro (PDF, .SQL, .DOC, .IMG...)"></textarea>
+                        <input type="file" class="form-control" name="anexo" id="ms_anexo_mapsis"/>
                     </div>
                     <div class="mb-3">
                         <input type="text" class="form-control" name="database" id="ms_database_mapsis" placeholder="Database do registro"/>

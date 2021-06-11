@@ -71,12 +71,24 @@ $(document).ready(() => {
   $("#ms_cadastra").on("click", () => {
     let nome_mapsistemas = $("#ms_nome_mapsis").val();
     let descricao_mapsistemas = $("#ms_descricao_mapsis").val();
-    let anexo_mapsistemas = $("#ms_anexo_mapsis").val();
     let database_mapsistemas = $("#ms_database_mapsis").val();
     let servidor_mapsistemas = $("#ms_servidor_mapsis").val();
     let setor_mapsistemas = $("#ms_setor_mapsis").val();
     let ocorrencia_mapsistemas = $("#ms_ocorrencia_mapsis").val();
     let ativo_mapsistemas = $("#ms_ativo_mapsis option:selected").val();
+    let anexo_mapsistemas = $("#ms_anexo_mapsis")[0].files[0];
+
+    let ms_data = new FormData();
+
+    ms_data.append("cadastraDadosMapSistemas", 1);
+    ms_data.append("nome", nome_mapsistemas);
+    ms_data.append("descricao", descricao_mapsistemas);
+    ms_data.append("database", database_mapsistemas);
+    ms_data.append("servidor", servidor_mapsistemas);
+    ms_data.append("setor", setor_mapsistemas);
+    ms_data.append("ocorrencia", ocorrencia_mapsistemas);
+    ms_data.append("ativo", ativo_mapsistemas);
+    ms_data.append("anexo", anexo_mapsistemas);
 
     if (!nome_mapsistemas) {
       Swal.fire({
@@ -96,21 +108,13 @@ $(document).ready(() => {
       return;
     }
 
-    let cadastraDadosMapSistemas = {
-      nome: nome_mapsistemas,
-      descricao: descricao_mapsistemas,
-      anexo: anexo_mapsistemas,
-      database: database_mapsistemas,
-      servidor: servidor_mapsistemas,
-      setor: setor_mapsistemas,
-      ocorrencia: ocorrencia_mapsistemas,
-      ativo: ativo_mapsistemas,
-    };
-
     $.ajax({
       type: "POST",
       url: `${urlServidor}src/routes/routes.php`,
-      data: { cadastraDadosMapSistemas },
+      data: ms_data,
+      cache: false,
+      processData: false,
+      contentType: false,
       success: () => {
         // Atualiza as informações na tela
         $("#mapeamento-sistemas").click();

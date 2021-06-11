@@ -196,12 +196,15 @@ if(isset($_GET['retornaDadosMapSistemas'])){
 
 }
 
+
 if(isset($_POST['cadastraDadosMapSistemas'])){
 
+    
     $call_map_sistemas->cadastraDadosMapSistemas();
     return;
 
 }
+
 
 if(isset($_POST['deletaMapSistemas'])){
 
