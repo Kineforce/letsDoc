@@ -275,15 +275,15 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Inserir novo registro de banco de dados</h5>
+                    <h5 class="modal-title">Inserir novo registro de servidor de database</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     <div class="mb-3">
-                        <input type="text" class="form-control" name="nome" id="db_nome_database" placeholder="Nome do banco de dados"/>
+                        <input type="text" class="form-control" name="nome" id="db_nome_database" placeholder="Nome do servidor"/>
                     </div>
                     <div class="mb-3">
-                        <textarea type="text" class="form-control" name="descricao" id="db_descricao_database" placeholder="Descricao do banco de dados"></textarea>
+                        <textarea type="text" class="form-control" name="descricao" id="db_descricao_database" placeholder="Descricao do servidor"></textarea>
                     </div>
                     <div class="mb-3">
                         <select id="db_ambiente" class="form-select">
@@ -317,10 +317,10 @@
                 <div class="modal-body">
                     <input type="hidden" name="id" id="db_id_update" value="" />
                     <div class="mb-3">
-                        <input type="text" class="form-control" name="nome" id="db_nome_database_update" placeholder="Nome do banco de dados"/>
+                        <input type="text" class="form-control" name="nome" id="db_nome_database_update" placeholder="Nome do servidor"/>
                     </div>
                     <div class="mb-3">
-                        <textarea type="text" class="form-control" name="descricao" id="db_descricao_update" placeholder="Descrição do banco de dados"></textarea>
+                        <textarea type="text" class="form-control" name="descricao" id="db_descricao_update" placeholder="Descrição do servidor"></textarea>
                     </div>
                     <div class="mb-3">
                         <select id="db_ambiente_update" class="form-select">
