@@ -94,7 +94,7 @@ function retornaCardMapSistemas(
   html += `<td class="ms-descricao text-break" name="descricao">`;
   html += `${descricao}`;
   html += "</td>";
-  html += `<td class="ms-anexo text-break" name="anexo">`;
+  html += `<td class="ms-anexo text-break" name="anexo" data-bs-toggle="modal" data-bs-target="#ms_abre_anexo_modal" onclick="carregaAnexoModal(event)">`;
   html += `${anexo}`;
   html += "</td>";
   html += `<td class="ms-database text-break" name="database">`;
@@ -201,4 +201,23 @@ function openModalUpdateMapSistemas(event) {
   $("#ms_servidor_mapsis_update").val(novo_servidor);
   $("#ms_setor_mapsis_update").val(novo_setor);
   $("#ms_ocorrencia_mapsis_update").val(nova_ocorrencia);
+}
+
+function carregaAnexoModal(event) {
+  event.preventDefault();
+
+  let nome_arquivo = event.target.innerText;
+
+  if (nome_arquivo) {
+    // Caso já exista um embed, remover do DOM
+    if ($("#ms_display_anexo")) {
+      $("#ms_display_anexo").remove();
+    }
+
+    // Cria o embed com o nome do arquivo para ser mostrado
+    let embed_html = `<embed id="ms_display_anexo" src="${urlServidor}src/uploads_anexos/${nome_arquivo}" alt="ms_anexo_selecionado" width="100%" height="750">`;
+
+    // Insere o embed na modal popup
+    $("#insert_embed").html(embed_html);
+  }
 }

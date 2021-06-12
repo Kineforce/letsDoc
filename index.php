@@ -140,6 +140,15 @@
         </div>
     </main>
 
+    <div class="modal fade" id="ms_abre_anexo_modal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-body" id="insert_embed">
+                </div>
+            </div>
+        </div>
+    </div>
+    
 
         
 <!-- Modals para o painel de arquitetura de servidores --> 
@@ -465,6 +474,7 @@
         </div>
     </div>
 <!-- Modals para o painel de mapeamento de sistemas -->
+    
     <!-- Modal para insert de dados de sistema ou processo -->
     <div class="modal fade" id="ms_modal_cria_mapsis" tabindex="-1">
         <div class="modal-dialog">
@@ -553,7 +563,7 @@
         </div>
     </div>
 
-
+<!-- Javascript -->
     <!-- Jquery 3.6.0 -->
     <script src="./public/jquery/jquery-3.6.0.min.js"></script>    
     <!-- Scripts utilizados nos paineis -->

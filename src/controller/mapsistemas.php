@@ -37,14 +37,15 @@ class MapSistemas_controller extends Helpers{
         if (!empty($_FILES)){
             $nome_anexo = $_FILES['anexo']['name'];
             $momento_atual = date("Y_m_d_H_i_s");
-            $novo_nome_arquivo = "$momento_atual";
+            $novo_nome_arquivo = $momento_atual . "_" . $nome_anexo;
             $caminho_temp_anexo = $_FILES['anexo']['tmp_name'];
-            $caminho_salva_anexo = "../uploads_anexos/" . $novo_nome_arquivo . "_" . $nome_anexo;
+            $caminho_salva_anexo = "../uploads_anexos/" . $novo_nome_arquivo;
             move_uploaded_file($caminho_temp_anexo, $caminho_salva_anexo);
 
+            $nome_anexo = $novo_nome_arquivo;
         }
         
-        $result = $this->model_functions->insereDadosMapSistemas($dados_map_sistemas, $nome_anexo);
+        $result = $this->model_functions->insereDadosMapSistemas($dados_map_sistemas, $novo_nome_arquivo);
         echo json_encode($result);  
 
     }
