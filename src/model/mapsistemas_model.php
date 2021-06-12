@@ -89,34 +89,53 @@ class MapSistemas_model {
 
     }
 
-    function updateMapSistemas($dados_map_sistemas){
+    function updateMapSistemas($dados_map_sistemas_update, $nome_anexo){
 
-        $id = $dados_map_sistemas['id_map_sistemas'];
-        $nome = $dados_map_sistemas['nome'];
-        $descricao = $dados_map_sistemas['descricao'];
-        $anexo = $dados_map_sistemas['anexo'];
-        $database = $dados_map_sistemas['database'];
-        $servidor = $dados_map_sistemas['servidor'];
-        $setor = $dados_map_sistemas['setor'];
-        $ocorrencia = $dados_map_sistemas['ocorrencia'];
-        $ativo = $dados_map_sistemas['ativo'];
+        $id = $dados_map_sistemas_update['id_map_sistemas'];
+        $nome = $dados_map_sistemas_update['nome'];
+        $descricao = $dados_map_sistemas_update['descricao'];
+        $database = $dados_map_sistemas_update['database'];
+        $servidor = $dados_map_sistemas_update['servidor'];
+        $setor = $dados_map_sistemas_update['setor'];
+        $ocorrencia = $dados_map_sistemas_update['ocorrencia'];
+        $ativo = $dados_map_sistemas_update['ativo'];
         
+        if (!empty($nome_anexo)){
 
-        $sql = "    UPDATE MAP_SISTEMAS SET     NOME = ?,
-                                                DESCRICAO = ?,
-                                                ANEXO = ?,
-                                                [DATABASE] = ?,
-                                                SERVIDOR = ?,
-                                                SETOR = ?,
-                                                OCORRENCIA = ?,
-                                                ATIVO = ?
 
-                    WHERE   ID = ?";
+            $sql_update = "    UPDATE MAP_SISTEMAS SET     NOME = ?,
+                                                    DESCRICAO = ?,
+                                                    ANEXO = ?,
+                                                    [DATABASE] = ?,
+                                                    SERVIDOR = ?,
+                                                    SETOR = ?,
+                                                    OCORRENCIA = ?,
+                                                    ATIVO = ?
 
-        $stmt = $this->pdo->prepare($sql);                                            
-        $result = $stmt->execute(array($nome, $descricao, $anexo, $database, $servidor, $setor, $ocorrencia, $ativo, $id));
-    
+            WHERE   ID = ?";
+
+            $stmt_update = $this->pdo->prepare($sql_update);                                            
+            $result_update = $stmt_update->execute(array($nome, $descricao, $nome_anexo, $database, $servidor, $setor, $ocorrencia, $ativo, $id));
+
+            return $result_update;
+
+        }
+
+        $sql = "    UPDATE MAP_SISTEMAS SET NOME = ?,
+                                            DESCRICAO = ?,
+                                            [DATABASE] = ?,
+                                            SERVIDOR = ?,
+                                            SETOR = ?,
+                                            OCORRENCIA = ?,
+                                            ATIVO = ?
+
+        WHERE   ID = ?";
+
+        $stmt= $this->pdo->prepare($sql);                                            
+        $result = $stmt->execute(array($nome, $descricao, $database, $servidor, $setor, $ocorrencia, $ativo, $id));
+
         return $result;
+
     }
 
 }

@@ -535,7 +535,7 @@
                         <textarea type="text" class="form-control" name="descricao" id="ms_descricao_mapsis_update" placeholder="Descricao do registro"></textarea>
                     </div>
                     <div class="mb-3">
-                        <textarea type="text" class="form-control" name="anexo" id="ms_anexo_mapsis_update" placeholder="Anexo do registro (PDF, .SQL, .DOC, .IMG...)"></textarea>
+                        <input type="file" class="form-control" id="ms_anexo_mapsis_update" />
                     </div>
                     <div class="mb-3">
                         <input type="text" class="form-control" name="database" id="ms_database_mapsis_update" placeholder="Database do registro"/>

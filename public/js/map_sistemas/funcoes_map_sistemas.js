@@ -186,7 +186,6 @@ function openModalUpdateMapSistemas(event) {
   let novo_status = current_card.find(".ms-ativo").attr("valor");
   let novo_nome = current_card.find(".ms-nome").text();
   let nova_descricao = current_card.find(".ms-descricao").text();
-  let novo_anexo = current_card.find(".ms-anexo").text();
   let novo_database = current_card.find(".ms-database").text();
   let novo_servidor = current_card.find(".ms-servidor").text();
   let novo_setor = current_card.find(".ms-setor").text();
@@ -196,7 +195,6 @@ function openModalUpdateMapSistemas(event) {
   $("#ms_ativo_mapsis_update").val(novo_status);
   $("#ms_nome_mapsis_update").val(novo_nome);
   $("#ms_descricao_mapsis_update").val(nova_descricao);
-  $("#ms_anexo_mapsis_update").val(novo_anexo);
   $("#ms_database_mapsis_update").val(novo_database);
   $("#ms_servidor_mapsis_update").val(novo_servidor);
   $("#ms_setor_mapsis_update").val(novo_setor);
