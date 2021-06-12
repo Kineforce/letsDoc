@@ -2,6 +2,11 @@
 
 /** Navegação dos menus **/
 
+body,
+html {
+  overflow-y: hidden;
+}
+
 nav {
   max-width: 200px;
 }
