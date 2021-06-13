@@ -185,6 +185,9 @@ function openModalUpdateMapSistemas(event) {
   let current_card = event.target.closest(".ms-card");
   current_card = $(current_card);
 
+  //Reseta o arquivo anexado na modal
+  $("#ms_anexo_mapsis_update").val("");
+
   //Seleciona os dados da linha clicada
   let id = current_card.find(".ms-card-id").text();
   let novo_status = current_card.find(".ms-ativo").attr("valor");

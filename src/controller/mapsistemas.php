@@ -59,7 +59,6 @@ class MapSistemas_controller extends Helpers{
 
         // Verifica se o arquivo que veio no post existe, caso sim, deleta o mesmo
         if (file_exists($anexo_diretorio)){
-            echo json_encode("Arquivo existe!");
             unlink($anexo_diretorio);
         } 
 
@@ -73,7 +72,24 @@ class MapSistemas_controller extends Helpers{
         $nome_anexo_updated = "";
         $dados_map_sistemas_update = $_POST;
 
+        // Caso exista algum anexo enviado no post
         if (!empty($_FILES)){
+
+            // Verifica se já não existe um arquivo para o registro 
+            $id_linha_atual = $_POST['id_map_sistemas'];
+            $result_anexo = $this->model_functions->buscaAnexoAtualMapSistemas($id_linha_atual);
+
+            // Caso exista, deletar o arquivo antigo
+            if ($result_anexo){
+ 
+                $dir = "../uploads_anexos/";
+                $anexo_diretorio = $dir . $result_anexo['ANEXO'];
+
+                unlink($anexo_diretorio);
+
+            }
+
+            // Move o arquivo para a pasta
             $nome_anexo = $_FILES['anexo']['name'];
             $momento_atual = date("Y_m_d_H_i_s");
             $novo_nome_arquivo = $momento_atual . "_" . $nome_anexo;

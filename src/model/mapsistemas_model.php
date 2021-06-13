@@ -54,6 +54,21 @@ class MapSistemas_model {
         return $result;
     }
 
+    function buscaAnexoAtualMapSistemas($id){
+
+        $sql = "    SELECT  ANEXO
+                    FROM    MAP_SISTEMAS
+                    WHERE   ID = ? ";
+
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute(array($id));
+        
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        return $result;
+
+    }
+
     function insereDadosMapSistemas($dados_map_sistemas, $nome_anexo){
 
         $nome = $dados_map_sistemas['nome'];
