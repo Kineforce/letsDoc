@@ -52,9 +52,18 @@ class MapSistemas_controller extends Helpers{
 
     function deletaRegistroMapSistemas(){
 
-        $id_map_sistemas = $_POST['deletaMapSistemas'];
+        $dados_map_sistemas = $_POST['deletaMapSistemas'];
+        $possivel_anexo_post = $dados_map_sistemas['anexo'];
+        $dir = "../uploads_anexos/";
+        $anexo_diretorio = $dir . $possivel_anexo_post;
 
-        $result = $this->model_functions->deletaDadosMapSistemas($id_map_sistemas);
+        // Verifica se o arquivo que veio no post existe, caso sim, deleta o mesmo
+        if (file_exists($anexo_diretorio)){
+            echo json_encode("Arquivo existe!");
+            unlink($anexo_diretorio);
+        } 
+
+        $result = $this->model_functions->deletaDadosMapSistemas($dados_map_sistemas);
         echo json_encode($result);
 
     }

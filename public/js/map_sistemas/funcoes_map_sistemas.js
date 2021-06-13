@@ -132,8 +132,12 @@ function deletaDadosMapSistemas(event) {
   // Seleciona o id da linha clicada
   let id = current_card.find(".ms-card-id").text();
 
+  // Seleciona o nome do anexo da linha clicada
+  let anexo = current_card.find(".ms-anexo").text();
+
   let deletaMapSistemas = {
     id_map_sistemas: id,
+    anexo: anexo,
   };
 
   Swal.fire({
