@@ -53,6 +53,10 @@ nav .span-menu-generico {
   font-size: 17px;
 }
 
+.ms-anexo {
+  cursor: pointer;
+}
+
 /** Painel contendo informação dos menus **/
 
 .show_pannel {
