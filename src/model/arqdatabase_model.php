@@ -67,10 +67,33 @@ class ArqDatabase_model {
         $ativo      = $dadosServidor['ativo'];
 
         $sql = "    INSERT INTO ARQ_DATABASE (NOME, DESCRICAO, AMBIENTE, ATIVO, DATA_INSERT)
-                    VALUES ( ?, ?, ?, ?, CURRENT_TIMESTAMP)";
+                    VALUES ( :nome, :descricao, :ambiente, :ativo, CURRENT_TIMESTAMP);  
+                    
+                    ";
+        
+        $sql_log = "    INSERT INTO ARQ_DATABASE_LOG (OPERACAO, DATA_OPERACAO, USUARIO, CAMPO_NOME, CAMPO_DESCRICAO, CAMPO_ATIVO, CAMPO_AMBIENTE)
+                        VALUES ( :operacao, CURRENT_TIMESTAMP, :usuario, :nome, :descricao, :ativo, :ambiente)
+        
+                    ";
 
         $stmt  = $this->pdo->prepare($sql);
-        $result = $stmt->execute(array($nome, $descricao, $ambiente, $ativo));
+        $stmt_log  = $this->pdo->prepare($sql_log);
+        
+        $stmt_log->execute(array(
+            'nome' => $nome,
+            'descricao' => $descricao,
+            'ambiente' => $ambiente,
+            'ativo' => $ativo,
+            'operacao' => 'CADASTRO',
+            'usuario' => 'lucas.martins'
+        ));
+
+        $result = $stmt->execute(array(
+            'nome' => $nome,
+            'descricao' => $descricao,
+            'ambiente' => $ambiente,
+            'ativo' => $ativo
+        ));
 
         return $result;
     }
@@ -85,11 +108,22 @@ class ArqDatabase_model {
         $sql = "    DELETE  FROM ARQ_DATABASE
                     WHERE   ID = :id_database;
 
-                    DELETE FROM SUBITEMS_ARQ_DATABASE
-                    WHERE  ID_DATABASE = :id_database;
                 ";
 
+        $sql_del_subitem = "    DELETE FROM SUBITEMS_ARQ_DATABASE
+                                WHERE  ID_DATABASE = :id_database;
+        
+                            ";
+
+        $sql_log = "    INSERT INTO ARQ_DATABASE_LOG (OPERACAO, DATA_OPERACAO, USUARIO, CAMPO_NOME, CAMPO_DESCRICAO, CAMPO_ATIVO, CAMPO_AMBIENTE)
+                        VALUES ( :operacao, CURRENT_TIMESTAMP, :usuario, :nome, :descricao, :ativo, :ambiente)
+
+        ";
+
         $stmt = $this->pdo->prepare($sql);
+        $stmt_subitem = $this->pdo->prepare($sql_del_subitem);
+
+        $stmt_subitem->execute(array($id_database));
         $result = $stmt->execute(array("id_database" => $id_database));
 
         return $result;
