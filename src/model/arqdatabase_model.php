@@ -177,7 +177,7 @@ class ArqDatabase_model {
                                                                 ,CAMPO_NOME
                                                                 ,CAMPO_DESCRICAO
                                                                 ,CAMPO_DATA_INSERT
-
+                                                              )
 
                         SELECT  'REMOVE' AS OPERACAO
                                 ,CURRENT_TIMESTAMP AS DATA_OPERACAO
@@ -189,7 +189,7 @@ class ArqDatabase_model {
                         FROM    SUBITEMS_ARQ_DATABASE
                         WHERE   ID = ?
 
-                        )";
+                        ";
 
         $stmt_log = $this->pdo->prepare($sql_log);
         $stmt_log->execute(array($id_item));
@@ -213,7 +213,7 @@ class ArqDatabase_model {
         $ambiente       = $dadosServidor['ambiente'];
         $ativo          = $dadosServidor['ativo'];
 
-        $sql = "    UPDATE ARQ_DATABASE SET     NOME = ?
+        $sql = "    UPDATE ARQ_DATABASE SET      NOME = ?
                                                 ,DESCRICAO = ?
                                                 ,AMBIENTE = ?
                                                 ,ATIVO = ?
@@ -241,14 +241,14 @@ class ArqDatabase_model {
 
                         FROM    ARQ_DATABASE
                         WHERE   ID = ?
-
-                        )";
-
-        $stmt_log = $this->pdo->prepare($sql_log);
-        $stmt_log->execute(array($id_database));
+                        ";
 
         $stmt = $this->pdo->prepare($sql);
         $result = $stmt->execute(array($nome, $descricao, $ambiente, $ativo, $id_database));
+
+        $stmt_log = $this->pdo->prepare($sql_log);    
+        $stmt_log->execute(array($id_database));
+
 
         return $result;
         
@@ -275,7 +275,7 @@ class ArqDatabase_model {
                                                                 ,CAMPO_NOME
                                                                 ,CAMPO_DESCRICAO
                                                                 ,CAMPO_DATA_INSERT
-
+                                                               )
 
                         SELECT  'ALTERA' AS OPERACAO
                                 ,CURRENT_TIMESTAMP AS DATA_OPERACAO
@@ -287,13 +287,13 @@ class ArqDatabase_model {
                         FROM    SUBITEMS_ARQ_DATABASE
                         WHERE   ID = ?
 
-                        )";
-
-        $stmt_log = $this->pdo->prepare($sql_log);
-        $stmt_log->execute(array($id_item));
+                        ";
 
         $stmt = $this->pdo->prepare($sql);
         $result = $stmt->execute(array($nome, $descricao, $id_item));
+
+        $stmt_log = $this->pdo->prepare($sql_log);
+        $stmt_log->execute(array($id_item));
 
         return $result;
         
@@ -340,7 +340,7 @@ class ArqDatabase_model {
                                                                 ,CAMPO_NOME
                                                                 ,CAMPO_DESCRICAO
                                                                 ,CAMPO_DATA_INSERT
-                                                                
+                                                                )
 
                         SELECT  'CADASTRA' AS OPERACAO
                                 ,CURRENT_TIMESTAMP AS DATA_OPERACAO
@@ -351,7 +351,7 @@ class ArqDatabase_model {
                                 ,DATA_INSERT
                         FROM    SUBITEMS_ARQ_DATABASE
                         WHERE   ID = ?
-                        )";
+                        ";
 
         $stmt = $this->pdo->prepare($sql);
         $result = $stmt->execute(array($id_servidor, $nome, $descricao));
