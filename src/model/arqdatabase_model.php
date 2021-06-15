@@ -71,29 +71,39 @@ class ArqDatabase_model {
                     
                     ";
         
-        $sql_log = "    INSERT INTO ARQ_DATABASE_LOG (OPERACAO, DATA_OPERACAO, USUARIO, CAMPO_NOME, CAMPO_DESCRICAO, CAMPO_ATIVO, CAMPO_AMBIENTE)
-                        VALUES ( :operacao, CURRENT_TIMESTAMP, :usuario, :nome, :descricao, :ativo, :ambiente)
-        
+        $sql_log = "    INSERT INTO ARQ_DATABASE_LOG (   OPERACAO
+                                                        ,DATA_OPERACAO
+                                                        ,USUARIO
+                                                        ,CAMPO_NOME
+                                                        ,CAMPO_DESCRICAO
+                                                        ,CAMPO_ATIVO
+                                                        ,CAMPO_AMBIENTE
+                                                        ,CAMPO_DATA_INSERT
+                                                    )
+                        SELECT  'CADASTRA' AS OPERACAO
+                                ,CURRENT_TIMESTAMP AS DATA_OPERACAO
+                                ,'lucas.martins' AS USUARIO
+                                ,NOME
+                                ,DESCRICAO
+                                ,ATIVO
+                                ,AMBIENTE
+                                ,DATA_INSERT
+                        FROM    ARQ_DATABASE 
+                        WHERE   ID = ?
+
                     ";
 
         $stmt  = $this->pdo->prepare($sql);
-        $stmt_log  = $this->pdo->prepare($sql_log);
-        
-        $stmt_log->execute(array(
-            'nome' => $nome,
-            'descricao' => $descricao,
-            'ambiente' => $ambiente,
-            'ativo' => $ativo,
-            'operacao' => 'CADASTRO',
-            'usuario' => 'lucas.martins'
-        ));
-
         $result = $stmt->execute(array(
             'nome' => $nome,
             'descricao' => $descricao,
             'ambiente' => $ambiente,
             'ativo' => $ativo
         ));
+
+        $stmt_log  = $this->pdo->prepare($sql_log);
+        $ultimo_id_log = $this->pdo->lastInsertId();
+        $stmt_log->execute(array($ultimo_id_log));
 
         return $result;
     }
@@ -115,14 +125,33 @@ class ArqDatabase_model {
         
                             ";
 
-        $sql_log = "    INSERT INTO ARQ_DATABASE_LOG (OPERACAO, DATA_OPERACAO, USUARIO, CAMPO_NOME, CAMPO_DESCRICAO, CAMPO_ATIVO, CAMPO_AMBIENTE)
-                        VALUES ( :operacao, CURRENT_TIMESTAMP, :usuario, :nome, :descricao, :ativo, :ambiente)
+        $sql_log = "    INSERT INTO ARQ_DATABASE_LOG (   OPERACAO
+                                                        ,DATA_OPERACAO
+                                                        ,USUARIO
+                                                        ,CAMPO_NOME
+                                                        ,CAMPO_DESCRICAO
+                                                        ,CAMPO_ATIVO
+                                                        ,CAMPO_AMBIENTE
+                                                        ,CAMPO_DATA_INSERT
+                                                    )
+                        SELECT  'REMOVE' AS OPERACAO
+                                ,CURRENT_TIMESTAMP AS DATA_OPERACAO
+                                ,'lucas.martins' AS USUARIO
+                                ,NOME
+                                ,DESCRICAO
+                                ,ATIVO
+                                ,AMBIENTE
+                                ,DATA_INSERT
+                        FROM    ARQ_DATABASE
+                        WHERE   ID = ? 
 
         ";
 
         $stmt = $this->pdo->prepare($sql);
         $stmt_subitem = $this->pdo->prepare($sql_del_subitem);
+        $stmt_log = $this->pdo->prepare($sql_log);
 
+        $stmt_log->execute(array($id_database));
         $stmt_subitem->execute(array($id_database));
         $result = $stmt->execute(array("id_database" => $id_database));
 
@@ -140,6 +169,30 @@ class ArqDatabase_model {
         $sql = "    DELETE  FROM SUBITEMS_ARQ_DATABASE
                     WHERE   id = ?
                 ";
+
+        $sql_log = "    INSERT INTO SUBITEMS_ARQ_DATABASE_LOG (  OPERACAO
+                                                                ,DATA_OPERACAO
+                                                                ,USUARIO
+                                                                ,CAMPO_ID_DATABASE
+                                                                ,CAMPO_NOME
+                                                                ,CAMPO_DESCRICAO
+                                                                ,CAMPO_DATA_INSERT
+
+
+                        SELECT  'REMOVE' AS OPERACAO
+                                ,CURRENT_TIMESTAMP AS DATA_OPERACAO
+                                ,'lucas.martins' AS USUARIO
+                                ,ID_DATABASE
+                                ,NOME
+                                ,DESCRICAO
+                                ,DATA_INSERT
+                        FROM    SUBITEMS_ARQ_DATABASE
+                        WHERE   ID = ?
+
+                        )";
+
+        $stmt_log = $this->pdo->prepare($sql_log);
+        $stmt_log->execute(array($id_item));
 
         $stmt = $this->pdo->prepare($sql);
         $result = $stmt->execute(array($id_item));
@@ -167,6 +220,33 @@ class ArqDatabase_model {
                     WHERE   ID = ?
         ";
 
+        $sql_log = "    INSERT INTO ARQ_DATABASE_LOG    (    OPERACAO
+                                                            ,DATA_OPERACAO
+                                                            ,USUARIO
+                                                            ,CAMPO_NOME
+                                                            ,CAMPO_DESCRICAO
+                                                            ,CAMPO_ATIVO
+                                                            ,CAMPO_AMBIENTE
+                                                            ,CAMPO_DATA_INSERT
+                                                        )
+
+                        SELECT  'ALTERA' AS OPERACAO
+                                ,CURRENT_TIMESTAMP AS DATA_OPERACAO
+                                ,'lucas.martins' AS USUARIO
+                                ,NOME
+                                ,DESCRICAO
+                                ,ATIVO
+                                ,AMBIENTE
+                                ,DATA_INSERT
+
+                        FROM    ARQ_DATABASE
+                        WHERE   ID = ?
+
+                        )";
+
+        $stmt_log = $this->pdo->prepare($sql_log);
+        $stmt_log->execute(array($id_database));
+
         $stmt = $this->pdo->prepare($sql);
         $result = $stmt->execute(array($nome, $descricao, $ambiente, $ativo, $id_database));
 
@@ -187,6 +267,30 @@ class ArqDatabase_model {
                                                         ,DESCRICAO = ?
                     WHERE   ID = ?
         ";
+
+        $sql_log = "    INSERT INTO SUBITEMS_ARQ_DATABASE_LOG (  OPERACAO
+                                                                ,DATA_OPERACAO
+                                                                ,USUARIO
+                                                                ,CAMPO_ID_DATABASE
+                                                                ,CAMPO_NOME
+                                                                ,CAMPO_DESCRICAO
+                                                                ,CAMPO_DATA_INSERT
+
+
+                        SELECT  'ALTERA' AS OPERACAO
+                                ,CURRENT_TIMESTAMP AS DATA_OPERACAO
+                                ,'lucas.martins' AS USUARIO
+                                ,ID_DATABASE
+                                ,NOME
+                                ,DESCRICAO
+                                ,DATA_INSERT
+                        FROM    SUBITEMS_ARQ_DATABASE
+                        WHERE   ID = ?
+
+                        )";
+
+        $stmt_log = $this->pdo->prepare($sql_log);
+        $stmt_log->execute(array($id_item));
 
         $stmt = $this->pdo->prepare($sql);
         $result = $stmt->execute(array($nome, $descricao, $id_item));
@@ -229,8 +333,33 @@ class ArqDatabase_model {
         $sql = "    INSERT INTO SUBITEMS_ARQ_DATABASE (ID_DATABASE, NOME, DESCRICAO, DATA_INSERT)
                     VALUES ( ?, ?, ?, CURRENT_TIMESTAMP)";
 
+        $sql_log = "    INSERT INTO SUBITEMS_ARQ_DATABASE_LOG (  OPERACAO
+                                                                ,DATA_OPERACAO
+                                                                ,USUARIO
+                                                                ,CAMPO_ID_DATABASE
+                                                                ,CAMPO_NOME
+                                                                ,CAMPO_DESCRICAO
+                                                                ,CAMPO_DATA_INSERT
+                                                                
+
+                        SELECT  'CADASTRA' AS OPERACAO
+                                ,CURRENT_TIMESTAMP AS DATA_OPERACAO
+                                ,'lucas.martins' AS USUARIO
+                                ,ID_DATABASE
+                                ,NOME
+                                ,DESCRICAO
+                                ,DATA_INSERT
+                        FROM    SUBITEMS_ARQ_DATABASE
+                        WHERE   ID = ?
+                        )";
+
         $stmt = $this->pdo->prepare($sql);
         $result = $stmt->execute(array($id_servidor, $nome, $descricao));
+
+        $stmt_log = $this->pdo->prepare($sql_log);
+        $ultimo_id_log = $this->pdo->lastInsertId();
+
+        $stmt_log->execute(array($ultimo_id_log));
 
         return $result;
 
