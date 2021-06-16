@@ -147,11 +147,35 @@ class ArqDatabase_model {
 
         ";
 
+        $sql_log_subitems = "    INSERT INTO SUBITEMS_ARQ_DATABASE_LOG (  OPERACAO
+                                                                        ,DATA_OPERACAO
+                                                                        ,USUARIO
+                                                                        ,CAMPO_ID_DATABASE
+                                                                        ,CAMPO_NOME
+                                                                        ,CAMPO_DESCRICAO
+                                                                        ,CAMPO_DATA_INSERT
+                                                                    )
+
+                                SELECT  'REMOVE' AS OPERACAO
+                                        ,CURRENT_TIMESTAMP AS DATA_OPERACAO
+                                        ,'lucas.martins' AS USUARIO
+                                        ,ID_DATABASE
+                                        ,NOME
+                                        ,DESCRICAO
+                                        ,DATA_INSERT
+                                FROM    SUBITEMS_ARQ_DATABASE
+                                WHERE   ID_DATABASE = ?
+
+                        ";
+
+
         $stmt = $this->pdo->prepare($sql);
         $stmt_subitem = $this->pdo->prepare($sql_del_subitem);
         $stmt_log = $this->pdo->prepare($sql_log);
+        $stmt_log_subitem = $this->pdo->prepare($sql_log_subitems);
 
         $stmt_log->execute(array($id_database));
+        $stmt_log_subitem->execute(array($id_database));
         $stmt_subitem->execute(array($id_database));
         $result = $stmt->execute(array("id_database" => $id_database));
 
