@@ -62,9 +62,41 @@ class JobTrigger_model {
         $sql = "    INSERT INTO MAP_JOB_TRIGGER (NOME, DESCRICAO, ATIVO, TABELA, DATABASE, DATA_INSERT)
                     VALUES  (?, ?, ?, ?, ?, CURRENT_TIMESTAMP)";
 
+        $sql_log = "    INSERT INTO MAP_JOB_TRIGGER_LOG (
+                                                             OPERACAO
+                                                            ,DATA_OPERACAO
+                                                            ,USUARIO
+                                                            ,NOME
+                                                            ,DESCRICAO
+                                                            ,ATIVO
+                                                            ,TABELA
+                                                            ,[DATABASE]
+                                                            ,DATA_INSERT
+                                                        )
+        
+                        SELECT  'CADASTRA' AS OPERACAO
+                                ,CURRENT_TIMESTAMP AS DATA_OPERACAO
+                                ,'lucas.martins' AS USUARIO
+                                ,NOME
+                                ,DESCRICAO
+                                ,ATIVO
+                                ,TABELA
+                                ,[DATABASE]
+                                ,DATA_INSERT
+                        FROM    MAP_JOB_TRIGGER
+                        WHERE   ID = ?
+                        
+        ";
+
         $stmt = $this->pdo->prepare($sql);
         $result = $stmt->execute(array($nome, $descricao, $ativo, $tabela, $database));
         
+        $stmt_log = $this->pdo->prepare($sql_log);
+
+        $ultimo_registro = $this->pdo->lastInsertId();
+
+        $stmt_log->execute(array($ultimo_registro)); 
+
         return $result;
         
 
@@ -76,6 +108,35 @@ class JobTrigger_model {
 
         $sql = "    DELETE FROM MAP_JOB_TRIGGER
                     WHERE   ID = ?";
+
+        $sql_log = "    INSERT INTO MAP_JOB_TRIGGER_LOG (
+                                                             OPERACAO
+                                                            ,DATA_OPERACAO
+                                                            ,USUARIO
+                                                            ,NOME
+                                                            ,DESCRICAO
+                                                            ,ATIVO
+                                                            ,TABELA
+                                                            ,[DATABASE]
+                                                            ,DATA_INSERT
+                                                        )
+        
+                        SELECT  'REMOVE' AS OPERACAO
+                                ,CURRENT_TIMESTAMP AS DATA_OPERACAO
+                                ,'lucas.martins' AS USUARIO
+                                ,NOME
+                                ,DESCRICAO
+                                ,ATIVO
+                                ,TABELA
+                                ,[DATABASE]
+                                ,DATA_INSERT
+                        FROM    MAP_JOB_TRIGGER
+                        WHERE   ID = ?
+                        
+        ";
+
+        $stmt_log = $this->pdo->prepare($sql_log);
+        $stmt_log->execute(array($id));
 
         $stmt = $this->pdo->prepare($sql);
         $result = $stmt->execute(array($id));
@@ -100,6 +161,35 @@ class JobTrigger_model {
                                                 DATABASE = ?
 
                     WHERE   ID = ?";
+
+        $sql_log = "    INSERT INTO MAP_JOB_TRIGGER_LOG (
+                                                             OPERACAO
+                                                            ,DATA_OPERACAO
+                                                            ,USUARIO
+                                                            ,NOME
+                                                            ,DESCRICAO
+                                                            ,ATIVO
+                                                            ,TABELA
+                                                            ,[DATABASE]
+                                                            ,DATA_INSERT
+                                                        )
+        
+                        SELECT  'ALTERA' AS OPERACAO
+                                ,CURRENT_TIMESTAMP AS DATA_OPERACAO
+                                ,'lucas.martins' AS USUARIO
+                                ,NOME
+                                ,DESCRICAO
+                                ,ATIVO
+                                ,TABELA
+                                ,[DATABASE]
+                                ,DATA_INSERT
+                        FROM    MAP_JOB_TRIGGER
+                        WHERE   ID = ?
+                        
+        ";
+
+        $stmt_log = $this->pdo->prepare($sql_log);
+        $stmt_log->execute(array($id));
 
         $stmt = $this->pdo->prepare($sql);                                            
         $result = $stmt->execute(array($nome, $descricao, $ativo, $tabela, $database, $id));
