@@ -70,8 +70,38 @@ class ArqServers_Model {
         $sql = "    INSERT INTO ARQ_SERVERS (NOME, OBJETIVO, LINGUAGEM, ATIVO, DATA_INSERT)
                     VALUES (?, ?, ?, ?, CURRENT_TIMESTAMP)";
 
+        $sql_log =  "   INSERT INTO ARQ_SERVERS_LOG (
+                                                     OPERACAO
+                                                    ,DATA_OPERACAO
+                                                    ,USUARIO
+                                                    ,CAMPO_NOME
+                                                    ,CAMPO_OBJETIVO
+                                                    ,CAMPO_LINGUAGEM
+                                                    ,CAMPO_ATIVO
+                                                    ,CAMPO_DATA_INSERT
+                                                )
+
+                    SELECT   'CADASTRA' AS OPERACAO 
+                            ,CURRENT_TIMESTAMP AS DATA_OPERACAO
+                            ,'lucas.martins' AS USUARIO
+                            ,NOME
+                            ,OBJETIVO
+                            ,LINGUAGEM
+                            ,ATIVO
+                            ,DATA_INSERT
+
+                    FROM    ARQ_SERVERS
+                    WHERE   ID = ?
+
+        ";
+
         $stmt  = $this->pdo->prepare($sql);
+        $stmt_log = $this->pdo->prepare($sql_log);
+        
         $result = $stmt->execute(array($nome, $objetivo, $linguagem, $ativo));
+        $ultimo_id_log = $this->pdo->lastInsertId();
+        $stmt_log->execute(array($ultimo_id_log));
+
 
         return $result;
     }
@@ -89,8 +119,34 @@ class ArqServers_Model {
         $sql = "    INSERT INTO SUBITEMS_ARQ_SERVERS (ID_SERVIDOR, ITEM, DESCRICAO, ATIVO, DATA_INSERT)
                     VALUES ( ?, ?, ?, ?, CURRENT_TIMESTAMP)";
 
+        $sql_log = "    INSERT INTO SUBITEMS_ARQ_SERVERS_LOG (  OPERACAO
+                                                                ,DATA_OPERACAO
+                                                                ,USUARIO
+                                                                ,CAMPO_ID_SERVIDOR
+                                                                ,CAMPO_ITEM
+                                                                ,CAMPO_DESCRICAO
+                                                                ,CAMPO_ATIVO
+                                                                ,CAMPO_DATA_INSERT
+                                                                )
+
+                        SELECT  'CADASTRA' AS OPERACAO
+                                ,CURRENT_TIMESTAMP AS DATA_OPERACAO
+                                ,'lucas.martins' AS USUARIO
+                                ,ID_SERVIDOR
+                                ,ITEM
+                                ,DESCRICAO
+                                ,ATIVO
+                                ,DATA_INSERT
+                        FROM    SUBITEMS_ARQ_SERVERS
+                        WHERE   ID = ?
+                        ";
+
         $stmt = $this->pdo->prepare($sql);
         $result = $stmt->execute(array($id_servidor, $nome, $descricao, $ativo));
+
+        $stmt_log = $this->pdo->prepare($sql_log);
+        $ultimo_id_log = $this->pdo->lastInsertId();
+        $stmt_log->execute(array($ultimo_id_log));
 
         return $result;
     }
@@ -105,13 +161,70 @@ class ArqServers_Model {
 
         $sql = "    DELETE  FROM ARQ_SERVERS
                     WHERE   ID = :id_servidor;
-
-                    DELETE FROM SUBITEMS_ARQ_SERVERS
-                    WHERE  ID_SERVIDOR = :id_servidor;
-
                 ";
 
+        $sql_item = "   DELETE FROM SUBITEMS_ARQ_SERVERS
+                        WHERE  ID_SERVIDOR = :id_servidor;
+                    ";
+
+        $sql_log_arq =  "   INSERT INTO ARQ_SERVERS_LOG (
+                                                            OPERACAO
+                                                            ,DATA_OPERACAO
+                                                            ,USUARIO
+                                                            ,CAMPO_NOME
+                                                            ,CAMPO_OBJETIVO
+                                                            ,CAMPO_LINGUAGEM
+                                                            ,CAMPO_ATIVO
+                                                            ,CAMPO_DATA_INSERT
+                                                        )
+
+                            SELECT   'REMOVE' AS OPERACAO 
+                                    ,CURRENT_TIMESTAMP AS DATA_OPERACAO
+                                    ,'lucas.martins' AS USUARIO
+                                    ,NOME
+                                    ,OBJETIVO
+                                    ,LINGUAGEM
+                                    ,ATIVO
+                                    ,DATA_INSERT
+
+                            FROM    ARQ_SERVERS
+                            WHERE   ID = ?
+
+        ";
+
+        $sql_log_item = "    INSERT INTO SUBITEMS_ARQ_SERVERS_LOG (  OPERACAO
+                                                                    ,DATA_OPERACAO
+                                                                    ,USUARIO
+                                                                    ,CAMPO_ID_SERVIDOR
+                                                                    ,CAMPO_ITEM
+                                                                    ,CAMPO_DESCRICAO
+                                                                    ,CAMPO_ATIVO
+                                                                    ,CAMPO_DATA_INSERT
+                                                                )
+
+                            SELECT  'REMOVE' AS OPERACAO
+                                    ,CURRENT_TIMESTAMP AS DATA_OPERACAO
+                                    ,'lucas.martins' AS USUARIO
+                                    ,ID_SERVIDOR
+                                    ,ITEM
+                                    ,DESCRICAO
+                                    ,ATIVO
+                                    ,DATA_INSERT
+                            FROM    SUBITEMS_ARQ_SERVERS
+                            WHERE   ID_SERVIDOR = ?
+                        ";
+
+
+        $stmt_item_log = $this->pdo->prepare($sql_log_item);
+        $stmt_sql_log_arq = $this->pdo->prepare($sql_log_arq); 
+
+        $stmt_item = $this->pdo->prepare($sql_item);
         $stmt = $this->pdo->prepare($sql);
+
+        $stmt_item_log->execute(array($id_servidor));
+        $stmt_sql_log_arq->execute(array($id_servidor));
+
+        $stmt_item->execute(array("id_servidor" => $id_servidor));
         $result = $stmt->execute(array("id_servidor" => $id_servidor));
 
         return $result;
@@ -128,6 +241,31 @@ class ArqServers_Model {
         $sql = "    DELETE  FROM SUBITEMS_ARQ_SERVERS
                     WHERE   id = :id_item_servidor
                 ";
+
+        $sql_log_item = "    INSERT INTO SUBITEMS_ARQ_SERVERS_LOG (  OPERACAO
+                                                                    ,DATA_OPERACAO
+                                                                    ,USUARIO
+                                                                    ,CAMPO_ID_SERVIDOR
+                                                                    ,CAMPO_ITEM
+                                                                    ,CAMPO_DESCRICAO
+                                                                    ,CAMPO_ATIVO
+                                                                    ,CAMPO_DATA_INSERT
+                                                                )
+
+                            SELECT  'REMOVE' AS OPERACAO
+                                    ,CURRENT_TIMESTAMP AS DATA_OPERACAO
+                                    ,'lucas.martins' AS USUARIO
+                                    ,ID_SERVIDOR
+                                    ,ITEM
+                                    ,DESCRICAO
+                                    ,ATIVO
+                                    ,DATA_INSERT
+                            FROM    SUBITEMS_ARQ_SERVERS
+                            WHERE   ID = ?
+                        ";
+
+        $stmt_log = $this->pdo->prepare($sql_log_item);
+        $stmt_log->execute(array($id_item_servidor));
 
         $stmt = $this->pdo->prepare($sql);
         $result = $stmt->execute(array("id_item_servidor" => $id_item_servidor));
@@ -153,8 +291,37 @@ class ArqServers_Model {
                     WHERE   ID = ?
         ";
 
+        $sql_log_arq =  "   INSERT INTO ARQ_SERVERS_LOG (
+                                                            OPERACAO
+                                                            ,DATA_OPERACAO
+                                                            ,USUARIO
+                                                            ,CAMPO_NOME
+                                                            ,CAMPO_OBJETIVO
+                                                            ,CAMPO_LINGUAGEM
+                                                            ,CAMPO_ATIVO
+                                                            ,CAMPO_DATA_INSERT
+                                                        )
+
+                            SELECT   'ALTERA' AS OPERACAO 
+                                    ,CURRENT_TIMESTAMP AS DATA_OPERACAO
+                                    ,'lucas.martins' AS USUARIO
+                                    ,NOME
+                                    ,OBJETIVO
+                                    ,LINGUAGEM
+                                    ,ATIVO
+                                    ,DATA_INSERT
+
+                            FROM    ARQ_SERVERS
+                            WHERE   ID = ?
+
+        ";
+
+
         $stmt = $this->pdo->prepare($sql);
         $result = $stmt->execute(array($nome, $objetivo, $linguagem, $ativo, $id_servidor));
+
+        $stmt_log = $this->pdo->prepare($sql_log_arq);    
+        $stmt_log->execute(array($id_servidor));
 
         return $result;
         
@@ -176,8 +343,34 @@ class ArqServers_Model {
                     WHERE   ID = ?
         ";
 
+
+        $sql_log_item = "    INSERT INTO SUBITEMS_ARQ_SERVERS_LOG (  OPERACAO
+                                                                    ,DATA_OPERACAO
+                                                                    ,USUARIO
+                                                                    ,CAMPO_ID_SERVIDOR
+                                                                    ,CAMPO_ITEM
+                                                                    ,CAMPO_DESCRICAO
+                                                                    ,CAMPO_ATIVO
+                                                                    ,CAMPO_DATA_INSERT
+                                                                )
+
+                            SELECT  'ALTERA' AS OPERACAO
+                                    ,CURRENT_TIMESTAMP AS DATA_OPERACAO
+                                    ,'lucas.martins' AS USUARIO
+                                    ,ID_SERVIDOR
+                                    ,ITEM
+                                    ,DESCRICAO
+                                    ,ATIVO
+                                    ,DATA_INSERT
+                            FROM    SUBITEMS_ARQ_SERVERS
+                            WHERE   ID = ?
+                        ";
+
         $stmt = $this->pdo->prepare($sql);
         $result = $stmt->execute(array($nome, $descricao, $ativo, $id_item));
+
+        $stmt_log = $this->pdo->prepare($sql_log_item);
+        $stmt_log->execute(array($id_item));
 
         return $result;
         
