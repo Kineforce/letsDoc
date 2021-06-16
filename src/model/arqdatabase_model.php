@@ -176,7 +176,8 @@ class ArqDatabase_model {
 
         $stmt_log->execute(array($id_database));
         $stmt_log_subitem->execute(array($id_database));
-        $stmt_subitem->execute(array($id_database));
+
+        $stmt_subitem->execute(array("id_database" => $id_database));
         $result = $stmt->execute(array("id_database" => $id_database));
 
         return $result;
