@@ -233,6 +233,9 @@ function openModalUpdateSubItem(event) {
   let current_card = event.target.closest(".as-subcard-item");
   current_card = $(current_card);
 
+  //Linha selecionada
+  current_card.attr("id", "selecionado");
+
   //Seleciona os dados da linha clicada
   let id = current_card.find(".as-subcard-id-item").text();
   let novo_status = current_card.find(".as-ativo-subitem").attr("valor");
@@ -250,6 +253,9 @@ function openModalCreateSubItem(event) {
 
   let current_card = event.target.closest(".as-container-card");
   current_card = $(current_card).find(".as-card").find(".as-card-id");
+
+  let closest_tr_parent = event.target.closest("tr");
+  $(closest_tr_parent).attr("id", "selecionado");
 
   let id_servidor = current_card.text();
 
@@ -363,7 +369,7 @@ function deletaDadosSubItemServidor(event) {
         data: { deletaInfoItemArqServer },
         success: () => {
           // Atualiza as informações na tela
-          $("#arquitetura-servidores").click();
+          current_sub_card.remove();
           Swal.fire({
             heightAuto: false,
             icon: "success",

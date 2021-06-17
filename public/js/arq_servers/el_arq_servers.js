@@ -146,13 +146,34 @@ $(document).ready(() => {
       ativo: $("#as_ativo_update_subitem option:selected").val(),
     };
 
+    let linha_selecionada = $("#selecionado");
+    let ativo_sel = linha_selecionada.find(".as-ativo-subitem");
+    let nome_sel = linha_selecionada.find(".as-subcard-nome-item");
+    let desc_sel = linha_selecionada.find(".as-subcard-descricao-item");
+
     $.ajax({
       type: "POST",
       url: `${urlServidor}src/routes/routes.php`,
       data: { updateIdServidorSubItem },
       success: () => {
-        // Atualiza as informações na tela
-        $("#arquitetura-servidores").click();
+        // Atualiza as informações da linha
+        ativo_sel.attr("valor", updateIdServidorSubItem.ativo);
+
+        ico_ativo = ativo_sel.children();
+
+        if (updateIdServidorSubItem.ativo == "S") {
+          ico_ativo.removeClass("fa-times-circle");
+          ico_ativo.addClass("fa-check-circle");
+          ico_ativo.css("color", "green");
+        } else {
+          ico_ativo.removeClass("fa-check-circle");
+          ico_ativo.addClass("fa-times-circle");
+          ico_ativo.css("color", "red");
+        }
+
+        nome_sel.text(updateIdServidorSubItem.nome);
+        desc_sel.text(updateIdServidorSubItem.descricao);
+
         Swal.fire({
           heightAuto: false,
           icon: "success",
@@ -178,13 +199,40 @@ $(document).ready(() => {
       ativo: $("#as_ativo_servidor_subitem option:selected").val(),
     };
 
+    let linha_selecionada = $("#selecionado");
+
     $.ajax({
       type: "POST",
       url: `${urlServidor}src/routes/routes.php`,
       data: { cadastraDadosItemServidor },
-      success: () => {
+      success: (resp) => {
         // Atualiza as informações na tela
-        $("#arquitetura-servidores").click();
+        let inserted_id = resp.replaceAll('"', "");
+
+        tr_inserted_html = "";
+        tr_inserted_html += "<tr class='as-subcard-item'>";
+        tr_inserted_html += `<td class='as-subcard-id-item'>${inserted_id}</td>`;
+        tr_inserted_html += `<td class='as-ativo-subitem' name='ativo' valor='${cadastraDadosItemServidor.ativo}'>`;
+        tr_inserted_html += `${
+          cadastraDadosItemServidor.ativo == "S"
+            ? '<i class="fa fa-check-circle" style="color: green" aria-hidden="true"></i>'
+            : '<i class="fa fa-times-circle" style="color: red" aria-hidden="true"></i>'
+        }`;
+        tr_inserted_html += "</td>";
+        tr_inserted_html += `<td class='as-subcard-nome-item text-break'>${cadastraDadosItemServidor.nome}</td>`;
+        tr_inserted_html += `<td class='as-subcard-descricao-item text-break'>${cadastraDadosItemServidor.descricao}</td>`;
+        tr_inserted_html += '<td class="as-subcard-exclusao">';
+        tr_inserted_html +=
+          '<i class="fa fa-trash as-excluir_subitem" aria-hidden="true" onclick="deletaDadosSubItemServidor(event)"></i>';
+        tr_inserted_html += "</td>";
+        tr_inserted_html += '<td class="as-subcard-update">';
+        tr_inserted_html +=
+          '<a data-bs-toggle="modal" data-bs-target="#as_modal_update_server_subitem" id="update_server" onclick="openModalUpdateSubItem(event)"><i class="fa fa-wrench as-update"></i></a>';
+        tr_inserted_html += "</td>";
+        tr_inserted_html += "</tr>";
+
+        linha_selecionada.before(tr_inserted_html);
+
         Swal.fire({
           heightAuto: false,
           icon: "success",
@@ -199,5 +247,10 @@ $(document).ready(() => {
         });
       },
     });
+  });
+
+  // Quando a modal fechar, remover o ID selecionado da linha selecionada
+  $(".modal").on("hide.bs.modal", () => {
+    $("#selecionado").removeAttr("id");
   });
 });

@@ -148,7 +148,7 @@ class ArqServers_Model {
         $ultimo_id_log = $this->pdo->lastInsertId();
         $stmt_log->execute(array($ultimo_id_log));
 
-        return $result;
+        return $ultimo_id_log;
     }
 
 
