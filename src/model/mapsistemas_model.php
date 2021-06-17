@@ -82,9 +82,45 @@ class MapSistemas_model {
         $sql = "    INSERT INTO MAP_SISTEMAS (NOME, DESCRICAO, ANEXO, [DATABASE], SERVIDOR, SETOR, OCORRENCIA, ATIVO, DATA_INSERT)
                     VALUES  (?, ?, ?, ?, ?, ?, ?, ?, CURRENT_TIMESTAMP)";
 
+        $sql_log = "    INSERT INTO MAP_SISTEMAS_LOG (
+                                                         OPERACAO
+                                                        ,DATA_OPERACAO
+                                                        ,USUARIO
+                                                        ,NOME
+                                                        ,DESCRICAO
+                                                        ,ANEXO
+                                                        ,[DATABASE]
+                                                        ,SERVIDOR
+                                                        ,SETOR
+                                                        ,OCORRENCIA
+                                                        ,ATIVO                                                                                                                        
+                                                        ,DATA_INSERT
+                                                    )
+        
+                        SELECT  'CADASTRA' AS OPERACAO
+                                ,CURRENT_TIMESTAMP AS DATA_OPERACAO
+                                ,'lucas.martins' AS USUARIO
+                                ,NOME
+                                ,DESCRICAO
+                                ,ANEXO
+                                ,[DATABASE]
+                                ,SERVIDOR
+                                ,SETOR
+                                ,OCORRENCIA
+                                ,ATIVO
+                                ,DATA_INSERT
+                        FROM    MAP_SISTEMAS
+                        WHERE   ID = ?
+                        
+        ";
+
         $stmt = $this->pdo->prepare($sql);
         $result = $stmt->execute(array($nome, $descricao, $nome_anexo, $database, $servidor, $setor, $ocorrencia, $ativo));
         
+        $stmt_log = $this->pdo->prepare($sql_log);
+        $ultimo_registro = $this->pdo->lastInsertId();
+        $stmt_log->execute(array($ultimo_registro)); 
+
         return $result;
         
 
@@ -96,6 +132,41 @@ class MapSistemas_model {
 
         $sql = "    DELETE FROM MAP_SISTEMAS
                     WHERE   ID = ?";
+
+        $sql_log = "    INSERT INTO MAP_SISTEMAS_LOG (
+                                                         OPERACAO
+                                                        ,DATA_OPERACAO
+                                                        ,USUARIO
+                                                        ,NOME
+                                                        ,DESCRICAO
+                                                        ,ANEXO
+                                                        ,[DATABASE]
+                                                        ,SERVIDOR
+                                                        ,SETOR
+                                                        ,OCORRENCIA
+                                                        ,ATIVO                                                                                                                        
+                                                        ,DATA_INSERT
+                                                    )
+        
+                        SELECT  'REMOVE' AS OPERACAO
+                                ,CURRENT_TIMESTAMP AS DATA_OPERACAO
+                                ,'lucas.martins' AS USUARIO
+                                ,NOME
+                                ,DESCRICAO
+                                ,ANEXO
+                                ,[DATABASE]
+                                ,SERVIDOR
+                                ,SETOR
+                                ,OCORRENCIA
+                                ,ATIVO
+                                ,DATA_INSERT
+                        FROM    MAP_SISTEMAS
+                        WHERE   ID = ?
+                        
+        ";
+
+        $stmt_log = $this->pdo->prepare($sql_log);
+        $stmt_log->execute(array($id));
 
         $stmt = $this->pdo->prepare($sql);
         $result = $stmt->execute(array($id));
@@ -115,28 +186,32 @@ class MapSistemas_model {
         $ocorrencia = $dados_map_sistemas_update['ocorrencia'];
         $ativo = $dados_map_sistemas_update['ativo'];
         
+        $controla = true;
+        $result = "";
+
         if (!empty($nome_anexo)){
 
 
             $sql_update = "    UPDATE MAP_SISTEMAS SET     NOME = ?,
-                                                    DESCRICAO = ?,
-                                                    ANEXO = ?,
-                                                    [DATABASE] = ?,
-                                                    SERVIDOR = ?,
-                                                    SETOR = ?,
-                                                    OCORRENCIA = ?,
-                                                    ATIVO = ?
+                                                            DESCRICAO = ?,
+                                                            ANEXO = ?,
+                                                            [DATABASE] = ?,
+                                                            SERVIDOR = ?,
+                                                            SETOR = ?,
+                                                            OCORRENCIA = ?,
+                                                            ATIVO = ?
 
             WHERE   ID = ?";
 
             $stmt_update = $this->pdo->prepare($sql_update);                                            
-            $result_update = $stmt_update->execute(array($nome, $descricao, $nome_anexo, $database, $servidor, $setor, $ocorrencia, $ativo, $id));
+            $result = $stmt_update->execute(array($nome, $descricao, $nome_anexo, $database, $servidor, $setor, $ocorrencia, $ativo, $id));
 
-            return $result_update;
-
+            $controla = false;
         }
 
-        $sql = "    UPDATE MAP_SISTEMAS SET NOME = ?,
+        if ($controla){
+
+            $sql = "    UPDATE MAP_SISTEMAS SET NOME = ?,
                                             DESCRICAO = ?,
                                             [DATABASE] = ?,
                                             SERVIDOR = ?,
@@ -144,10 +219,47 @@ class MapSistemas_model {
                                             OCORRENCIA = ?,
                                             ATIVO = ?
 
-        WHERE   ID = ?";
+            WHERE   ID = ?";
 
-        $stmt= $this->pdo->prepare($sql);                                            
-        $result = $stmt->execute(array($nome, $descricao, $database, $servidor, $setor, $ocorrencia, $ativo, $id));
+            $stmt= $this->pdo->prepare($sql);                                            
+            $result = $stmt->execute(array($nome, $descricao, $database, $servidor, $setor, $ocorrencia, $ativo, $id));
+
+        }
+
+        $sql_log = "    INSERT INTO MAP_SISTEMAS_LOG (
+                                                         OPERACAO
+                                                        ,DATA_OPERACAO
+                                                        ,USUARIO
+                                                        ,NOME
+                                                        ,DESCRICAO
+                                                        ,ANEXO
+                                                        ,[DATABASE]
+                                                        ,SERVIDOR
+                                                        ,SETOR
+                                                        ,OCORRENCIA
+                                                        ,ATIVO                                                                                                                        
+                                                        ,DATA_INSERT
+                                                    )
+        
+                        SELECT  'ALTERA' AS OPERACAO
+                                ,CURRENT_TIMESTAMP AS DATA_OPERACAO
+                                ,'lucas.martins' AS USUARIO
+                                ,NOME
+                                ,DESCRICAO
+                                ,ANEXO
+                                ,[DATABASE]
+                                ,SERVIDOR
+                                ,SETOR
+                                ,OCORRENCIA
+                                ,ATIVO
+                                ,DATA_INSERT
+                        FROM    MAP_SISTEMAS
+                        WHERE   ID = ?
+                        
+        ";
+
+        $stmt_log = $this->pdo->prepare($sql_log);
+        $stmt_log->execute(array($id));
 
         return $result;
 
