@@ -386,7 +386,7 @@ class ArqDatabase_model {
 
         $stmt_log->execute(array($ultimo_id_log));
 
-        return $result;
+        return $ultimo_id_log;
 
     }
 

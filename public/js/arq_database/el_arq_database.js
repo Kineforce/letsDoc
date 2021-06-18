@@ -154,13 +154,32 @@ $(document).ready(() => {
       descricao: $("#db_descricao_database_subitem").val(),
     };
 
+    let linha_selecionada = $("#selecionado");
+
     $.ajax({
       type: "POST",
       url: `${urlServidor}src/routes/routes.php`,
       data: { cadastraDadosItemDatabase },
-      success: () => {
+      success: (resp) => {
         // Atualiza as informações na tela
-        $("#arquitetura-banco").click();
+        let inserted_id = resp.replaceAll('"', "");
+
+        tr_inserted_html = "";
+        tr_inserted_html += "<tr class='db-subcard-item'>";
+        tr_inserted_html += `<td class='db-subcard-id-item'>${inserted_id}</td>`;
+        tr_inserted_html += `<td class='db-subcard-nome-item text-break'>${cadastraDadosItemDatabase.nome}</td>`;
+        tr_inserted_html += `<td class='db-subcard-descricao-item text-break'>${cadastraDadosItemDatabase.descricao}</td>`;
+        tr_inserted_html += '<td class="db-subcard-exclusao">';
+        tr_inserted_html +=
+          '<i class="fa fa-trash db-excluir_subitem" aria-hidden="true" onclick="deletaDadosSubItemDatabase(event)"></i>';
+        tr_inserted_html += "</td>";
+        tr_inserted_html += '<td class="db-subcard-update">';
+        tr_inserted_html +=
+          '<a data-bs-toggle="modal" data-bs-target="#db_modal_update_database_subitem" id="update_subitem_database" onclick="openModalUpdateSubItemDatabase(event)"><i class="fa fa-wrench db-update"></i></a>';
+        tr_inserted_html += "</td>";
+        tr_inserted_html += "</tr>";
+
+        linha_selecionada.before(tr_inserted_html);
 
         Swal.fire({
           heightAuto: false,
@@ -186,13 +205,20 @@ $(document).ready(() => {
       descricao: $("#db_descricao_update_subitem").val(),
     };
 
+    let linha_selecionada = $("#selecionado");
+    let nome_sel = linha_selecionada.find(".db-subcard-nome-item");
+    let desc_sel = linha_selecionada.find(".db-subcard-descricao-item");
+
     $.ajax({
       type: "POST",
       url: `${urlServidor}src/routes/routes.php`,
       data: { updateIdDatabaseSubItem },
       success: () => {
-        // Atualiza as informações na tela
-        $("#arquitetura-banco").click();
+        // Atualiza as informações da linha
+
+        nome_sel.text(updateIdDatabaseSubItem.nome);
+        desc_sel.text(updateIdDatabaseSubItem.descricao);
+
         Swal.fire({
           heightAuto: false,
           icon: "success",

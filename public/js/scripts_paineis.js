@@ -4,6 +4,11 @@ urlServidor = urlServidor.replace("index.php", "");
 
 // Aguarda o carregamento do document para iniciar os event listeners
 $(document).ready(() => {
+  // Quando qualquer modal fechar, remover o ID selecionado da linha selecionada
+  $(".modal").on("hide.bs.modal", () => {
+    $("#selecionado").removeAttr("id");
+  });
+
   // Oculta o menu ao clicar no botão
   $("#btn-oculta-menu").on("click", () => {
     $("header").hide();

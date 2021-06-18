@@ -302,7 +302,7 @@ function retornaSubCardHtmlDatabase(id, nome, descricao) {
   html += "</td>";
   html += '<td class="db-subcard-update">';
   html +=
-    '<a data-bs-toggle="modal" data-bs-target="#db_modal_update_database_subitem" id="update_subitem_database" onclick="openModalUpdateSubItemDatabase(event)"><i class="fa fa-wrench as-update"></i></a>';
+    '<a data-bs-toggle="modal" data-bs-target="#db_modal_update_database_subitem" id="update_subitem_database" onclick="openModalUpdateSubItemDatabase(event)"><i class="fa fa-wrench db-update"></i></a>';
   html += "</td>";
   html += "</tr>";
 
@@ -314,6 +314,9 @@ function openModalCreateSubItemDatabase(event) {
 
   let current_card = event.target.closest(".db-container-card");
   current_card = $(current_card).find(".db-card").find(".db-card-id");
+
+  let closest_tr_parent = event.target.closest("tr");
+  $(closest_tr_parent).attr("id", "selecionado");
 
   let id_servidor = current_card.text();
 
@@ -351,7 +354,7 @@ function deletaDadosSubItemDatabase(event) {
         data: { deletaInfoItemDatabase },
         success: () => {
           // Atualiza as informações na tela
-          $("#arquitetura-banco").click();
+          current_sub_card.remove();
 
           Swal.fire({
             heightAuto: false,
@@ -378,6 +381,9 @@ function openModalUpdateSubItemDatabase(event) {
 
   let current_card = event.target.closest(".db-subcard-item");
   current_card = $(current_card);
+
+  //Linha selecionada
+  current_card.attr("id", "selecionado");
 
   //Seleciona os dados da linha clicada
   let id = current_card.find(".db-subcard-id-item").text();

@@ -248,9 +248,4 @@ $(document).ready(() => {
       },
     });
   });
-
-  // Quando a modal fechar, remover o ID selecionado da linha selecionada
-  $(".modal").on("hide.bs.modal", () => {
-    $("#selecionado").removeAttr("id");
-  });
 });
