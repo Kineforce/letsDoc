@@ -78,6 +78,7 @@ class MapSistemas_model {
         $setor = htmlspecialchars($dados_map_sistemas['setor']);
         $ocorrencia = htmlspecialchars($dados_map_sistemas['ocorrencia']);
         $ativo = htmlspecialchars($dados_map_sistemas['ativo']);
+        $nome_anexo = htmlspecialchars( (is_null($nome_anexo) ? '': $nome_anexo) );
 
         $sql = "    INSERT INTO MAP_SISTEMAS (NOME, DESCRICAO, ANEXO, [DATABASE], SERVIDOR, SETOR, OCORRENCIA, ATIVO, DATA_INSERT)
                     VALUES  (?, ?, ?, ?, ?, ?, ?, ?, CURRENT_TIMESTAMP)";

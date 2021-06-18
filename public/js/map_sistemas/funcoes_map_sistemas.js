@@ -94,7 +94,11 @@ function retornaCardMapSistemas(
   html += `<td class="ms-descricao text-break" name="descricao">`;
   html += `${descricao}`;
   html += "</td>";
-  html += `<td class="ms-anexo text-break" name="anexo" data-bs-toggle="modal" data-bs-target="#ms_abre_anexo_modal" onclick="carregaAnexoModal(event)">`;
+  html += `<td class="ms-anexo text-break" name="anexo" ${
+    anexo
+      ? 'data-bs-toggle="modal" data-bs-target="#ms_abre_anexo_modal" onclick="carregaAnexoModal(event)"'
+      : ""
+  }>`;
   html += `${anexo}`;
   html += "</td>";
   html += `<td class="ms-database text-break" name="database">`;
