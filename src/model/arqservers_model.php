@@ -33,7 +33,7 @@ class ArqServers_Model {
      */
     function retornaInfoArqServerFiltro($palavraBuscada){
 
-        $palavraBuscada = strtolower($palavraBuscada);
+        $palavraBuscada = htmlspecialchars(strtolower($palavraBuscada));
 
         $search = "%$palavraBuscada%";
 
@@ -62,10 +62,10 @@ class ArqServers_Model {
      */
     function insereInfoArqServer($dadosServidor){
         
-        $nome       = $dadosServidor['nome'];
-        $objetivo   = $dadosServidor['objetivo'];
-        $linguagem  = $dadosServidor['linguagem'];
-        $ativo      = $dadosServidor['ativo'];
+        $nome       = htmlspecialchars($dadosServidor['nome']);
+        $objetivo   = htmlspecialchars($dadosServidor['objetivo']);
+        $linguagem  = htmlspecialchars($dadosServidor['linguagem']);
+        $ativo      = htmlspecialchars($dadosServidor['ativo']);
 
         $sql = "    INSERT INTO ARQ_SERVERS (NOME, OBJETIVO, LINGUAGEM, ATIVO, DATA_INSERT)
                     VALUES (?, ?, ?, ?, CURRENT_TIMESTAMP)";
@@ -111,10 +111,10 @@ class ArqServers_Model {
      */
     function insereInfoItemArqServer($dadosServidor){
         
-        $id_servidor     = $dadosServidor['id_servidor'];
-        $nome            = $dadosServidor['nome'];
-        $descricao       = $dadosServidor['descricao'];
-        $ativo           = $dadosServidor['ativo'];
+        $id_servidor     = htmlspecialchars($dadosServidor['id_servidor']);
+        $nome            = htmlspecialchars($dadosServidor['nome']);
+        $descricao       = htmlspecialchars($dadosServidor['descricao']);
+        $ativo           = htmlspecialchars($dadosServidor['ativo']);
 
         $sql = "    INSERT INTO SUBITEMS_ARQ_SERVERS (ID_SERVIDOR, ITEM, DESCRICAO, ATIVO, DATA_INSERT)
                     VALUES ( ?, ?, ?, ?, CURRENT_TIMESTAMP)";
@@ -157,7 +157,7 @@ class ArqServers_Model {
      */
     function deletaInfoArqServer($dadosServidor){
 
-        $id_servidor = $dadosServidor['id_servidor'];
+        $id_servidor = htmlspecialchars($dadosServidor['id_servidor']);
 
         $sql = "    DELETE  FROM ARQ_SERVERS
                     WHERE   ID = :id_servidor;
@@ -236,7 +236,7 @@ class ArqServers_Model {
      */
     function deletaInfoItemArqServer($dadosServidor){
 
-        $id_item_servidor = $dadosServidor['id_item_servidor'];
+        $id_item_servidor = htmlspecialchars($dadosServidor['id_item_servidor']);
 
         $sql = "    DELETE  FROM SUBITEMS_ARQ_SERVERS
                     WHERE   id = :id_item_servidor
@@ -278,11 +278,11 @@ class ArqServers_Model {
      */
     function updateInfoArqServer($dadosServidor){
 
-        $id_servidor = $dadosServidor['id_servidor'];
-        $nome = $dadosServidor['nome'];
-        $objetivo = $dadosServidor['objetivo'];
-        $linguagem = $dadosServidor['linguagem'];
-        $ativo = $dadosServidor['ativo'];
+        $id_servidor = htmlspecialchars($dadosServidor['id_servidor']);
+        $nome = htmlspecialchars($dadosServidor['nome']);
+        $objetivo = htmlspecialchars($dadosServidor['objetivo']);
+        $linguagem = htmlspecialchars($dadosServidor['linguagem']);
+        $ativo = htmlspecialchars($dadosServidor['ativo']);
 
         $sql = "    UPDATE ARQ_SERVERS SET       NOME = ?
                                                 ,OBJETIVO = ?
@@ -332,10 +332,10 @@ class ArqServers_Model {
      */
     function updateItemInfoArqServer($dadosServidor){
 
-        $id_item    = $dadosServidor['id_item'];
-        $nome       = $dadosServidor['nome'];
-        $descricao  = $dadosServidor['descricao'];
-        $ativo      = $dadosServidor['ativo'];
+        $id_item    = htmlspecialchars($dadosServidor['id_item']);
+        $nome       = htmlspecialchars($dadosServidor['nome']);
+        $descricao  = htmlspecialchars($dadosServidor['descricao']);
+        $ativo      = htmlspecialchars($dadosServidor['ativo']);
 
         $sql = "    UPDATE SUBITEMS_ARQ_SERVERS SET  ITEM = ?
                                                                     ,DESCRICAO = ?
@@ -382,7 +382,7 @@ class ArqServers_Model {
      */
     function retornaSubItemsServer($dadosServidor){
 
-        $id_servidor = $dadosServidor['id_servidor'];
+        $id_servidor = htmlspecialchars($dadosServidor['id_servidor']);
 
         $sql = "    SELECT  *
                     FROM    SUBITEMS_ARQ_SERVERS

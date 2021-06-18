@@ -20,7 +20,7 @@ class MapSistemas_model {
      */
     function retornaInfoMapSistemasFiltro($palavraBuscada){
 
-        $palavraBuscada = strtolower($palavraBuscada);
+        $palavraBuscada = htmlspecialchars(strtolower($palavraBuscada));
 
         $search = "%$palavraBuscada%";
 
@@ -61,7 +61,7 @@ class MapSistemas_model {
                     WHERE   ID = ? ";
 
         $stmt = $this->pdo->prepare($sql);
-        $stmt->execute(array($id));
+        $stmt->execute(array(htmlspecialchars($id)));
         
         $result = $stmt->fetch(PDO::FETCH_ASSOC);
 
@@ -71,13 +71,13 @@ class MapSistemas_model {
 
     function insereDadosMapSistemas($dados_map_sistemas, $nome_anexo){
 
-        $nome = $dados_map_sistemas['nome'];
-        $descricao = $dados_map_sistemas['descricao'];
-        $database = $dados_map_sistemas['database'];
-        $servidor = $dados_map_sistemas['servidor'];
-        $setor = $dados_map_sistemas['setor'];
-        $ocorrencia = $dados_map_sistemas['ocorrencia'];
-        $ativo = $dados_map_sistemas['ativo'];
+        $nome = htmlspecialchars($dados_map_sistemas['nome']);
+        $descricao = htmlspecialchars($dados_map_sistemas['descricao']);
+        $database = htmlspecialchars($dados_map_sistemas['database']);
+        $servidor = htmlspecialchars($dados_map_sistemas['servidor']);
+        $setor = htmlspecialchars($dados_map_sistemas['setor']);
+        $ocorrencia = htmlspecialchars($dados_map_sistemas['ocorrencia']);
+        $ativo = htmlspecialchars($dados_map_sistemas['ativo']);
 
         $sql = "    INSERT INTO MAP_SISTEMAS (NOME, DESCRICAO, ANEXO, [DATABASE], SERVIDOR, SETOR, OCORRENCIA, ATIVO, DATA_INSERT)
                     VALUES  (?, ?, ?, ?, ?, ?, ?, ?, CURRENT_TIMESTAMP)";
@@ -128,7 +128,7 @@ class MapSistemas_model {
 
     function deletaDadosMapSistemas($id_map_sistemas){
 
-        $id = $id_map_sistemas['id_map_sistemas'];
+        $id = htmlspecialchars($id_map_sistemas['id_map_sistemas']);
 
         $sql = "    DELETE FROM MAP_SISTEMAS
                     WHERE   ID = ?";
@@ -177,14 +177,14 @@ class MapSistemas_model {
 
     function updateMapSistemas($dados_map_sistemas_update, $nome_anexo){
 
-        $id = $dados_map_sistemas_update['id_map_sistemas'];
-        $nome = $dados_map_sistemas_update['nome'];
-        $descricao = $dados_map_sistemas_update['descricao'];
-        $database = $dados_map_sistemas_update['database'];
-        $servidor = $dados_map_sistemas_update['servidor'];
-        $setor = $dados_map_sistemas_update['setor'];
-        $ocorrencia = $dados_map_sistemas_update['ocorrencia'];
-        $ativo = $dados_map_sistemas_update['ativo'];
+        $id = htmlspecialchars($dados_map_sistemas_update['id_map_sistemas']);
+        $nome = htmlspecialchars($dados_map_sistemas_update['nome']);
+        $descricao = htmlspecialchars($dados_map_sistemas_update['descricao']);
+        $database = htmlspecialchars($dados_map_sistemas_update['database']);
+        $servidor = htmlspecialchars($dados_map_sistemas_update['servidor']);
+        $setor = htmlspecialchars($dados_map_sistemas_update['setor']);
+        $ocorrencia = htmlspecialchars($dados_map_sistemas_update['ocorencia']);
+        $ativo = htmlspecialchars($dados_map_sistemas_update['ativo']);
         
         $controla = true;
         $result = "";

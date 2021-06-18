@@ -53,11 +53,11 @@ class JobTrigger_model {
 
     function insereDadosJobTrigger($dados_job_trigger){
 
-        $nome = $dados_job_trigger['nome'];
-        $descricao = $dados_job_trigger['descricao'];
-        $tabela = $dados_job_trigger['tabela'];
-        $database = $dados_job_trigger['database'];
-        $ativo = $dados_job_trigger['ativo'];
+        $nome = htmlspecialchars($dados_job_trigger['nome']);
+        $descricao = htmlspecialchars($dados_job_trigger['descricao']);
+        $tabela = htmlspecialchars($dados_job_trigger['tabela']);
+        $database = htmlspecialchars($dados_job_trigger['database']);
+        $ativo = htmlspecialchars($dados_job_trigger['ativo']);
 
         $sql = "    INSERT INTO MAP_JOB_TRIGGER (NOME, DESCRICAO, ATIVO, TABELA, DATABASE, DATA_INSERT)
                     VALUES  (?, ?, ?, ?, ?, CURRENT_TIMESTAMP)";
@@ -104,7 +104,7 @@ class JobTrigger_model {
 
     function deletaDadosJobTrigger($id_job_trigger){
 
-        $id = $id_job_trigger['id_jobtrigger'];
+        $id = htmlspecialchars($id_job_trigger['id_jobtrigger']);
 
         $sql = "    DELETE FROM MAP_JOB_TRIGGER
                     WHERE   ID = ?";
@@ -147,12 +147,12 @@ class JobTrigger_model {
 
     function updateJobTrigger($dados_job_trigger){
 
-        $id = $dados_job_trigger['id_job_trigger'];
-        $nome = $dados_job_trigger['nome'];
-        $descricao = $dados_job_trigger['descricao'];
-        $tabela = $dados_job_trigger['tabela'];
-        $database = $dados_job_trigger['database'];
-        $ativo = $dados_job_trigger['ativo'];
+        $id = htmlspecialchars($dados_job_trigger['id_job_trigger']);
+        $nome = htmlspecialchars($dados_job_trigger['nome']);
+        $descricao = htmlspecialchars($dados_job_trigger['descricao']);
+        $tabela = htmlspecialchars($dados_job_trigger['tabela']);
+        $database = htmlspecialchars($dados_job_trigger['database']);
+        $ativo = htmlspecialchars($dados_job_trigger['ativo']);
 
         $sql = "    UPDATE MAP_JOB_TRIGGER SET  NOME = ?,
                                                 DESCRICAO = ?,

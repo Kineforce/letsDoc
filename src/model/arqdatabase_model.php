@@ -33,7 +33,7 @@ class ArqDatabase_model {
      */
     function retornaInfoArqServerFiltro($palavraBuscada){
 
-        $palavraBuscada = strtolower($palavraBuscada);
+        $palavraBuscada = htmlspecialchars(strtolower($palavraBuscada));
 
         $search = "%$palavraBuscada%";
 
@@ -61,10 +61,10 @@ class ArqDatabase_model {
      */
     function insereInfoDatabase($dadosServidor){
         
-        $nome       = $dadosServidor['nome'];
-        $descricao  = $dadosServidor['descricao'];
-        $ambiente   = $dadosServidor['ambiente'];
-        $ativo      = $dadosServidor['ativo'];
+        $nome       = htmlspecialchars($dadosServidor['nome']);
+        $descricao  = htmlspecialchars($dadosServidor['descricao']);
+        $ambiente   = htmlspecialchars($dadosServidor['ambiente']);
+        $ativo      = htmlspecialchars($dadosServidor['ativo']);
 
         $sql = "    INSERT INTO ARQ_DATABASE (NOME, DESCRICAO, AMBIENTE, ATIVO, DATA_INSERT)
                     VALUES ( :nome, :descricao, :ambiente, :ativo, CURRENT_TIMESTAMP);  
@@ -113,7 +113,7 @@ class ArqDatabase_model {
      */
     function deletaInfoDatabase($dadosServidor){
 
-        $id_database = $dadosServidor['id_database'];
+        $id_database = htmlspecialchars($dadosServidor['id_database']);
 
         $sql = "    DELETE  FROM ARQ_DATABASE
                     WHERE   ID = :id_database;
@@ -189,7 +189,7 @@ class ArqDatabase_model {
      */
     function deletaInfoItemDatabase($dadosServidor){
 
-        $id_item = $dadosServidor['id_item_database'];
+        $id_item = htmlspecialchars($dadosServidor['id_item_database']);
 
         $sql = "    DELETE  FROM SUBITEMS_ARQ_DATABASE
                     WHERE   id = ?
@@ -232,11 +232,11 @@ class ArqDatabase_model {
      */
     function updateInfoDatabase($dadosServidor){
 
-        $id_database    = $dadosServidor['id_database'];
-        $nome           = $dadosServidor['nome'];
-        $descricao      = $dadosServidor['descricao'];
-        $ambiente       = $dadosServidor['ambiente'];
-        $ativo          = $dadosServidor['ativo'];
+        $id_database    = htmlspecialchars($dadosServidor['id_database']);
+        $nome           = htmlspecialchars($dadosServidor['nome']);
+        $descricao      = htmlspecialchars($dadosServidor['descricao']);
+        $ambiente       = htmlspecialchars($dadosServidor['ambiente']);
+        $ativo          = htmlspecialchars($dadosServidor['ativo']);
 
         $sql = "    UPDATE ARQ_DATABASE SET      NOME = ?
                                                 ,DESCRICAO = ?
@@ -284,9 +284,9 @@ class ArqDatabase_model {
      */
     function updateDatabaseItem($dadosServidor){
 
-        $id_item    = $dadosServidor['id_item_database'];
-        $nome       = $dadosServidor['nome'];
-        $descricao  = $dadosServidor['descricao'];
+        $id_item    = htmlspecialchars($dadosServidor['id_item_database']);
+        $nome       = htmlspecialchars($dadosServidor['nome']);
+        $descricao  = htmlspecialchars($dadosServidor['descricao']);
 
         $sql = "    UPDATE SUBITEMS_ARQ_DATABASE SET     NOME = ?
                                                         ,DESCRICAO = ?
@@ -330,7 +330,7 @@ class ArqDatabase_model {
      */
     function retornaSubItemsDatabase($dadosServidor){
 
-        $id_database = $dadosServidor['id_database'];
+        $id_database = htmlspecialchars($dadosServidor['id_database']);
 
         $sql = "    SELECT  *
                     FROM    SUBITEMS_ARQ_DATABASE
@@ -351,9 +351,9 @@ class ArqDatabase_model {
     */   
     function insereInfoItemDatabase($dadosServidor){
 
-        $id_servidor     = $dadosServidor['id_database'];
-        $nome            = $dadosServidor['nome'];
-        $descricao       = $dadosServidor['descricao'];
+        $id_servidor     = htmlspecialchars($dadosServidor['id_database']);
+        $nome            = htmlspecialchars($dadosServidor['nome']);
+        $descricao       = htmlspecialchars($dadosServidor['descricao']);
 
         $sql = "    INSERT INTO SUBITEMS_ARQ_DATABASE (ID_DATABASE, NOME, DESCRICAO, DATA_INSERT)
                     VALUES ( ?, ?, ?, CURRENT_TIMESTAMP)";
