@@ -46,10 +46,6 @@ function retornaDadosJobTrigger() {
           "<h2 class='d-flex justify-content-center'>Não foram encontrados registros de documentação!</h2>"
         );
       }
-
-      $(".mj-content").append(
-        '<span><button type="button" class="btn btn-primary mt-2 ms-2" data-bs-toggle="modal" data-bs-target="#mj_modal_cria_jobtrigger">Adicionar Job ou Trigger</button></span>'
-      );
     },
     error: (data) => {
       console.log("Error --> ", data);

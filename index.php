@@ -90,6 +90,9 @@
                     </div>
                     <div class="as-content d-flex flex-column mt-5 p-2 border align-self-stretch overflow-auto h-100">  
                     </div>
+                    <span>
+                        <button type="button" class="btn btn-primary mt-2 ms-2" data-bs-toggle="modal" data-bs-target="#as_modal_cria_server">Adicionar servidor</button>
+                    </span>
                 </div>
             </div>
             <div id="tela-arq-db" class="painel hide_pannel container-fluid h-100">
@@ -105,6 +108,9 @@
                     </div>
                     <div class="db-content d-flex flex-column mt-5 p-2 border align-self-stretch overflow-auto h-100">  
                     </div>
+                    <span>
+                        <button type="button" class="btn btn-primary mt-2 ms-2" data-bs-toggle="modal" data-bs-target="#db_modal_cria_database">Adicionar servidor de database</button>
+                    </span>
                 </div>
             </div>
             <div id="tela-map-job" class="painel hide_pannel container-fluid h-100">
@@ -120,6 +126,9 @@
                     </div>
                     <div class="mj-content d-flex flex-column mt-5 p-2 border align-self-stretch overflow-auto h-100">  
                     </div>
+                    <span>
+                        <button type="button" class="btn btn-primary mt-2 ms-2" data-bs-toggle="modal" data-bs-target="#mj_modal_cria_jobtrigger">Adicionar Job ou Trigger</button>
+                    </span>
                 </div>
             </div>
             <div id="tela-map-sis" class="painel hide_pannel container-fluid h-100">
@@ -135,6 +144,9 @@
                     </div>
                     <div class="ms-content d-flex flex-column mt-5 p-2 border align-self-stretch overflow-auto h-100">  
                     </div>
+                    <span>
+                        <button type="button" class="btn btn-primary mt-2 ms-2" data-bs-toggle="modal" data-bs-target="#ms_modal_cria_mapsis">Adicionar sistema ou processo</button>
+                    </span>
                 </div>
             </div>
         </div>

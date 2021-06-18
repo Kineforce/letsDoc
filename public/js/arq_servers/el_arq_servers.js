@@ -49,10 +49,6 @@ $(document).ready(() => {
             "<h2 class='d-flex justify-content-center'>Não foram encontrados registros de documentação!</h2>"
           );
         }
-
-        $(".as-content").append(
-          '<span><button type="button" class="btn btn-primary mt-2 ms-2" data-bs-toggle="modal" data-bs-target="#as_modal_cria_server">Adicionar servidor</button></span>'
-        );
       },
     });
   });
