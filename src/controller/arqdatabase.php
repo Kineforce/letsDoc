@@ -16,11 +16,11 @@ class ArqDatabase_controller extends Helpers {
     function retornaInfoDatabase(){
 
 
-        $dados_servidor = $_GET['retornaInfoDatabase'];
+        $dados_database = $_GET['retornaInfoDatabase'];
 
-        $palavraBuscada = htmlspecialchars((isset($dados_servidor['palavraBuscada'])) ? $dados_servidor['palavraBuscada'] : '');
+        $palavraBuscada = htmlspecialchars((isset($dados_database['palavraBuscada'])) ? $dados_database['palavraBuscada'] : '');
 
-        $qtd_resultados = htmlspecialchars((isset($dados_servidor['qtd'])) ? $dados_servidor['qtd'] : '');
+        $qtd_resultados = htmlspecialchars((isset($dados_database['qtd'])) ? $dados_database['qtd'] : '');
 
         $limit = $qtd_resultados != "all" ? "LIMIT " . $qtd_resultados : "";
 

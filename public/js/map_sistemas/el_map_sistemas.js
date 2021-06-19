@@ -1,68 +1,4 @@
 $(document).ready(() => {
-  $("#ms-form_busca_dinamica").on("submit", (event) => {
-    event.preventDefault();
-
-    let palavraBuscada = $("#ms_input_busca_dinamica")[0].value;
-
-    $.ajax({
-      type: "GET",
-      url: `${urlServidor}src/routes/routes.php`,
-      data: { retornaDataFiltradaMapSistemas: palavraBuscada },
-      success: (response) => {
-        let data = JSON.parse(response);
-
-        $(".ms-content").html("");
-
-        if (data.dados.length != 0) {
-          // Montando html dos cards
-          let ms_cards_html = "";
-
-          ms_cards_html += "<table class='table'>";
-          ms_cards_html += "<thead>";
-          ms_cards_html += "<tr>";
-          ms_cards_html += "<th>ID</th>";
-          ms_cards_html += "<th>STATUS</th>";
-          ms_cards_html += "<th>NOME</th>";
-          ms_cards_html += "<th>DESCRICAO</th>";
-          ms_cards_html += "<th>ANEXO</th>";
-          ms_cards_html += "<th>DATABASE</th>";
-          ms_cards_html += "<th>SERVIDOR</th>";
-          ms_cards_html += "<th>SETOR</th>";
-          ms_cards_html += "<th>OCORRÊNCIA</th>";
-          ms_cards_html += "<th>DELETAR</th>";
-          ms_cards_html += "<th>AJUSTAR</th>";
-          ms_cards_html += "</tr>";
-          ms_cards_html += "</thead>";
-
-          data.dados.map((linha) => {
-            ms_cards_html += retornaCardMapSistemas(
-              linha.ID,
-              linha.ATIVO,
-              linha.NOME,
-              linha.DESCRICAO,
-              linha.ANEXO,
-              linha.DATABASE,
-              linha.SERVIDOR,
-              linha.SETOR,
-              linha.OCORRENCIA
-            );
-          });
-
-          ms_cards_html += "</table>";
-
-          $(".ms-content").html(ms_cards_html);
-        } else {
-          $(".ms-content").append(
-            "<h2 class='d-flex justify-content-center'>Não foram encontrados registros de documentação!</h2>"
-          );
-        }
-      },
-      error: (data) => {
-        console.log("Error --> ", data);
-      },
-    });
-  });
-
   // Listener que escuta o botão para cadastrar e envia um post para o servidor efetuar o cadastro
   $("#ms_cadastra").on("click", () => {
     let nome_mapsistemas = $("#ms_nome_mapsis").val();
@@ -180,5 +116,11 @@ $(document).ready(() => {
         });
       },
     });
+  });
+
+  $("#load_options_ms").on("change", (event) => {
+    let value_load_demand = event.target.value;
+
+    retornaDadosMapSistemas(null, value_load_demand);
   });
 });

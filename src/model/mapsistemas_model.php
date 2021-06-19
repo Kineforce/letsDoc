@@ -18,7 +18,7 @@ class MapSistemas_model {
          /**
      * Retorna informação com um parâmetro de filtro
      */
-    function retornaInfoMapSistemasFiltro($palavraBuscada){
+    function retornaInfoMapSistemasFiltro($palavraBuscada, $limit){
 
         $palavraBuscada = htmlspecialchars(strtolower($palavraBuscada));
 
@@ -33,6 +33,7 @@ class MapSistemas_model {
                     OR          lower(MS.SERVIDOR) LIKE :palavra_buscada
                     OR          lower(MS.SETOR) LIKE :palavra_buscada
                     OR          lower(MS.OCORRENCIA) LIKE :palavra_buscada
+                    $limit
                 
                 ";
 
@@ -45,14 +46,6 @@ class MapSistemas_model {
 
     }
 
-    function buscaDadosMapSistemas(){
-
-        $sql = "    SELECT  * 
-                    FROM    MAP_SISTEMAS";
-
-        $result = $this->pdo->query($sql)->fetchAll(PDO::FETCH_ASSOC);
-        return $result;
-    }
 
     function buscaAnexoAtualMapSistemas($id){
 

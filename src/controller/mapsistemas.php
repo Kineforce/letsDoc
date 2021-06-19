@@ -10,21 +10,19 @@ class MapSistemas_controller extends Helpers{
         $this->model_functions = new MapSistemas_model();
     }
 
+    function retornaDadosMapSistemas(){
 
-    function retornaDataFiltradaMapSistemas(){
+        $dados_map_sistemas = $_GET['retornaDadosMapSistemas'];
 
-        $palavraBuscada = htmlspecialchars((isset($_GET['retornaDataFiltradaMapSistemas'])) ? $_GET['retornaDataFiltradaMapSistemas'] : '');
+        $palavraBuscada = htmlspecialchars((isset($dados_map_sistemas['palavraBuscada'])) ? $dados_map_sistemas['palavraBuscada'] : '');
 
-        $data_array['dados'] = $this->model_functions->retornaInfoMapSistemasFiltro($palavraBuscada);
+        $qtd_resultados = htmlspecialchars((isset($dados_map_sistemas['qtd'])) ? $dados_map_sistemas['qtd'] : '');
+
+        $limit = $qtd_resultados != "all" ? "LIMIT " . $qtd_resultados : "";
+
+        $data_array['dados'] = $this->model_functions->retornaInfoMapSistemasFiltro($palavraBuscada, $limit);
     
         echo json_encode($data_array);
-    }
-
-
-    function retornaDadosMapSistemas(){
-        
-        $result['dados'] = $this->model_functions->buscaDadosMapSistemas();
-        echo json_encode($result);
 
     }
 

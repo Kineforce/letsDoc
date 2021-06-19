@@ -132,14 +132,6 @@ if(isset($_POST['updateIdDatabaseSubItem'])){
 
 /******** MAPEAMENTO DE JOBS E TRIGGERS NO BANCO ********/
 
-if(isset($_GET['retornaDataFiltradaJobTrigger'])){
-
-    $call_job_trigger->retornaDataFiltradaJobTrigger();
-    return;
-
-}
-
-
 if(isset($_GET['retornaDadosJobTrigger'])){
 
     $call_job_trigger->retornaDadosJobTrigger();
@@ -169,13 +161,6 @@ if(isset($_POST['updateIdJobTrigger'])){
 }
 
 /******** MAPEAMENTO DE SISTEMAS OU PROCESSOS ********/
-
-if(isset($_GET['retornaDataFiltradaMapSistemas'])){
-
-    $call_map_sistemas->retornaDataFiltradaMapSistemas();
-    return;
-
-}
 
 if(isset($_GET['retornaDadosMapSistemas'])){
 

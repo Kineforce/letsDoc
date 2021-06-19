@@ -1,57 +1,4 @@
 $(document).ready(() => {
-  $("#mj-form_busca_dinamica").on("submit", (event) => {
-    event.preventDefault();
-
-    let palavraBuscada = $("#mj_input_busca_dinamica")[0].value;
-
-    $.ajax({
-      type: "GET",
-      url: `${urlServidor}src/routes/routes.php`,
-      data: { retornaDataFiltradaJobTrigger: palavraBuscada },
-      success: (response) => {
-        let data = JSON.parse(response);
-
-        $(".mj-content").html("");
-
-        if (data.dados.length != 0) {
-          // Montando html dos cards
-          let mj_cards_html = "";
-
-          mj_cards_html += "<table class='table'>";
-          mj_cards_html += "<thead>";
-          mj_cards_html += "<tr>";
-          mj_cards_html += "<th>ID</th>";
-          mj_cards_html += "<th>STATUS</th>";
-          mj_cards_html += "<th>NOME</th>";
-          mj_cards_html += "<th>DESCRICAO</th>";
-          mj_cards_html += "<th>ORIGEM</th>";
-          mj_cards_html += "<th>DELETAR</th>";
-          mj_cards_html += "<th>AJUSTAR</th>";
-          mj_cards_html += "</tr>";
-          mj_cards_html += "</thead>";
-
-          data.dados.map((linha) => {
-            mj_cards_html += retornaCardJobTrigger(
-              linha.ID,
-              linha.ATIVO,
-              linha.NOME,
-              linha.DESCRICAO,
-              linha.ORIGEM
-            );
-          });
-
-          mj_cards_html += "</table>";
-
-          $(".mj-content").html(mj_cards_html);
-        } else {
-          $(".mj-content").append(
-            "<h2 class='d-flex justify-content-center'>Não foram encontrados registros de documentação!</h2>"
-          );
-        }
-      },
-    });
-  });
-
   // Listener que escuta o botão para cadastrar e envia um post para o servidor efetuar o cadastro
   $("#mj_cadastra").on("click", () => {
     let nome_jobtrigger = $("#mj_nome_jobtrigger").val();
@@ -142,5 +89,11 @@ $(document).ready(() => {
         });
       },
     });
+  });
+
+  $("#load_options_mt").on("change", (event) => {
+    let value_load_demand = event.target.value;
+
+    retornaDadosJobTrigger(null, value_load_demand);
   });
 });

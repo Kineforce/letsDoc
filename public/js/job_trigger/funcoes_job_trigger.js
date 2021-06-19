@@ -1,9 +1,22 @@
-function retornaDadosJobTrigger() {
+function retornaDadosJobTrigger(event, value_load_demand) {
+  if (event) {
+    event.preventDefault();
+  }
+
+  let val_opt = $("#load_options_mt").val();
+
+  if (val_opt) {
+    value_load_demand = val_opt;
+  }
+
+  let qtd = value_load_demand ? value_load_demand : 10;
+  let palavraBuscada = $("#mj_input_busca_dinamica")[0].value;
+
   // Carregar dados existentes no banco
   $.ajax({
     type: "GET",
     url: `${urlServidor}src/routes/routes.php`,
-    data: { retornaDadosJobTrigger: 1 },
+    data: { retornaDadosJobTrigger: { palavraBuscada, qtd } },
     success: (response) => {
       let data = JSON.parse(response);
 

@@ -136,7 +136,7 @@
                             <label for="mj-input_busca_dinamica" id="mj-label-busca-dinamica" class="form-label">Busque qualquer palavra: </label>
                             <input type="text" id="mj_input_busca_dinamica" class="form-control" value=""/>
                             <span>
-                                <input type="submit" class="btn btn-primary mt-2 ms-2" id="mj_pesquisa_filtrada" value="Pesquisar" />
+                                <input type="submit" class="btn btn-primary mt-2 ms-2" onclick="retornaDadosJobTrigger(event)" value="Pesquisar" />
                             </span>
                         </form>
                     </div>
@@ -149,7 +149,7 @@
                             <option value="all">Tudo</option>
                         </select>
                     </div>
-                    <div class="mj-content d-flex flex-column mt-5 p-2 border align-self-stretch overflow-auto h-100">  
+                    <div class="mj-content d-flex flex-column p-2 border align-self-stretch overflow-auto h-100">  
                     </div>
                     <span>
                         <button type="button" class="btn btn-primary mt-2 ms-2" data-bs-toggle="modal" data-bs-target="#mj_modal_cria_jobtrigger">Adicionar Job ou Trigger</button>
@@ -163,7 +163,7 @@
                             <label for="ms-input_busca_dinamica" id="ms-label-busca-dinamica" class="form-label">Busque qualquer palavra: </label>
                             <input type="text" id="ms_input_busca_dinamica" class="form-control" value=""/>
                             <span>
-                                <input type="submit" class="btn btn-primary mt-2 ms-2" id="ms_pesquisa_filtrada" value="Pesquisar" />
+                                <input type="submit" class="btn btn-primary mt-2 ms-2" onclick="retornaDadosMapSistemas(event)" value="Pesquisar" />
                             </span>
                         </form>
                     </div>
@@ -176,7 +176,7 @@
                             <option value="all">Tudo</option>
                         </select>
                     </div>
-                    <div class="ms-content d-flex flex-column mt-5 p-2 border align-self-stretch overflow-auto h-100">  
+                    <div class="ms-content d-flex flex-column p-2 border align-self-stretch overflow-auto h-100">  
                     </div>
                     <span>
                         <button type="button" class="btn btn-primary mt-2 ms-2" data-bs-toggle="modal" data-bs-target="#ms_modal_cria_mapsis">Adicionar sistema ou processo</button>
