@@ -16,22 +16,9 @@ class ArqServers_Model {
     }
 
     /**
-     * Retorna informação dos servidores
+     * Retorna informação dos servidores com parâmetros de filtro
      */
-    function retornaInfoArqServers(){
-
-        $sql = "SELECT * FROM ARQ_SERVERS;";
-
-        $result = $this->pdo->query($sql)->fetchAll(PDO::FETCH_ASSOC);
-
-        return $result;
-
-    }
-
-    /**
-     * Retorna informação dos servidores com um parâmetro de filtro
-     */
-    function retornaInfoArqServerFiltro($palavraBuscada){
+    function retornaInfoArqServerFiltro($palavraBuscada, $limit){
 
         $palavraBuscada = htmlspecialchars(strtolower($palavraBuscada));
 
@@ -45,7 +32,7 @@ class ArqServers_Model {
                     OR          lower(SRV.LINGUAGEM) LIKE :palavra_buscada
                     OR          lower(SUB.ITEM) LIKE :palavra_buscada
                     OR          lower(SUB.DESCRICAO) LIKE :palavra_buscada
-                
+                    $limit
                 ";
 
         $stmt = $this->pdo->prepare($sql);

@@ -1,58 +1,4 @@
 $(document).ready(() => {
-  $("#as-form_busca_dinamica").on("submit", (event) => {
-    event.preventDefault();
-
-    let palavraBuscada = $("#as_input_busca_dinamica")[0].value;
-
-    $.ajax({
-      type: "GET",
-      url: `${urlServidor}src/routes/routes.php`,
-      data: { retornaDataFiltrada: palavraBuscada },
-      success: (response) => {
-        let data = JSON.parse(response);
-
-        $(".as-content").html("");
-
-        if (data.dados.length !== 0) {
-          // Montando html dos cards
-          let as_cards_html = "";
-
-          as_cards_html += "<table class='table'>";
-          as_cards_html += "<thead>";
-          as_cards_html += "<tr>";
-          as_cards_html += "<th>ID</th>";
-          as_cards_html += "<th>SUBITEMS</th>";
-          as_cards_html += "<th>STATUS</th>";
-          as_cards_html += "<th>NOME</th>";
-          as_cards_html += "<th>OBJETIVO</th>";
-          as_cards_html += "<th>LINGUAGEM</th>";
-          as_cards_html += "<th>DELETAR</th>";
-          as_cards_html += "<th>AJUSTAR</th>";
-          as_cards_html += "</tr>";
-          as_cards_html += "</thead>";
-
-          data.dados.map((linha) => {
-            as_cards_html += retornaCardHtml(
-              linha.ID,
-              linha.ATIVO,
-              linha.NOME,
-              linha.OBJETIVO,
-              linha.LINGUAGEM
-            );
-          });
-
-          as_cards_html += "</table";
-
-          $(".as-content").html(as_cards_html);
-        } else {
-          $(".as-content").append(
-            "<h2 class='d-flex justify-content-center'>Não foram encontrados registros de documentação!</h2>"
-          );
-        }
-      },
-    });
-  });
-
   // Listener que escuta o botão para cadastrar e envia um post para o servidor efetuar o cadastro
   $("#as_cadastra").on("click", () => {
     let nome_servidor = $("#as_nome_servidor").val();
@@ -243,5 +189,11 @@ $(document).ready(() => {
         });
       },
     });
+  });
+
+  $("#load_options").on("change", (event) => {
+    let value_load_demand = event.target.value;
+
+    retornaDadosServidor(null, value_load_demand);
   });
 });

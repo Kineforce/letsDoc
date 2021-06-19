@@ -82,11 +82,20 @@
                             <label for="as-input_busca_dinamica" id="as-label-busca-dinamica" class="form-label">Busque qualquer palavra: </label>
                             <input type="text" id="as_input_busca_dinamica" class="form-control" value=""/>
                             <span>
-                                <button type="submit" class="btn btn-primary mt-2 ms-2" id="as_pesquisa_filtrada">Pesquisar</button>
+                                <button type="submit" class="btn btn-primary mt-2 ms-2" onclick="retornaDadosServidor(event)">Pesquisar</button>
                             </span>
                         </form>
                     </div>
-                    <div class="as-content d-flex flex-column mt-5 p-2 border align-self-stretch overflow-auto h-100">  
+                    <div id="load_on_demand">
+                        <select class="form-select mt-2 mb-2 w-auto" id="load_options">
+                            <option selected disabled>Quantidade resultados</option>
+                            <option value="10">10</option>
+                            <option value="50">50</option>
+                            <option value="100">100</option>
+                            <option value="all">Tudo</option>
+                        </select>
+                    </div>
+                    <div class="as-content d-flex flex-column p-2 border align-self-stretch overflow-auto h-100">  
                     </div>
                     <span>
                         <button type="button" class="btn btn-primary mt-2 ms-2" data-bs-toggle="modal" data-bs-target="#as_modal_cria_server">Adicionar servidor</button>

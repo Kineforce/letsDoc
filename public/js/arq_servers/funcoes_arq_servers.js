@@ -1,9 +1,20 @@
-function retornaDadosServidor() {
+function retornaDadosServidor(event, value_load_demand) {
+  if (event) {
+    event.preventDefault();
+  }
+
+  if ($("#load_options").val()) {
+    value_load_demand = $("#load_options").val();
+  }
+
+  let qtd = value_load_demand ? value_load_demand : 10;
+  let palavraBuscada = $("#as_input_busca_dinamica")[0].value;
+
   // Carregar dados existentes no banco
   $.ajax({
     type: "GET",
     url: `${urlServidor}src/routes/routes.php`,
-    data: { retornaInfoServidores: 1 },
+    data: { retornaInfoServidores: { palavraBuscada, qtd } },
     success: (response) => {
       let data = JSON.parse(response);
 

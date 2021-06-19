@@ -15,17 +15,15 @@ class ArqServers_controller extends Helpers{
 
     function retornaInfoServidores(){
 
-        $data_array['dados'] = $this->model_functions->retornaInfoArqServers();
-    
-        echo json_encode($data_array);
+        $dados_servidor = $_GET['retornaInfoServidores'];
 
-    }
+        $palavraBuscada = htmlspecialchars((isset($dados_servidor['palavraBuscada'])) ? $dados_servidor['palavraBuscada'] : '');
 
-    function retornaDataFiltrada(){
+        $qtd_resultados = htmlspecialchars((isset($dados_servidor['qtd'])) ? $dados_servidor['qtd'] : '');
 
-        $palavraBuscada = htmlspecialchars((isset($_GET['retornaDataFiltrada'])) ? $_GET['retornaDataFiltrada'] : '');
+        $limit = $qtd_resultados != "all" ? "LIMIT " . $qtd_resultados : "";
 
-        $data_array['dados'] = $this->model_functions->retornaInfoArqServerFiltro($palavraBuscada);
+        $data_array['dados'] = $this->model_functions->retornaInfoArqServerFiltro($palavraBuscada, $limit);
     
         echo json_encode($data_array);
     }

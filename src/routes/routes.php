@@ -23,12 +23,6 @@ if(isset($_GET['retornaInfoServidores'])){
 
 }
 
-if(isset($_GET['retornaDataFiltrada'])){
-
-    $call_arq_servers->retornaDataFiltrada();
-    return;
-}
-
 if(isset($_POST['cadastraDadosServidor'])){
 
     $call_arq_servers->cadastraDadosServidor();
