@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- CSS Bootstrap 5 -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+    <link rel="stylesheet" href="./public/bootstrap5/css/bootstrap.min.css">
     <!-- CSS Painel arquitetura de servidores -->
     <link rel="stylesheet" href="./public/css/style_arq_servers.css">
     <!-- CSS Painéis gerais -->
@@ -15,8 +15,6 @@
     <link rel="icon" href="./favicon.ico" />
     <!-- CSS Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
-    <!-- SweetAlert2 -->
-    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <title>govTI</title>
 </head>
 <body class="d-flex h-100">
@@ -592,9 +590,10 @@
     <!-- Scripts para a tela de mapeamento sistemas ou processos -->
     <script src="./public/js/map_sistemas/el_map_sistemas.js"></script>
     <script src="./public/js/map_sistemas/funcoes_map_sistemas.js"></script>
-
+    <!-- SweetAlert2 -->
+    <script src="./public/sweetalert2/package/dist/sweetalert2.all.min.js"></script>
     <!-- Bundle Bootstrap 5 -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
+    <script src="./public/bootstrap5/js/bootstrap.bundle.min.js"></script>
 
 </body>
 </html>
