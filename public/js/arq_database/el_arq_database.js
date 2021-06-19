@@ -1,58 +1,4 @@
 $(document).ready(() => {
-  $("#db-form_busca_dinamica").on("submit", (event) => {
-    event.preventDefault();
-
-    let palavraBuscada = $("#db_input_busca_dinamica")[0].value;
-
-    $.ajax({
-      type: "GET",
-      url: `${urlServidor}src/routes/routes.php`,
-      data: { retornaDataFiltradaDatabase: palavraBuscada },
-      success: (response) => {
-        let data = JSON.parse(response);
-
-        $(".db-content").html("");
-
-        if (data.dados.length != 0) {
-          // Montando html dos cards
-          let db_cards_html = "";
-
-          db_cards_html += "<table class='table'>";
-          db_cards_html += "<thead>";
-          db_cards_html += "<tr>";
-          db_cards_html += "<th>ID</th>";
-          db_cards_html += "<th>ITEMS</th>";
-          db_cards_html += "<th>STATUS</th>";
-          db_cards_html += "<th>NOME</th>";
-          db_cards_html += "<th>DESCRICAO</th>";
-          db_cards_html += "<th>AMBIENTE</th>";
-          db_cards_html += "<th>DELETAR</th>";
-          db_cards_html += "<th>AJUSTAR</th>";
-          db_cards_html += "</tr>";
-          db_cards_html += "</thead>";
-
-          data.dados.map((linha) => {
-            db_cards_html += retornaCardDatabaseHtml(
-              linha.ID,
-              linha.ATIVO,
-              linha.NOME,
-              linha.DESCRICAO,
-              linha.AMBIENTE
-            );
-          });
-
-          db_cards_html += "</table>";
-
-          $(".db-content").html(db_cards_html);
-        } else {
-          $(".db-content").append(
-            "<h2 class='d-flex justify-content-center'>Não foram encontrados registros de documentação!</h2>"
-          );
-        }
-      },
-    });
-  });
-
   // Listener que escuta o botão para cadastrar e envia um post para o servidor efetuar o cadastro
   $("#db_cadastra").on("click", () => {
     let nome_database = $("#db_nome_database").val();
@@ -229,5 +175,11 @@ $(document).ready(() => {
         });
       },
     });
+  });
+
+  $("#load_options_db").on("change", (event) => {
+    let value_load_demand = event.target.value;
+
+    retornaDadosDatabase(null, value_load_demand);
   });
 });

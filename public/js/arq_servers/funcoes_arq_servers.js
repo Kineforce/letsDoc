@@ -3,8 +3,10 @@ function retornaDadosServidor(event, value_load_demand) {
     event.preventDefault();
   }
 
-  if ($("#load_options").val()) {
-    value_load_demand = $("#load_options").val();
+  let val_opt = $("#load_options_as").val();
+
+  if (val_opt) {
+    value_load_demand = val_opt;
   }
 
   let qtd = value_load_demand ? value_load_demand : 10;

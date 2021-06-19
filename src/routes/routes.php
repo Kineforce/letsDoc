@@ -130,12 +130,6 @@ if(isset($_POST['updateIdDatabaseSubItem'])){
 }
 
 
-if(isset($_GET['retornaDataFiltradaDatabase'])){
-
-    $call_arq_database->retornaDataFiltradaDatabase();
-    return;
-}
-
 /******** MAPEAMENTO DE JOBS E TRIGGERS NO BANCO ********/
 
 if(isset($_GET['retornaDataFiltradaJobTrigger'])){

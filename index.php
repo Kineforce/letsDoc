@@ -86,8 +86,8 @@
                             </span>
                         </form>
                     </div>
-                    <div id="load_on_demand">
-                        <select class="form-select mt-2 mb-2 w-auto" id="load_options">
+                    <div>
+                        <select class="form-select mt-2 mb-2 w-auto" id="load_options_as">
                             <option selected disabled>Quantidade resultados</option>
                             <option value="10">10</option>
                             <option value="50">50</option>
@@ -109,11 +109,20 @@
                             <label for="db-input_busca_dinamica" id="db-label-busca-dinamica" class="form-label">Busque qualquer palavra: </label>
                             <input type="text" id="db_input_busca_dinamica" class="form-control" value=""/>
                             <span>
-                                <input type="submit" class="btn btn-primary mt-2 ms-2" id="db_pesquisa_filtrada" value="Pesquisar" />
+                                <input type="submit" class="btn btn-primary mt-2 ms-2" onclick="retornaDadosDatabase(event)" value="Pesquisar" />
                             </span>
                         </form>
                     </div>
-                    <div class="db-content d-flex flex-column mt-5 p-2 border align-self-stretch overflow-auto h-100">  
+                    <div>
+                        <select class="form-select mt-2 mb-2 w-auto" id="load_options_db">
+                            <option selected disabled>Quantidade resultados</option>
+                            <option value="10">10</option>
+                            <option value="50">50</option>
+                            <option value="100">100</option>
+                            <option value="all">Tudo</option>
+                        </select>
+                    </div>
+                    <div class="db-content d-flex flex-column p-2 border align-self-stretch overflow-auto h-100">  
                     </div>
                     <span>
                         <button type="button" class="btn btn-primary mt-2 ms-2" data-bs-toggle="modal" data-bs-target="#db_modal_cria_database">Adicionar servidor de database</button>
@@ -130,6 +139,15 @@
                                 <input type="submit" class="btn btn-primary mt-2 ms-2" id="mj_pesquisa_filtrada" value="Pesquisar" />
                             </span>
                         </form>
+                    </div>
+                    <div>
+                        <select class="form-select mt-2 mb-2 w-auto" id="load_options_mt">
+                            <option selected disabled>Quantidade resultados</option>
+                            <option value="10">10</option>
+                            <option value="50">50</option>
+                            <option value="100">100</option>
+                            <option value="all">Tudo</option>
+                        </select>
                     </div>
                     <div class="mj-content d-flex flex-column mt-5 p-2 border align-self-stretch overflow-auto h-100">  
                     </div>
@@ -148,6 +166,15 @@
                                 <input type="submit" class="btn btn-primary mt-2 ms-2" id="ms_pesquisa_filtrada" value="Pesquisar" />
                             </span>
                         </form>
+                    </div>
+                    <div>
+                        <select class="form-select mt-2 mb-2 w-auto" id="load_options_ms">
+                            <option selected disabled>Quantidade resultados</option>
+                            <option value="10">10</option>
+                            <option value="50">50</option>
+                            <option value="100">100</option>
+                            <option value="all">Tudo</option>
+                        </select>
                     </div>
                     <div class="ms-content d-flex flex-column mt-5 p-2 border align-self-stretch overflow-auto h-100">  
                     </div>

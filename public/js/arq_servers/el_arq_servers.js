@@ -191,7 +191,7 @@ $(document).ready(() => {
     });
   });
 
-  $("#load_options").on("change", (event) => {
+  $("#load_options_as").on("change", (event) => {
     let value_load_demand = event.target.value;
 
     retornaDadosServidor(null, value_load_demand);

@@ -13,10 +13,18 @@ class ArqDatabase_controller extends Helpers {
 
     }
 
-
     function retornaInfoDatabase(){
 
-        $data_array['dados'] = $this->model_functions->retornaInfoDatabase();
+
+        $dados_servidor = $_GET['retornaInfoDatabase'];
+
+        $palavraBuscada = htmlspecialchars((isset($dados_servidor['palavraBuscada'])) ? $dados_servidor['palavraBuscada'] : '');
+
+        $qtd_resultados = htmlspecialchars((isset($dados_servidor['qtd'])) ? $dados_servidor['qtd'] : '');
+
+        $limit = $qtd_resultados != "all" ? "LIMIT " . $qtd_resultados : "";
+
+        $data_array['dados'] = $this->model_functions->retornaInfoDatabaseFiltro($palavraBuscada, $limit);
     
         echo json_encode($data_array);
 
@@ -89,15 +97,6 @@ class ArqDatabase_controller extends Helpers {
 
     }
 
-    function retornaDataFiltradaDatabase(){
-
-        $palavraBuscada = htmlspecialchars((isset($_GET['retornaDataFiltradaDatabase'])) ? $_GET['retornaDataFiltradaDatabase'] : '');
-
-        $data_array['dados'] = $this->model_functions->retornaInfoArqServerFiltro($palavraBuscada);
-    
-        echo json_encode($data_array);
-
-    }
 
 
 }

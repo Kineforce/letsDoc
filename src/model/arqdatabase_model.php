@@ -15,23 +15,10 @@ class ArqDatabase_model {
 
     }
 
-    /**
-     * Retorna informação dos bancos de dados
-     */
-    function retornaInfoDatabase(){
-
-        $sql = "SELECT * FROM ARQ_DATABASE;";
-
-        $result = $this->pdo->query($sql)->fetchAll(PDO::FETCH_ASSOC);
-
-        return $result;
-
-    }
-
      /**
-     * Retorna informação dos servidores com um parâmetro de filtro
+     * Retorna informação dos servidores de database com um parâmetro de filtro
      */
-    function retornaInfoArqServerFiltro($palavraBuscada){
+    function retornaInfoDatabaseFiltro($palavraBuscada, $limit){
 
         $palavraBuscada = htmlspecialchars(strtolower($palavraBuscada));
 
@@ -44,7 +31,7 @@ class ArqDatabase_model {
                     OR          lower(DB.DESCRICAO) LIKE :palavra_buscada
                     OR          lower(SUB.NOME) LIKE :palavra_buscada
                     OR          lower(SUB.DESCRICAO) LIKE :palavra_buscada
-                
+                    $limit
                 ";
 
         $stmt = $this->pdo->prepare($sql);
@@ -59,12 +46,12 @@ class ArqDatabase_model {
     /**
      * Adiciona novo registro a respeito de database na tabela
      */
-    function insereInfoDatabase($dadosServidor){
+    function insereInfoDatabase($dadosDatabase){
         
-        $nome       = htmlspecialchars($dadosServidor['nome']);
-        $descricao  = htmlspecialchars($dadosServidor['descricao']);
-        $ambiente   = htmlspecialchars($dadosServidor['ambiente']);
-        $ativo      = htmlspecialchars($dadosServidor['ativo']);
+        $nome       = htmlspecialchars($dadosDatabase['nome']);
+        $descricao  = htmlspecialchars($dadosDatabase['descricao']);
+        $ambiente   = htmlspecialchars($dadosDatabase['ambiente']);
+        $ativo      = htmlspecialchars($dadosDatabase['ativo']);
 
         $sql = "    INSERT INTO ARQ_DATABASE (NOME, DESCRICAO, AMBIENTE, ATIVO, DATA_INSERT)
                     VALUES ( :nome, :descricao, :ambiente, :ativo, CURRENT_TIMESTAMP);  
@@ -114,9 +101,9 @@ class ArqDatabase_model {
      /**
      * Delete um registro de database presente na tabela
      */
-    function deletaInfoDatabase($dadosServidor){
+    function deletaInfoDatabase($dadosDatabase){
 
-        $id_database = htmlspecialchars($dadosServidor['id_database']);
+        $id_database = htmlspecialchars($dadosDatabase['id_database']);
 
         $sql = "    DELETE  FROM ARQ_DATABASE
                     WHERE   ID = :id_database;
@@ -190,9 +177,9 @@ class ArqDatabase_model {
     /**
      * Delete um subitem de uma database presente na tabela
      */
-    function deletaInfoItemDatabase($dadosServidor){
+    function deletaInfoItemDatabase($dadosDatabase){
 
-        $id_item = htmlspecialchars($dadosServidor['id_item_database']);
+        $id_item = htmlspecialchars($dadosDatabase['id_item_database']);
 
         $sql = "    DELETE  FROM SUBITEMS_ARQ_DATABASE
                     WHERE   id = ?
@@ -233,13 +220,13 @@ class ArqDatabase_model {
      /**
      * Atualiza um registro de database presente na tabela
      */
-    function updateInfoDatabase($dadosServidor){
+    function updateInfoDatabase($dadosDatabase){
 
-        $id_database    = htmlspecialchars($dadosServidor['id_database']);
-        $nome           = htmlspecialchars($dadosServidor['nome']);
-        $descricao      = htmlspecialchars($dadosServidor['descricao']);
-        $ambiente       = htmlspecialchars($dadosServidor['ambiente']);
-        $ativo          = htmlspecialchars($dadosServidor['ativo']);
+        $id_database    = htmlspecialchars($dadosDatabase['id_database']);
+        $nome           = htmlspecialchars($dadosDatabase['nome']);
+        $descricao      = htmlspecialchars($dadosDatabase['descricao']);
+        $ambiente       = htmlspecialchars($dadosDatabase['ambiente']);
+        $ativo          = htmlspecialchars($dadosDatabase['ativo']);
 
         $sql = "    UPDATE ARQ_DATABASE SET      NOME = ?
                                                 ,DESCRICAO = ?
@@ -285,11 +272,11 @@ class ArqDatabase_model {
     /**
      * Atualiza um registro de database presente na tabela
      */
-    function updateDatabaseItem($dadosServidor){
+    function updateDatabaseItem($dadosDatabase){
 
-        $id_item    = htmlspecialchars($dadosServidor['id_item_database']);
-        $nome       = htmlspecialchars($dadosServidor['nome']);
-        $descricao  = htmlspecialchars($dadosServidor['descricao']);
+        $id_item    = htmlspecialchars($dadosDatabase['id_item_database']);
+        $nome       = htmlspecialchars($dadosDatabase['nome']);
+        $descricao  = htmlspecialchars($dadosDatabase['descricao']);
 
         $sql = "    UPDATE SUBITEMS_ARQ_DATABASE SET     NOME = ?
                                                         ,DESCRICAO = ?
@@ -331,9 +318,9 @@ class ArqDatabase_model {
     /**
      * Efetua uma busca na tabela que armazena os sub-items relacionado ao ID da tabela fornecida
      */
-    function retornaSubItemsDatabase($dadosServidor){
+    function retornaSubItemsDatabase($dadosDatabase){
 
-        $id_database = htmlspecialchars($dadosServidor['id_database']);
+        $id_database = htmlspecialchars($dadosDatabase['id_database']);
 
         $sql = "    SELECT  *
                     FROM    SUBITEMS_ARQ_DATABASE
@@ -352,11 +339,11 @@ class ArqDatabase_model {
     /**
     * Adiciona novo registro a respeito do item de um database na tabela
     */   
-    function insereInfoItemDatabase($dadosServidor){
+    function insereInfoItemDatabase($dadosDatabase){
 
-        $id_servidor     = htmlspecialchars($dadosServidor['id_database']);
-        $nome            = htmlspecialchars($dadosServidor['nome']);
-        $descricao       = htmlspecialchars($dadosServidor['descricao']);
+        $id_database     = htmlspecialchars($dadosDatabase['id_database']);
+        $nome            = htmlspecialchars($dadosDatabase['nome']);
+        $descricao       = htmlspecialchars($dadosDatabase['descricao']);
 
         $sql = "    INSERT INTO SUBITEMS_ARQ_DATABASE (ID_DATABASE, NOME, DESCRICAO, DATA_INSERT)
                     VALUES ( ?, ?, ?, CURRENT_TIMESTAMP)";
@@ -382,7 +369,7 @@ class ArqDatabase_model {
                         ";
 
         $stmt = $this->pdo->prepare($sql);
-        $result = $stmt->execute(array($id_servidor, $nome, $descricao));
+        $result = $stmt->execute(array($id_database, $nome, $descricao));
 
         $stmt_log = $this->pdo->prepare($sql_log);
 
