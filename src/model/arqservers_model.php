@@ -99,8 +99,11 @@ class ArqServers_Model {
         $stmt_log = $this->pdo->prepare($sql_log);
         
         $result = $stmt->execute(array($nome, $objetivo, $linguagem, $ativo));
-        $ultimo_id_log = $this->pdo->lastInsertId();
-        $stmt_log->execute(array($ultimo_id_log));
+
+        $ultimo_registro_tabela = $this->pdo->query("SELECT IDENT_CURRENT('ARQ_SERVERS') AS ID")->fetchAll(PDO::FETCH_ASSOC);
+        $ultimo_id_tabela = intval($ultimo_registro_tabela[0]['ID']);
+        
+        $stmt_log->execute(array($ultimo_id_tabela));
 
 
         return $result;
@@ -145,10 +148,13 @@ class ArqServers_Model {
         $result = $stmt->execute(array($id_servidor, $nome, $descricao, $ativo));
 
         $stmt_log = $this->pdo->prepare($sql_log);
-        $ultimo_id_log = $this->pdo->lastInsertId();
-        $stmt_log->execute(array($ultimo_id_log));
 
-        return $ultimo_id_log;
+        $ultimo_registro_tabela = $this->pdo->query("SELECT IDENT_CURRENT('SUBITEMS_ARQ_SERVERS') AS ID")->fetchAll(PDO::FETCH_ASSOC);
+        $ultimo_id_tabela = intval($ultimo_registro_tabela[0]['ID']);
+
+        $stmt_log->execute(array($ultimo_id_tabela));
+
+        return $ultimo_id_tabela;
     }
 
 

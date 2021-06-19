@@ -91,7 +91,7 @@ function retornaCardMapSistemas(
   html += `${descricao}`;
   html += "</td>";
   html += `<td class="ms-anexo text-break" name="anexo" ${
-    anexo
+    anexo.length > 1
       ? 'data-bs-toggle="modal" data-bs-target="#ms_abre_anexo_modal" onclick="carregaAnexoModal(event)"'
       : ""
   }>`;

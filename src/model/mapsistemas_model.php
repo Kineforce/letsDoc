@@ -87,15 +87,15 @@ class MapSistemas_model {
                                                          OPERACAO
                                                         ,DATA_OPERACAO
                                                         ,USUARIO
-                                                        ,NOME
-                                                        ,DESCRICAO
-                                                        ,ANEXO
-                                                        ,[DATABASE]
-                                                        ,SERVIDOR
-                                                        ,SETOR
-                                                        ,OCORRENCIA
-                                                        ,ATIVO                                                                                                                        
-                                                        ,DATA_INSERT
+                                                        ,CAMPO_NOME
+                                                        ,CAMPO_DESCRICAO
+                                                        ,CAMPO_ANEXO
+                                                        ,CAMPO_DATABASE
+                                                        ,CAMPO_SERVIDOR
+                                                        ,CAMPO_SETOR
+                                                        ,CAMPO_OCORRENCIA
+                                                        ,CAMPO_ATIVO                                                                                                                        
+                                                        ,CAMPO_DATA_INSERT
                                                     )
         
                         SELECT  'CADASTRA' AS OPERACAO
@@ -119,8 +119,11 @@ class MapSistemas_model {
         $result = $stmt->execute(array($nome, $descricao, $nome_anexo, $database, $servidor, $setor, $ocorrencia, $ativo));
         
         $stmt_log = $this->pdo->prepare($sql_log);
-        $ultimo_registro = $this->pdo->lastInsertId();
-        $stmt_log->execute(array($ultimo_registro)); 
+
+        $ultimo_registro_tabela = $this->pdo->query("SELECT IDENT_CURRENT('MAP_SISTEMAS') AS ID")->fetchAll(PDO::FETCH_ASSOC);
+        $ultimo_id_tabela = intval($ultimo_registro_tabela[0]['ID']);
+
+        $stmt_log->execute(array($ultimo_id_tabela)); 
 
         return $result;
         
@@ -138,15 +141,15 @@ class MapSistemas_model {
                                                          OPERACAO
                                                         ,DATA_OPERACAO
                                                         ,USUARIO
-                                                        ,NOME
-                                                        ,DESCRICAO
-                                                        ,ANEXO
-                                                        ,[DATABASE]
-                                                        ,SERVIDOR
-                                                        ,SETOR
-                                                        ,OCORRENCIA
-                                                        ,ATIVO                                                                                                                        
-                                                        ,DATA_INSERT
+                                                        ,CAMPO_NOME
+                                                        ,CAMPO_DESCRICAO
+                                                        ,CAMPO_ANEXO
+                                                        ,CAMPO_DATABASE
+                                                        ,CAMPO_SERVIDOR
+                                                        ,CAMPO_SETOR
+                                                        ,CAMPO_OCORRENCIA
+                                                        ,CAMPO_ATIVO                                                                                                                        
+                                                        ,CAMPO_DATA_INSERT
                                                     )
         
                         SELECT  'REMOVE' AS OPERACAO
@@ -167,12 +170,12 @@ class MapSistemas_model {
         ";
 
         $stmt_log = $this->pdo->prepare($sql_log);
-        $stmt_log->execute(array($id));
+        $result_log = $stmt_log->execute(array($id));
 
         $stmt = $this->pdo->prepare($sql);
         $result = $stmt->execute(array($id));
 
-        return $result;
+        return $result_log;
 
     }
 
@@ -184,7 +187,7 @@ class MapSistemas_model {
         $database = htmlspecialchars($dados_map_sistemas_update['database']);
         $servidor = htmlspecialchars($dados_map_sistemas_update['servidor']);
         $setor = htmlspecialchars($dados_map_sistemas_update['setor']);
-        $ocorrencia = htmlspecialchars($dados_map_sistemas_update['ocorencia']);
+        $ocorrencia = htmlspecialchars($dados_map_sistemas_update['ocorrencia']);
         $ativo = htmlspecialchars($dados_map_sistemas_update['ativo']);
         
         $controla = true;
@@ -231,15 +234,15 @@ class MapSistemas_model {
                                                          OPERACAO
                                                         ,DATA_OPERACAO
                                                         ,USUARIO
-                                                        ,NOME
-                                                        ,DESCRICAO
-                                                        ,ANEXO
-                                                        ,[DATABASE]
-                                                        ,SERVIDOR
-                                                        ,SETOR
-                                                        ,OCORRENCIA
-                                                        ,ATIVO                                                                                                                        
-                                                        ,DATA_INSERT
+                                                        ,CAMPO_NOME
+                                                        ,CAMPO_DESCRICAO
+                                                        ,CAMPO_ANEXO
+                                                        ,CAMPO_DATABASE
+                                                        ,CAMPO_SERVIDOR
+                                                        ,CAMPO_SETOR
+                                                        ,CAMPO_OCORRENCIA
+                                                        ,CAMPO_ATIVO                                                                                                                   
+                                                        ,CAMPO_DATA_INSERT
                                                     )
         
                         SELECT  'ALTERA' AS OPERACAO

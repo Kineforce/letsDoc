@@ -59,19 +59,19 @@ class JobTrigger_model {
         $database = htmlspecialchars($dados_job_trigger['database']);
         $ativo = htmlspecialchars($dados_job_trigger['ativo']);
 
-        $sql = "    INSERT INTO MAP_JOB_TRIGGER (NOME, DESCRICAO, ATIVO, TABELA, DATABASE, DATA_INSERT)
+        $sql = "    INSERT INTO MAP_JOB_TRIGGER (NOME, DESCRICAO, ATIVO, TABELA, [DATABASE], DATA_INSERT)
                     VALUES  (?, ?, ?, ?, ?, CURRENT_TIMESTAMP)";
 
         $sql_log = "    INSERT INTO MAP_JOB_TRIGGER_LOG (
                                                              OPERACAO
                                                             ,DATA_OPERACAO
                                                             ,USUARIO
-                                                            ,NOME
-                                                            ,DESCRICAO
-                                                            ,ATIVO
-                                                            ,TABELA
-                                                            ,[DATABASE]
-                                                            ,DATA_INSERT
+                                                            ,CAMPO_NOME
+                                                            ,CAMPO_DESCRICAO
+                                                            ,CAMPO_ATIVO
+                                                            ,CAMPO_TABELA
+                                                            ,CAMPO_DATABASE
+                                                            ,CAMPO_DATA_INSERT
                                                         )
         
                         SELECT  'CADASTRA' AS OPERACAO
@@ -93,11 +93,12 @@ class JobTrigger_model {
         
         $stmt_log = $this->pdo->prepare($sql_log);
 
-        $ultimo_registro = $this->pdo->lastInsertId();
+        $ultimo_registro_tabela = $this->pdo->query("SELECT IDENT_CURRENT('MAP_JOB_TRIGGER') AS ID")->fetchAll(PDO::FETCH_ASSOC);
+        $ultimo_id_tabela = intval($ultimo_registro_tabela[0]['ID']);
 
-        $stmt_log->execute(array($ultimo_registro)); 
+        $stmt_log->execute(array($ultimo_id_tabela)); 
 
-        return $result;
+        return $sql_log;
         
 
     }
@@ -113,12 +114,12 @@ class JobTrigger_model {
                                                              OPERACAO
                                                             ,DATA_OPERACAO
                                                             ,USUARIO
-                                                            ,NOME
-                                                            ,DESCRICAO
-                                                            ,ATIVO
-                                                            ,TABELA
-                                                            ,[DATABASE]
-                                                            ,DATA_INSERT
+                                                            ,CAMPO_NOME
+                                                            ,CAMPO_DESCRICAO
+                                                            ,CAMPO_ATIVO
+                                                            ,CAMPO_TABELA
+                                                            ,CAMPO_DATABASE
+                                                            ,CAMPO_DATA_INSERT
                                                         )
         
                         SELECT  'REMOVE' AS OPERACAO
@@ -158,7 +159,7 @@ class JobTrigger_model {
                                                 DESCRICAO = ?,
                                                 ATIVO = ?,
                                                 TABELA = ?,
-                                                DATABASE = ?
+                                                [DATABASE] = ?
 
                     WHERE   ID = ?";
 
@@ -166,12 +167,12 @@ class JobTrigger_model {
                                                              OPERACAO
                                                             ,DATA_OPERACAO
                                                             ,USUARIO
-                                                            ,NOME
-                                                            ,DESCRICAO
-                                                            ,ATIVO
-                                                            ,TABELA
-                                                            ,[DATABASE]
-                                                            ,DATA_INSERT
+                                                            ,CAMPO_NOME
+                                                            ,CAMPO_DESCRICAO
+                                                            ,CAMPO_ATIVO
+                                                            ,CAMPO_TABELA
+                                                            ,CAMPO_DATABASE
+                                                            ,CAMPO_DATA_INSERT
                                                         )
         
                         SELECT  'ALTERA' AS OPERACAO
@@ -188,12 +189,12 @@ class JobTrigger_model {
                         
         ";
 
-        $stmt_log = $this->pdo->prepare($sql_log);
-        $stmt_log->execute(array($id));
-
         $stmt = $this->pdo->prepare($sql);                                            
         $result = $stmt->execute(array($nome, $descricao, $ativo, $tabela, $database, $id));
     
+        $stmt_log = $this->pdo->prepare($sql_log);
+        $stmt_log->execute(array($id));
+        
         return $result;
     }
 

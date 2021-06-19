@@ -32,6 +32,7 @@ class MapSistemas_controller extends Helpers{
 
         $nome_anexo = "";
         $dados_map_sistemas = $_POST;
+        $novo_nome_arquivo = '';
 
         // Verifica se existe algum anexo enviado junto com o post
         if (!empty($_FILES)){
