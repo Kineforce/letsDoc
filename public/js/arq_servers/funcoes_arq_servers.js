@@ -20,7 +20,6 @@ function retornaDadosServidor(event, value_load_demand) {
     success: (response) => {
       let data = JSON.parse(response);
       let count_searched = 0;
-      let total = 0;
 
       $(".as-content").html("");
 
@@ -63,7 +62,7 @@ function retornaDadosServidor(event, value_load_demand) {
         );
       }
 
-      count_search_as_html = `Mostrando <span class="text-primary">${count_searched}</span> de <span class="text-primary">${data.count[0].TOTAL}</span> resultados`;
+      let count_search_as_html = `Mostrando <span class="text-primary">${count_searched}</span> de <span class="text-primary">${data.count[0].TOTAL}</span> resultados`;
       $("#info_count_as").html(count_search_as_html);
     },
     error: (data) => {

@@ -14,6 +14,20 @@ class ArqDatabase_model {
         $this->pdo = $this->pdo->connect();
 
     }
+    /**
+    * Retorna o total de registros da tabela
+    */
+    function retornaTotalDatabase(){
+
+        $sql_count_total = "    SELECT      COUNT(*) AS TOTAL
+                                FROM        ARQ_DATABASE AS C_DB
+                                LEFT JOIN   SUBITEMS_ARQ_DATABASE C_SUB ON C_SUB.ID_DATABASE = C_DB.ID
+                            ";
+
+        $stmt_count_total = $this->pdo->query($sql_count_total)->fetchAll(PDO::FETCH_ASSOC);
+
+        return $stmt_count_total;
+    }
 
      /**
      * Retorna informação dos servidores de database com um parâmetro de filtro

@@ -19,6 +19,7 @@ function retornaDadosMapSistemas(event, value_load_demand) {
     data: { retornaDadosMapSistemas: { palavraBuscada, qtd } },
     success: (response) => {
       let data = JSON.parse(response);
+      let count_searched = 0;
 
       $(".ms-content").html("");
 
@@ -55,6 +56,7 @@ function retornaDadosMapSistemas(event, value_load_demand) {
             linha.SETOR,
             linha.OCORRENCIA
           );
+          count_searched += 1;
         });
 
         ms_cards_html += "</table>";
@@ -65,6 +67,9 @@ function retornaDadosMapSistemas(event, value_load_demand) {
           "<h2 class='d-flex justify-content-center'>Não foram encontrados registros de documentação!</h2>"
         );
       }
+
+      let count_search_ms_html = `Mostrando <span class="text-primary">${count_searched}</span> de <span class="text-primary">${data.count[0].TOTAL}</span> resultados`;
+      $("#info_count_ms").html(count_search_ms_html);
     },
     error: (data) => {
       console.log("Error --> ", data);

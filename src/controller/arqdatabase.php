@@ -25,7 +25,8 @@ class ArqDatabase_controller extends Helpers {
         $limit = $qtd_resultados != "all" ? "LIMIT " . $qtd_resultados : "";
 
         $data_array['dados'] = $this->model_functions->retornaInfoDatabaseFiltro($palavraBuscada, $limit);
-    
+        $data_array['count'] = $this->model_functions->retornaTotalDatabase();
+
         echo json_encode($data_array);
 
     }

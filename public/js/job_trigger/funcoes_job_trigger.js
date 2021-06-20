@@ -19,6 +19,7 @@ function retornaDadosJobTrigger(event, value_load_demand) {
     data: { retornaDadosJobTrigger: { palavraBuscada, qtd } },
     success: (response) => {
       let data = JSON.parse(response);
+      let count_searched = 0;
 
       $(".mj-content").html("");
 
@@ -49,6 +50,7 @@ function retornaDadosJobTrigger(event, value_load_demand) {
             linha.TABELA,
             linha.DATABASE
           );
+          count_searched += 1;
         });
 
         mj_cards_html += "</table>";
@@ -59,6 +61,9 @@ function retornaDadosJobTrigger(event, value_load_demand) {
           "<h2 class='d-flex justify-content-center'>Não foram encontrados registros de documentação!</h2>"
         );
       }
+
+      let count_search_mt_html = `Mostrando <span class="text-primary">${count_searched}</span> de <span class="text-primary">${data.count[0].TOTAL}</span> resultados`;
+      $("#info_count_mt").html(count_search_mt_html);
     },
     error: (data) => {
       console.log("Error --> ", data);

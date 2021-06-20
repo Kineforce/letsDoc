@@ -21,7 +21,8 @@ class MapSistemas_controller extends Helpers{
         $limit = $qtd_resultados != "all" ? "LIMIT " . $qtd_resultados : "";
 
         $data_array['dados'] = $this->model_functions->retornaInfoMapSistemasFiltro($palavraBuscada, $limit);
-    
+        $data_array['count'] = $this->model_functions->retornaTotalMapSistemas();
+
         echo json_encode($data_array);
 
     }

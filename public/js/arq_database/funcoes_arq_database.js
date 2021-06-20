@@ -19,6 +19,7 @@ function retornaDadosDatabase(event, value_load_demand) {
     data: { retornaInfoDatabase: { palavraBuscada, qtd } },
     success: (response) => {
       let data = JSON.parse(response);
+      let count_searched = 0;
 
       $(".db-content").html("");
 
@@ -48,6 +49,7 @@ function retornaDadosDatabase(event, value_load_demand) {
             linha.DESCRICAO,
             linha.AMBIENTE
           );
+          count_searched += 1;
         });
 
         db_cards_html += "</table>";
@@ -58,6 +60,9 @@ function retornaDadosDatabase(event, value_load_demand) {
           "<h2 class='d-flex justify-content-center'>Não foram encontrados registros de documentação!</h2>"
         );
       }
+
+      let count_search_db_html = `Mostrando <span class="text-primary">${count_searched}</span> de <span class="text-primary">${data.count[0].TOTAL}</span> resultados`;
+      $("#info_count_db").html(count_search_db_html);
     },
     error: (data) => {
       console.log("Error --> ", data);

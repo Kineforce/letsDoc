@@ -14,8 +14,21 @@ class MapSistemas_model {
         $this->pdo = $this->pdo->connect();
 
     }
+    /**
+    * Retorna o total de registros da tabela
+    */
+    function retornaTotalMapSistemas(){
 
-         /**
+        $sql_count_total = "    SELECT      COUNT(*) AS TOTAL
+                                FROM        MAP_SISTEMAS
+                            ";
+
+        $stmt_count_total = $this->pdo->query($sql_count_total)->fetchAll(PDO::FETCH_ASSOC);
+
+        return $stmt_count_total;
+    }
+
+    /**
      * Retorna informação com um parâmetro de filtro
      */
     function retornaInfoMapSistemasFiltro($palavraBuscada, $limit){

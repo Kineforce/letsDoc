@@ -115,7 +115,7 @@
                             </span>
                         </form>
                     </div>
-                    <div>
+                    <div class="d-flex">
                         <select class="form-select mt-2 mb-2 w-auto" id="load_options_db">
                             <option selected disabled>Quantidade resultados</option>
                             <option value="10">10</option>
@@ -123,6 +123,8 @@
                             <option value="100">100</option>
                             <option value="all">Tudo</option>
                         </select>
+                        <div class="ms-auto align-self-center" id="info_count_db">
+                        </div>
                     </div>
                     <div class="db-content d-flex flex-column p-2 border align-self-stretch overflow-auto h-100">  
                     </div>
@@ -132,8 +134,8 @@
                 </div>
             </div>
             <div id="tela-map-job" class="painel hide_pannel container-fluid h-100">
-                <div class="db-content-wrapper d-flex flex-column w-100">
-                    <div class="db-label_busca_dinamica">
+                <div class="mj-content-wrapper d-flex flex-column w-100">
+                    <div class="mj-label_busca_dinamica">
                         <form id="mj-form_busca_dinamica" class="form-group d-flex flex-column">
                             <label for="mj-input_busca_dinamica" id="mj-label-busca-dinamica" class="form-label">Busque qualquer palavra: </label>
                             <input type="text" id="mj_input_busca_dinamica" class="form-control" value=""/>
@@ -142,7 +144,7 @@
                             </span>
                         </form>
                     </div>
-                    <div>
+                    <div class="d-flex">
                         <select class="form-select mt-2 mb-2 w-auto" id="load_options_mt">
                             <option selected disabled>Quantidade resultados</option>
                             <option value="10">10</option>
@@ -150,6 +152,8 @@
                             <option value="100">100</option>
                             <option value="all">Tudo</option>
                         </select>
+                        <div class="ms-auto align-self-center" id="info_count_mt">
+                        </div>
                     </div>
                     <div class="mj-content d-flex flex-column p-2 border align-self-stretch overflow-auto h-100">  
                     </div>
@@ -169,7 +173,7 @@
                             </span>
                         </form>
                     </div>
-                    <div>
+                    <div class="d-flex">
                         <select class="form-select mt-2 mb-2 w-auto" id="load_options_ms">
                             <option selected disabled>Quantidade resultados</option>
                             <option value="10">10</option>
@@ -177,6 +181,8 @@
                             <option value="100">100</option>
                             <option value="all">Tudo</option>
                         </select>
+                        <div class="ms-auto align-self-center" id="info_count_ms">
+                        </div>
                     </div>
                     <div class="ms-content d-flex flex-column p-2 border align-self-stretch overflow-auto h-100">  
                     </div>
