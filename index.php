@@ -86,7 +86,7 @@
                             </span>
                         </form>
                     </div>
-                    <div>
+                    <div class="d-flex">
                         <select class="form-select mt-2 mb-2 w-auto" id="load_options_as">
                             <option selected disabled>Quantidade resultados</option>
                             <option value="10">10</option>
@@ -94,6 +94,8 @@
                             <option value="100">100</option>
                             <option value="all">Tudo</option>
                         </select>
+                        <div class="ms-auto align-self-center" id="info_count_as">
+                        </div>
                     </div>
                     <div class="as-content d-flex flex-column p-2 border align-self-stretch overflow-auto h-100">  
                     </div>

@@ -24,7 +24,8 @@ class ArqServers_controller extends Helpers{
         $limit = $qtd_resultados != "all" ? "LIMIT " . $qtd_resultados : "";
 
         $data_array['dados'] = $this->model_functions->retornaInfoArqServerFiltro($palavraBuscada, $limit);
-    
+        $data_array['count'] = $this->model_functions->retornaTotalArqServer();
+
         echo json_encode($data_array);
     }
 

@@ -16,6 +16,21 @@ class ArqServers_Model {
     }
 
     /**
+    * Retorna o total de registros da tabela
+    */
+    function retornaTotalArqServer(){
+
+        $sql_count_total = "    SELECT      COUNT(*) AS TOTAL
+                                FROM        ARQ_SERVERS AS C_SRV
+                                LEFT JOIN   SUBITEMS_ARQ_SERVERS AS C_SUB ON C_SUB.ID_SERVIDOR = C_SRV.ID";
+
+        $stmt_count_total = $this->pdo->query($sql_count_total)->fetchAll(PDO::FETCH_ASSOC);
+
+        return $stmt_count_total;
+    }
+
+
+    /**
      * Retorna informação dos servidores com parâmetros de filtro
      */
     function retornaInfoArqServerFiltro($palavraBuscada, $limit){
@@ -24,7 +39,7 @@ class ArqServers_Model {
 
         $search = "%$palavraBuscada%";
 
-        $sql = "    SELECT      DISTINCT SRV.*
+        $sql = "    SELECT      DISTINCT SRV.*                                
                     FROM        ARQ_SERVERS AS SRV 
                     LEFT JOIN   SUBITEMS_ARQ_SERVERS SUB ON SUB.ID_SERVIDOR = SRV.ID
                     WHERE       lower(SRV.NOME) LIKE :palavra_buscada
