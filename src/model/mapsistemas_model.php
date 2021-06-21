@@ -27,7 +27,20 @@ class MapSistemas_model {
 
         return $stmt_count_total;
     }
+    
+    /**
+    * Retorna o total de registros da tabela
+    */
+    function retornaExcelMapSistemas(){
 
+        $sql_count_total = "    SELECT      *
+                                FROM        MAP_SISTEMAS
+                            ";
+
+        $stmt_count_total = $this->pdo->query($sql_count_total)->fetchAll(PDO::FETCH_ASSOC);
+
+        return $stmt_count_total;
+    }
     /**
      * Retorna informação com um parâmetro de filtro
      */

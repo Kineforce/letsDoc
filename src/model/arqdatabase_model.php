@@ -28,6 +28,21 @@ class ArqDatabase_model {
 
         return $stmt_count_total;
     }
+    
+    /**
+    * Retorna o total de registros da tabela
+    */
+    function retornaExcelDatabase(){
+
+        $sql_count_total = "    SELECT      C_DB.*
+                                FROM        ARQ_DATABASE AS C_DB
+                                LEFT JOIN   SUBITEMS_ARQ_DATABASE C_SUB ON C_SUB.ID_DATABASE = C_DB.ID
+                            ";
+
+        $stmt_count_total = $this->pdo->query($sql_count_total)->fetchAll(PDO::FETCH_ASSOC);
+
+        return $stmt_count_total;
+    }
 
      /**
      * Retorna informação dos servidores de database com um parâmetro de filtro

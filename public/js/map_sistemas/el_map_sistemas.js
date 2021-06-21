@@ -66,7 +66,6 @@ $(document).ready(() => {
       },
     });
   });
-
   // Listener que escuta o botão para fazer update e envia um post para o servidor efetuar o update
   $("#ms_update").on("click", (event) => {
     let id_mapsistemas = $("#ms_id_update").val();
@@ -151,7 +150,6 @@ $(document).ready(() => {
       },
     });
   });
-
   $("#load_options_ms").on("change", (event) => {
     let value_load_demand = event.target.value;
 

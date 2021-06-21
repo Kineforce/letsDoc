@@ -45,6 +45,29 @@ $(document).ready(() => {
     retornaDadosMapSistemas();
     exibePainel("tela-map-sis");
   });
+
+  $(".export_excel").on("click", (event) => {
+    let which_table = event.target.getAttribute("table");
+    let table = "";
+
+    if (which_table == "as") {
+      table = "?exportaServersExcel=1";
+    }
+
+    if (which_table == "db") {
+      table = "?exportaDatabaseExcel=1";
+    }
+
+    if (which_table == "mt") {
+      table = "?exportaJobTriggerExcel=1";
+    }
+
+    if (which_table == "ms") {
+      table = "?exportaMapSistemasExcel=1";
+    }
+
+    window.location = `${urlServidor}src/routes/routes.php/${table}`;
+  });
 });
 
 function exibePainel(id_menu) {

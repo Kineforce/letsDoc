@@ -44,7 +44,7 @@ class MapSistemas_controller extends Helpers{
 
             $nome_anexo = $novo_nome_arquivo;
         }
-        
+
         $result = $this->model_functions->insereDadosMapSistemas($dados_map_sistemas, $novo_nome_arquivo);
         echo json_encode($result);  
 
@@ -103,6 +103,54 @@ class MapSistemas_controller extends Helpers{
 
         $this->model_functions->updateMapSistemas($dados_map_sistemas_update, $nome_anexo_updated);
         echo json_encode(array("data" => $nome_anexo_updated));
+
+    }
+
+    function retornaExcelMapSistemas(){
+        $data_servidores_web = $this->model_functions->retornaExcelMapSistemas();
+
+        $nome_do_arquivo = "map_sistemas_" . date("Y_m_d_H_i_s") . ".xls";
+
+        $conteudo_excel = " <table>
+                                <thead>
+                                    <tr>
+                                        <td>NOME</td>
+                                        <td>DESCRICAO</td>
+                                        <td>ANEXO</td>
+                                        <td>DATABASE</td>
+                                        <td>SERVIDOR</td>
+                                        <td>SETOR</td>
+                                        <td>OCORRENCIA</td>
+                                        <td>ATIVO</td>
+                                        <td>DATA_INSERT</td>
+                                    </tr>
+                                </thead>
+                            ";
+
+        $conteudo_excel .= " <tbody>";
+        
+        foreach($data_servidores_web as $linha){
+            $conteudo_excel .= "<tr>";
+                $conteudo_excel .= "<td>" . utf8_decode($linha['NOME']) . "</td>";
+                $conteudo_excel .= "<td>" . utf8_decode($linha['DESCRICAO']) . "</td>";
+                $conteudo_excel .= "<td>" . utf8_decode($linha['ANEXO']) . "</td>";
+                $conteudo_excel .= "<td>" . utf8_decode($linha['DATABASE']) . "</td>";
+                $conteudo_excel .= "<td>" . utf8_decode($linha['SERVIDOR']) . "</td>";
+                $conteudo_excel .= "<td>" . utf8_decode($linha['SETOR']) . "</td>";
+                $conteudo_excel .= "<td>" . utf8_decode($linha['OCORRENCIA']) . "</td>";
+                $conteudo_excel .= "<td>" . utf8_decode($linha['ATIVO']) . "</td>";
+                $conteudo_excel .= "<td>" . utf8_decode($linha['DATA_INSERT']) . "</td>";
+
+            $conteudo_excel .= "</tr>";
+        }
+
+        $conteudo_excel .= " </tbody>";
+        $conteudo_excel .= " </table>";
+
+        header('Content-type: application/ms-excel');
+        header('Content-Disposition: attachment; filename='.$nome_do_arquivo);
+
+        echo $conteudo_excel;
 
     }
 

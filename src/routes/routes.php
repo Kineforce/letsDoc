@@ -1,4 +1,5 @@
 <?php
+header('Content-Type: text/html; charset=utf-8');
 
 error_reporting(E_ALL | E_WARNING | E_NOTICE);
 ini_set('display_errors', 1);
@@ -169,15 +170,13 @@ if(isset($_GET['retornaDadosMapSistemas'])){
 
 }
 
-
 if(isset($_POST['cadastraDadosMapSistemas'])){
 
-    
+
     $call_map_sistemas->cadastraDadosMapSistemas();
     return;
 
 }
-
 
 if(isset($_POST['deletaMapSistemas'])){
 
@@ -191,4 +190,30 @@ if(isset($_POST['updateMapSistemas'])){
     $call_map_sistemas->updateMapSistemas();
     return;
 
+}
+
+/******** EXPORTAÇÃO DE EXCEL ********/
+
+if(isset($_GET['exportaServersExcel'])){
+ 
+    $call_arq_servers->retornaExcelServidor();
+    return;
+}
+
+if(isset($_GET['exportaDatabaseExcel'])){
+ 
+    $call_arq_database->retornaExcelDatabase();
+    return;
+}
+
+if(isset($_GET['exportaJobTriggerExcel'])){
+
+    $call_job_trigger->retornaExcelJobTrigger();
+    return;
+}
+
+if(isset($_GET['exportaMapSistemasExcel'])){
+ 
+    $call_map_sistemas->retornaExcelMapSistemas();
+    return;
 }

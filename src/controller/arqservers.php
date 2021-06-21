@@ -90,6 +90,44 @@ class ArqServers_controller extends Helpers{
 
     }
 
+    function retornaExcelServidor(){
+        $data_servidores_web = $this->model_functions->retornaServerExcel();
+
+        $nome_do_arquivo = "servidores_web_" . date("Y_m_d_H_i_s") . ".xls";
+        $conteudo_excel = " <table>
+                                <thead>
+                                    <tr>
+                                        <td>NOME</td>
+                                        <td>OBJETIVO</td>
+                                        <td>LINGUAGEM</td>
+                                        <td>ATIVO</td>
+                                        <td>DATA_INSERT</td>
+                                    </tr>
+                                </thead>
+                            ";
+
+        $conteudo_excel .= " <tbody>";
+        
+        foreach($data_servidores_web as $linha){
+            $conteudo_excel .= "<tr>";
+                $conteudo_excel .= "<td>" . utf8_decode($linha['NOME']) . "</td>";
+                $conteudo_excel .= "<td>" . utf8_decode($linha['OBJETIVO']) . "</td>";
+                $conteudo_excel .= "<td>" . utf8_decode($linha['LINGUAGEM']) . "</td>";
+                $conteudo_excel .= "<td>" . utf8_decode($linha['ATIVO']) . "</td>";
+                $conteudo_excel .= "<td>" . utf8_decode($linha['DATA_INSERT']) . "</td>";
+            $conteudo_excel .= "</tr>";
+        }
+
+        $conteudo_excel .= " </tbody>";
+        $conteudo_excel .= " </table>";
+
+        header('Content-type: application/ms-excel');
+        header('Content-Disposition: attachment; filename='.$nome_do_arquivo);
+
+        echo $conteudo_excel;
+
+    }
+
 
 }
 

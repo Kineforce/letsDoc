@@ -30,6 +30,20 @@ class JobTrigger_model {
     }
 
     /**
+    * Retorna o total de registros da tabela
+    */
+    function retornaExcelJobTrigger(){
+
+        $sql_count_total = "    SELECT      *
+                                FROM        MAP_JOB_TRIGGER
+                            ";
+
+        $stmt_count_total = $this->pdo->query($sql_count_total)->fetchAll(PDO::FETCH_ASSOC);
+
+        return $stmt_count_total;
+    }
+
+    /**
      * Retorna informação com um parâmetro de filtro
      */
     function retornaInfoJobTriggerFiltro($palavraBuscada, $limit){

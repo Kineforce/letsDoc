@@ -29,6 +29,21 @@ class ArqServers_Model {
         return $stmt_count_total;
     }
 
+    /**
+    * Retorna todos os registros para exportação em Excel
+    */
+    function retornaServerExcel(){
+
+        $sql_count_total = "    SELECT      C_SRV.*
+                                FROM        ARQ_SERVERS AS C_SRV
+                                LEFT JOIN   SUBITEMS_ARQ_SERVERS AS C_SUB ON C_SUB.ID_SERVIDOR = C_SRV.ID";
+
+        $stmt_count_total = $this->pdo->query($sql_count_total)->fetchAll(PDO::FETCH_ASSOC);
+
+        return $stmt_count_total;
+
+    }
+
 
     /**
      * Retorna informação dos servidores com parâmetros de filtro
