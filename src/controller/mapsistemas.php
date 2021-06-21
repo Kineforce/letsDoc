@@ -101,8 +101,8 @@ class MapSistemas_controller extends Helpers{
         }
 
 
-        $result = $this->model_functions->updateMapSistemas($dados_map_sistemas_update, $nome_anexo_updated);
-        echo json_encode($result);
+        $this->model_functions->updateMapSistemas($dados_map_sistemas_update, $nome_anexo_updated);
+        echo json_encode(array("data" => $nome_anexo_updated));
 
     }
 

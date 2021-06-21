@@ -177,7 +177,8 @@ function deletaDadosDatabase(event) {
         data: { deletaIdDatabase },
         success: () => {
           // Atualiza as informações na tela
-          $("#arquitetura-banco").click();
+          current_card.remove();
+
           Swal.fire({
             heightAuto: false,
             icon: "success",
@@ -204,6 +205,9 @@ function openModalUpdateDatabase(event) {
   // console.log(event.target.parentElement.parentElement.parentElement);
   let current_card = event.target.closest(".db-card");
   current_card = $(current_card);
+
+  //Linha selecionada
+  current_card.attr("id", "selecionado");
 
   //Seleciona os dados da linha clicada
   let id = current_card.find(".db-card-id").text();

@@ -87,17 +87,22 @@
                         </form>
                     </div>
                     <div class="d-flex">
-                        <select class="form-select mt-2 mb-2 w-auto" id="load_options_as">
+                        <select class="form-select mt-2 mb-2 w-auto load_options_geral" id="load_options_as">
                             <option selected disabled>Quantidade resultados</option>
                             <option value="10">10</option>
                             <option value="50">50</option>
                             <option value="100">100</option>
                             <option value="all">Tudo</option>
                         </select>
-                        <div class="ms-auto align-self-center" id="info_count_as">
+                        <div class="d-flex ms-auto">
+                            <div class="me-3 h2 align-self-center">
+                                <img class="span-menu-generico export_excel" style="cursor:pointer" src="./public/Icons/excel.png"/ width="40px" height="40px" title="Exportar para excel" table="as">
+                            </div>
+                            <div class="align-self-center" id="info_count_as">
+                            </div>
                         </div>
                     </div>
-                    <div class="as-content d-flex flex-column p-2 border align-self-stretch overflow-auto h-100">  
+                    <div class="as-content content-geral d-flex flex-column p-2 border align-self-stretch overflow-auto h-100">  
                     </div>
                     <span>
                         <button type="button" class="btn btn-primary mt-2 ms-2" data-bs-toggle="modal" data-bs-target="#as_modal_cria_server">Adicionar servidor</button>
@@ -116,17 +121,22 @@
                         </form>
                     </div>
                     <div class="d-flex">
-                        <select class="form-select mt-2 mb-2 w-auto" id="load_options_db">
+                        <select class="form-select mt-2 mb-2 w-auto load_options_geral" id="load_options_db">
                             <option selected disabled>Quantidade resultados</option>
                             <option value="10">10</option>
                             <option value="50">50</option>
                             <option value="100">100</option>
                             <option value="all">Tudo</option>
                         </select>
-                        <div class="ms-auto align-self-center" id="info_count_db">
+                        <div class="d-flex ms-auto">
+                            <div class="me-3 h2 align-self-center">
+                                <img class="span-menu-generico export_excel" style="cursor:pointer" src="./public/Icons/excel.png"/ width="40px" height="40px" title="Exportar para excel" table="db">
+                            </div>
+                            <div class="align-self-center" id="info_count_db">
+                            </div>
                         </div>
                     </div>
-                    <div class="db-content d-flex flex-column p-2 border align-self-stretch overflow-auto h-100">  
+                    <div class="db-content content-geral d-flex flex-column p-2 border align-self-stretch overflow-auto h-100">  
                     </div>
                     <span>
                         <button type="button" class="btn btn-primary mt-2 ms-2" data-bs-toggle="modal" data-bs-target="#db_modal_cria_database">Adicionar servidor de database</button>
@@ -145,17 +155,22 @@
                         </form>
                     </div>
                     <div class="d-flex">
-                        <select class="form-select mt-2 mb-2 w-auto" id="load_options_mt">
+                        <select class="form-select mt-2 mb-2 w-auto load_options_geral" id="load_options_mt">
                             <option selected disabled>Quantidade resultados</option>
                             <option value="10">10</option>
                             <option value="50">50</option>
                             <option value="100">100</option>
                             <option value="all">Tudo</option>
                         </select>
-                        <div class="ms-auto align-self-center" id="info_count_mt">
+                        <div class="d-flex ms-auto">
+                            <div class="me-3 h2 align-self-center">
+                                <img class="span-menu-generico export_excel" style="cursor:pointer" src="./public/Icons/excel.png"/ width="40px" height="40px" title="Exportar para excel" table="mt">
+                            </div>
+                            <div class="align-self-center" id="info_count_mt">
+                            </div>
                         </div>
                     </div>
-                    <div class="mj-content d-flex flex-column p-2 border align-self-stretch overflow-auto h-100">  
+                    <div class="mj-content content-geral d-flex flex-column p-2 border align-self-stretch overflow-auto h-100">  
                     </div>
                     <span>
                         <button type="button" class="btn btn-primary mt-2 ms-2" data-bs-toggle="modal" data-bs-target="#mj_modal_cria_jobtrigger">Adicionar Job ou Trigger</button>
@@ -174,17 +189,22 @@
                         </form>
                     </div>
                     <div class="d-flex">
-                        <select class="form-select mt-2 mb-2 w-auto" id="load_options_ms">
+                        <select class="form-select mt-2 mb-2 w-auto load_options_geral" id="load_options_ms">
                             <option selected disabled>Quantidade resultados</option>
                             <option value="10">10</option>
                             <option value="50">50</option>
                             <option value="100">100</option>
                             <option value="all">Tudo</option>
                         </select>
-                        <div class="ms-auto align-self-center" id="info_count_ms">
+                        <div class="d-flex ms-auto">
+                            <div class="me-3 h2 align-self-center">
+                                <img class="span-menu-generico export_excel" style="cursor:pointer" src="./public/Icons/excel.png"/ width="40px" height="40px" title="Exportar para excel" table="ms">
+                            </div>
+                            <div class="align-self-center" id="info_count_ms">
+                            </div>
                         </div>
                     </div>
-                    <div class="ms-content d-flex flex-column p-2 border align-self-stretch overflow-auto h-100">  
+                    <div class="ms-content content-geral d-flex flex-column p-2 border align-self-stretch overflow-auto h-100">  
                     </div>
                     <span>
                         <button type="button" class="btn btn-primary mt-2 ms-2" data-bs-toggle="modal" data-bs-target="#ms_modal_cria_mapsis">Adicionar sistema ou processo</button>

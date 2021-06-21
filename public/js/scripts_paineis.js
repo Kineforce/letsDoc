@@ -54,6 +54,12 @@ function exibePainel(id_menu) {
 }
 
 function escondeTodosPaineis() {
+  // Reseta dados de todos os painéis
+  $(".content-geral").html("");
+
+  // Reseta contadores de todos os painéis
+  $(".load_options_geral").val(10);
+
   // Esconde todos os painéis
   $(".painel").addClass("hide_pannel");
   $(".painel").removeClass("show_pannel");

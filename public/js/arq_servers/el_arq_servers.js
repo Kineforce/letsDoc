@@ -28,7 +28,8 @@ $(document).ready(() => {
       data: { cadastraDadosServidor },
       success: () => {
         // Atualiza as informações na tela
-        $("#arquitetura-servidores").click();
+        retornaDadosServidor();
+
         Swal.fire({
           heightAuto: false,
           icon: "success",
@@ -55,13 +56,35 @@ $(document).ready(() => {
       ativo: $("#as_ativo_servidor_update option:selected").val(),
     };
 
+    let linha_selecionada = $("#selecionado");
+    let ativo_sel = linha_selecionada.find(".as-ativo");
+    let nome_sel = linha_selecionada.find(".as-nome");
+    let objetivo_sel = linha_selecionada.find(".as-objetivo");
+    let linguagem_sel = linha_selecionada.find(".as-tipo-linguagem");
+
     $.ajax({
       type: "POST",
       url: `${urlServidor}src/routes/routes.php`,
       data: { updateIdServidor },
       success: () => {
-        // Atualiza as informações na tela
-        $("#arquitetura-servidores").click();
+        // Atualiza as informações da linha
+        ativo_sel.attr("valor", updateIdServidor.ativo);
+
+        ico_ativo = ativo_sel.children();
+
+        if (updateIdServidor.ativo == "S") {
+          ico_ativo.removeClass("fa-times-circle");
+          ico_ativo.addClass("fa-check-circle");
+          ico_ativo.css("color", "green");
+        } else {
+          ico_ativo.removeClass("fa-check-circle");
+          ico_ativo.addClass("fa-times-circle");
+          ico_ativo.css("color", "red");
+        }
+
+        nome_sel.text(updateIdServidor.nome);
+        objetivo_sel.text(updateIdServidor.objetivo);
+        linguagem_sel.text(updateIdServidor.linguagem);
 
         Swal.fire({
           heightAuto: false,

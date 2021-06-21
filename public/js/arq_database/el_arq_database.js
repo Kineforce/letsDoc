@@ -65,13 +65,37 @@ $(document).ready(() => {
       ativo: $("#db_ativo_database_update option:selected").val(),
     };
 
+    let linha_selecionada = $("#selecionado");
+
+    let ativo_sel = linha_selecionada.find(".db-ativo");
+    let nome_sel = linha_selecionada.find(".db-nome");
+    let objetivo_sel = linha_selecionada.find(".db-descricao");
+    let linguagem_sel = linha_selecionada.find(".db-ambiente");
+
     $.ajax({
       type: "POST",
       url: `${urlServidor}src/routes/routes.php`,
       data: { updateIdDatabase },
       success: () => {
-        // Atualiza as informações na tela
-        $("#arquitetura-banco").click();
+        // Atualiza as informações da linha
+        ativo_sel.attr("valor", updateIdDatabase.ativo);
+
+        ico_ativo = ativo_sel.children();
+
+        if (updateIdDatabase.ativo == "S") {
+          ico_ativo.removeClass("fa-times-circle");
+          ico_ativo.addClass("fa-check-circle");
+          ico_ativo.css("color", "green");
+        } else {
+          ico_ativo.removeClass("fa-check-circle");
+          ico_ativo.addClass("fa-times-circle");
+          ico_ativo.css("color", "red");
+        }
+
+        nome_sel.text(updateIdDatabase.nome);
+        objetivo_sel.text(updateIdDatabase.descricao);
+        linguagem_sel.text(updateIdDatabase.ambiente);
+
         Swal.fire({
           heightAuto: false,
           icon: "success",

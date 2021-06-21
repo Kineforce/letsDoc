@@ -200,7 +200,7 @@ function deletaDadosServidor(event) {
         data: { deletaIdServidor },
         success: () => {
           // Atualiza as informações na tela
-          $("#arquitetura-servidores").click();
+          current_card.remove();
 
           Swal.fire({
             heightAuto: false,
@@ -227,6 +227,9 @@ function openModalUpdate(event) {
 
   let current_card = event.target.closest(".as-card");
   current_card = $(current_card);
+
+  //Linha selecionada
+  current_card.attr("id", "selecionado");
 
   //Seleciona os dados da linha clicada
   let id = current_card.find(".as-card-id").text();

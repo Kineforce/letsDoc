@@ -68,13 +68,38 @@ $(document).ready(() => {
       ativo: $("#mj_ativo_jobtrigger_update option:selected").val(),
     };
 
+    let linha_selecionada = $("#selecionado");
+    let ativo_sel = linha_selecionada.find(".mj-ativo");
+    let nome_sel = linha_selecionada.find(".mj-nome");
+    let descricao_sel = linha_selecionada.find(".mj-descricao");
+    let tabela_sel = linha_selecionada.find(".mj-tabela");
+    let database_sel = linha_selecionada.find(".mj-database");
+
     $.ajax({
       type: "POST",
       url: `${urlServidor}src/routes/routes.php`,
       data: { updateIdJobTrigger },
       success: () => {
-        // Atualiza as informações na tela
-        $("#mapeamento-jobs").click();
+        // Atualiza as informações da linha
+        ativo_sel.attr("valor", updateIdJobTrigger.ativo);
+
+        ico_ativo = ativo_sel.children();
+
+        if (updateIdJobTrigger.ativo == "S") {
+          ico_ativo.removeClass("fa-times-circle");
+          ico_ativo.addClass("fa-check-circle");
+          ico_ativo.css("color", "green");
+        } else {
+          ico_ativo.removeClass("fa-check-circle");
+          ico_ativo.addClass("fa-times-circle");
+          ico_ativo.css("color", "red");
+        }
+
+        nome_sel.text(updateIdJobTrigger.nome);
+        descricao_sel.text(updateIdJobTrigger.descricao);
+        tabela_sel.text(updateIdJobTrigger.tabela);
+        database_sel.text(updateIdJobTrigger.database);
+
         Swal.fire({
           heightAuto: false,
           icon: "success",

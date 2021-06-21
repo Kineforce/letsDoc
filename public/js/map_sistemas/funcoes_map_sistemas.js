@@ -176,7 +176,8 @@ function deletaDadosMapSistemas(event) {
         data: { deletaMapSistemas },
         success: () => {
           // Atualiza as informações na tela
-          $("#mapeamento-sistemas").click();
+          current_card.remove();
+
           Swal.fire({
             heightAuto: false,
             icon: "success",
@@ -202,6 +203,9 @@ function openModalUpdateMapSistemas(event) {
 
   let current_card = event.target.closest(".ms-card");
   current_card = $(current_card);
+
+  //Linha selecionada
+  current_card.attr("id", "selecionado");
 
   //Reseta o arquivo anexado na modal
   $("#ms_anexo_mapsis_update").val("");
