@@ -21,8 +21,8 @@ class ArqServers_Model {
     function retornaTotalArqServer(){
 
         $sql_count_total = "    SELECT      COUNT(*) AS TOTAL
-                                FROM        ARQ_SERVERS AS C_SRV
-                                LEFT JOIN   SUBITEMS_ARQ_SERVERS AS C_SUB ON C_SUB.ID_SERVIDOR = C_SRV.ID";
+                                FROM        Aplicacoes.GovTi.ARQ_SERVERS AS C_SRV
+                                LEFT JOIN   Aplicacoes.GovTi.SUBITEMS_ARQ_SERVERS AS C_SUB ON C_SUB.ID_SERVIDOR = C_SRV.ID";
 
         $stmt_count_total = $this->pdo->query($sql_count_total)->fetchAll(PDO::FETCH_ASSOC);
 
@@ -35,8 +35,8 @@ class ArqServers_Model {
     function retornaServerExcel(){
 
         $sql_count_total = "    SELECT      C_SRV.*
-                                FROM        ARQ_SERVERS AS C_SRV
-                                LEFT JOIN   SUBITEMS_ARQ_SERVERS AS C_SUB ON C_SUB.ID_SERVIDOR = C_SRV.ID";
+                                FROM        Aplicacoes.GovTi.ARQ_SERVERS AS C_SRV
+                                LEFT JOIN   Aplicacoes.GovTi.SUBITEMS_ARQ_SERVERS AS C_SUB ON C_SUB.ID_SERVIDOR = C_SRV.ID";
 
         $stmt_count_total = $this->pdo->query($sql_count_total)->fetchAll(PDO::FETCH_ASSOC);
 
@@ -48,21 +48,20 @@ class ArqServers_Model {
     /**
      * Retorna informação dos servidores com parâmetros de filtro
      */
-    function retornaInfoArqServerFiltro($palavraBuscada, $limit){
+    function retornaInfoArqServerFiltro($palavraBuscada, $top){
 
         $palavraBuscada = htmlspecialchars(strtolower($palavraBuscada));
 
         $search = "%$palavraBuscada%";
 
-        $sql = "    SELECT      DISTINCT SRV.*                                
-                    FROM        ARQ_SERVERS AS SRV 
-                    LEFT JOIN   SUBITEMS_ARQ_SERVERS SUB ON SUB.ID_SERVIDOR = SRV.ID
+        $sql = "    SELECT      DISTINCT $top SRV.*                                
+                    FROM        Aplicacoes.GovTi.ARQ_SERVERS AS SRV 
+                    LEFT JOIN   Aplicacoes.GovTi.SUBITEMS_ARQ_SERVERS SUB ON SUB.ID_SERVIDOR = SRV.ID
                     WHERE       lower(SRV.NOME) LIKE :palavra_buscada
                     OR          lower(SRV.OBJETIVO) LIKE :palavra_buscada
                     OR          lower(SRV.LINGUAGEM) LIKE :palavra_buscada
                     OR          lower(SUB.ITEM) LIKE :palavra_buscada
                     OR          lower(SUB.DESCRICAO) LIKE :palavra_buscada
-                    $limit
                 ";
 
         $stmt = $this->pdo->prepare($sql);
@@ -84,10 +83,10 @@ class ArqServers_Model {
         $linguagem  = htmlspecialchars($dadosServidor['linguagem']);
         $ativo      = htmlspecialchars($dadosServidor['ativo']);
 
-        $sql = "    INSERT INTO ARQ_SERVERS (NOME, OBJETIVO, LINGUAGEM, ATIVO, DATA_INSERT)
+        $sql = "    INSERT INTO Aplicacoes.GovTi.ARQ_SERVERS (NOME, OBJETIVO, LINGUAGEM, ATIVO, DATA_INSERT)
                     VALUES (?, ?, ?, ?, CURRENT_TIMESTAMP)";
 
-        $sql_log =  "   INSERT INTO ARQ_SERVERS_LOG (
+        $sql_log =  "   INSERT INTO Aplicacoes.GovTi.ARQ_SERVERS_LOG (
                                                      OPERACAO
                                                     ,DATA_OPERACAO
                                                     ,USUARIO
@@ -107,7 +106,7 @@ class ArqServers_Model {
                             ,ATIVO
                             ,DATA_INSERT
 
-                    FROM    ARQ_SERVERS
+                    FROM    Aplicacoes.GovTi.ARQ_SERVERS
                     WHERE   ID = ?
 
         ";
@@ -117,7 +116,7 @@ class ArqServers_Model {
         
         $result = $stmt->execute(array($nome, $objetivo, $linguagem, $ativo));
 
-        $ultimo_registro_tabela = $this->pdo->query("SELECT IDENT_CURRENT('ARQ_SERVERS') AS ID")->fetchAll(PDO::FETCH_ASSOC);
+        $ultimo_registro_tabela = $this->pdo->query("SELECT IDENT_CURRENT('Aplicacoes.GovTi.ARQ_SERVERS') AS ID")->fetchAll(PDO::FETCH_ASSOC);
         $ultimo_id_tabela = intval($ultimo_registro_tabela[0]['ID']);
         
         $stmt_log->execute(array($ultimo_id_tabela));
@@ -136,10 +135,10 @@ class ArqServers_Model {
         $descricao       = htmlspecialchars($dadosServidor['descricao']);
         $ativo           = htmlspecialchars($dadosServidor['ativo']);
 
-        $sql = "    INSERT INTO SUBITEMS_ARQ_SERVERS (ID_SERVIDOR, ITEM, DESCRICAO, ATIVO, DATA_INSERT)
+        $sql = "    INSERT INTO Aplicacoes.GovTi.SUBITEMS_ARQ_SERVERS (ID_SERVIDOR, ITEM, DESCRICAO, ATIVO, DATA_INSERT)
                     VALUES ( ?, ?, ?, ?, CURRENT_TIMESTAMP)";
 
-        $sql_log = "    INSERT INTO SUBITEMS_ARQ_SERVERS_LOG (  OPERACAO
+        $sql_log = "    INSERT INTO Aplicacoes.GovTi.SUBITEMS_ARQ_SERVERS_LOG (  OPERACAO
                                                                 ,DATA_OPERACAO
                                                                 ,USUARIO
                                                                 ,CAMPO_ID_SERVIDOR
@@ -157,7 +156,7 @@ class ArqServers_Model {
                                 ,DESCRICAO
                                 ,ATIVO
                                 ,DATA_INSERT
-                        FROM    SUBITEMS_ARQ_SERVERS
+                        FROM    Aplicacoes.GovTi.SUBITEMS_ARQ_SERVERS
                         WHERE   ID = ?
                         ";
 
@@ -166,7 +165,7 @@ class ArqServers_Model {
 
         $stmt_log = $this->pdo->prepare($sql_log);
 
-        $ultimo_registro_tabela = $this->pdo->query("SELECT IDENT_CURRENT('SUBITEMS_ARQ_SERVERS') AS ID")->fetchAll(PDO::FETCH_ASSOC);
+        $ultimo_registro_tabela = $this->pdo->query("SELECT IDENT_CURRENT('Aplicacoes.GovTi.SUBITEMS_ARQ_SERVERS') AS ID")->fetchAll(PDO::FETCH_ASSOC);
         $ultimo_id_tabela = intval($ultimo_registro_tabela[0]['ID']);
 
         $stmt_log->execute(array($ultimo_id_tabela));
@@ -182,15 +181,15 @@ class ArqServers_Model {
 
         $id_servidor = htmlspecialchars($dadosServidor['id_servidor']);
 
-        $sql = "    DELETE  FROM ARQ_SERVERS
+        $sql = "    DELETE  FROM Aplicacoes.GovTi.ARQ_SERVERS
                     WHERE   ID = :id_servidor;
                 ";
 
-        $sql_item = "   DELETE FROM SUBITEMS_ARQ_SERVERS
+        $sql_item = "   DELETE FROM Aplicacoes.GovTi.SUBITEMS_ARQ_SERVERS
                         WHERE  ID_SERVIDOR = :id_servidor;
                     ";
 
-        $sql_log_arq =  "   INSERT INTO ARQ_SERVERS_LOG (
+        $sql_log_arq =  "   INSERT INTO Aplicacoes.GovTi.ARQ_SERVERS_LOG (
                                                             OPERACAO
                                                             ,DATA_OPERACAO
                                                             ,USUARIO
@@ -210,12 +209,12 @@ class ArqServers_Model {
                                     ,ATIVO
                                     ,DATA_INSERT
 
-                            FROM    ARQ_SERVERS
+                            FROM    Aplicacoes.GovTi.ARQ_SERVERS
                             WHERE   ID = ?
 
         ";
 
-        $sql_log_item = "    INSERT INTO SUBITEMS_ARQ_SERVERS_LOG (  OPERACAO
+        $sql_log_item = "    INSERT INTO Aplicacoes.GovTi.SUBITEMS_ARQ_SERVERS_LOG (  OPERACAO
                                                                     ,DATA_OPERACAO
                                                                     ,USUARIO
                                                                     ,CAMPO_ID_SERVIDOR
@@ -233,7 +232,7 @@ class ArqServers_Model {
                                     ,DESCRICAO
                                     ,ATIVO
                                     ,DATA_INSERT
-                            FROM    SUBITEMS_ARQ_SERVERS
+                            FROM    Aplicacoes.GovTi.SUBITEMS_ARQ_SERVERS
                             WHERE   ID_SERVIDOR = ?
                         ";
 
@@ -261,11 +260,11 @@ class ArqServers_Model {
 
         $id_item_servidor = htmlspecialchars($dadosServidor['id_item_servidor']);
 
-        $sql = "    DELETE  FROM SUBITEMS_ARQ_SERVERS
+        $sql = "    DELETE  FROM Aplicacoes.GovTi.SUBITEMS_ARQ_SERVERS
                     WHERE   id = :id_item_servidor
                 ";
 
-        $sql_log_item = "    INSERT INTO SUBITEMS_ARQ_SERVERS_LOG (  OPERACAO
+        $sql_log_item = "    INSERT INTO Aplicacoes.GovTi.SUBITEMS_ARQ_SERVERS_LOG (  OPERACAO
                                                                     ,DATA_OPERACAO
                                                                     ,USUARIO
                                                                     ,CAMPO_ID_SERVIDOR
@@ -283,7 +282,7 @@ class ArqServers_Model {
                                     ,DESCRICAO
                                     ,ATIVO
                                     ,DATA_INSERT
-                            FROM    SUBITEMS_ARQ_SERVERS
+                            FROM    Aplicacoes.GovTi.SUBITEMS_ARQ_SERVERS
                             WHERE   ID = ?
                         ";
 
@@ -307,14 +306,14 @@ class ArqServers_Model {
         $linguagem = htmlspecialchars($dadosServidor['linguagem']);
         $ativo = htmlspecialchars($dadosServidor['ativo']);
 
-        $sql = "    UPDATE ARQ_SERVERS SET       NOME = ?
+        $sql = "    UPDATE Aplicacoes.GovTi.ARQ_SERVERS SET       NOME = ?
                                                 ,OBJETIVO = ?
                                                 ,LINGUAGEM = ?
                                                 ,ATIVO = ?
                     WHERE   ID = ?
         ";
 
-        $sql_log_arq =  "   INSERT INTO ARQ_SERVERS_LOG (
+        $sql_log_arq =  "   INSERT INTO Aplicacoes.GovTi.ARQ_SERVERS_LOG (
                                                             OPERACAO
                                                             ,DATA_OPERACAO
                                                             ,USUARIO
@@ -334,7 +333,7 @@ class ArqServers_Model {
                                     ,ATIVO
                                     ,DATA_INSERT
 
-                            FROM    ARQ_SERVERS
+                            FROM    Aplicacoes.GovTi.ARQ_SERVERS
                             WHERE   ID = ?
 
         ";
@@ -360,14 +359,14 @@ class ArqServers_Model {
         $descricao  = htmlspecialchars($dadosServidor['descricao']);
         $ativo      = htmlspecialchars($dadosServidor['ativo']);
 
-        $sql = "    UPDATE SUBITEMS_ARQ_SERVERS SET  ITEM = ?
-                                                                    ,DESCRICAO = ?
-                                                                    ,ATIVO = ?
+        $sql = "    UPDATE Aplicacoes.GovTi.SUBITEMS_ARQ_SERVERS SET    ITEM = ?
+                                                                        ,DESCRICAO = ?
+                                                                        ,ATIVO = ?
                     WHERE   ID = ?
         ";
 
 
-        $sql_log_item = "    INSERT INTO SUBITEMS_ARQ_SERVERS_LOG (  OPERACAO
+        $sql_log_item = "    INSERT INTO Aplicacoes.GovTi.SUBITEMS_ARQ_SERVERS_LOG (  OPERACAO
                                                                     ,DATA_OPERACAO
                                                                     ,USUARIO
                                                                     ,CAMPO_ID_SERVIDOR
@@ -385,7 +384,7 @@ class ArqServers_Model {
                                     ,DESCRICAO
                                     ,ATIVO
                                     ,DATA_INSERT
-                            FROM    SUBITEMS_ARQ_SERVERS
+                            FROM    Aplicacoes.GovTi.SUBITEMS_ARQ_SERVERS
                             WHERE   ID = ?
                         ";
 
@@ -408,7 +407,7 @@ class ArqServers_Model {
         $id_servidor = htmlspecialchars($dadosServidor['id_servidor']);
 
         $sql = "    SELECT  *
-                    FROM    SUBITEMS_ARQ_SERVERS
+                    FROM    Aplicacoes.GovTi.SUBITEMS_ARQ_SERVERS
                     WHERE   ID_SERVIDOR = ?";
 
         $stmt = $this->pdo->prepare($sql);                

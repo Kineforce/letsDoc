@@ -22,9 +22,9 @@ class ArqDatabase_controller extends Helpers {
 
         $qtd_resultados = htmlspecialchars((isset($dados_database['qtd'])) ? $dados_database['qtd'] : '');
 
-        $limit = $qtd_resultados != "all" ? "LIMIT " . $qtd_resultados : "";
+        $top = $qtd_resultados != "all" ? "TOP " . $qtd_resultados : "";
 
-        $data_array['dados'] = $this->model_functions->retornaInfoDatabaseFiltro($palavraBuscada, $limit);
+        $data_array['dados'] = $this->model_functions->retornaInfoDatabaseFiltro($palavraBuscada, $top);
         $data_array['count'] = $this->model_functions->retornaTotalDatabase();
 
         echo json_encode($data_array);

@@ -172,7 +172,7 @@ $(document).ready(() => {
       data: { cadastraDadosItemServidor },
       success: (resp) => {
         // Atualiza as informações na tela
-        let inserted_id = resp.replaceAll('"', "");
+        let inserted_id = JSON.parse(resp).data;
 
         tr_inserted_html = "";
         tr_inserted_html += "<tr class='as-subcard-item'>";

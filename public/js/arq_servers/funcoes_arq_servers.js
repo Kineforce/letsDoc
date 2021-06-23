@@ -173,6 +173,7 @@ function deletaDadosServidor(event) {
   event.preventDefault();
 
   let current_card = event.target.closest(".as-card");
+  let current_container = event.target.closest(".as-container-card");
   current_card = $(current_card);
 
   // Seleciona o id da linha clicada
@@ -200,7 +201,7 @@ function deletaDadosServidor(event) {
         data: { deletaIdServidor },
         success: () => {
           // Atualiza as informações na tela
-          current_card.remove();
+          current_container.remove();
 
           Swal.fire({
             heightAuto: false,

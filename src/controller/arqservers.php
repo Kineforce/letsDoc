@@ -1,19 +1,21 @@
 <?php
 
-require_once ('../helper/general_helpers.php');
+require_once('../helper/general_helpers.php');
 
-class ArqServers_controller extends Helpers{
+class ArqServers_controller extends Helpers
+{
 
     public $model_functions;
 
-    function __construct(){
+    function __construct()
+    {
         require('../model/arqservers_model.php');
 
         $this->model_functions = new ArqServers_Model();
-
     }
 
-    function retornaInfoServidores(){
+    function retornaInfoServidores()
+    {
 
         $dados_servidor = $_GET['retornaInfoServidores'];
 
@@ -21,42 +23,45 @@ class ArqServers_controller extends Helpers{
 
         $qtd_resultados = htmlspecialchars((isset($dados_servidor['qtd'])) ? $dados_servidor['qtd'] : '');
 
-        $limit = $qtd_resultados != "all" ? "LIMIT " . $qtd_resultados : "";
+        $top = $qtd_resultados != "all" ? "TOP " . $qtd_resultados : "";
 
-        $data_array['dados'] = $this->model_functions->retornaInfoArqServerFiltro($palavraBuscada, $limit);
+        $data_array['dados'] = $this->model_functions->retornaInfoArqServerFiltro($palavraBuscada, $top);
         $data_array['count'] = $this->model_functions->retornaTotalArqServer();
 
         echo json_encode($data_array);
     }
 
-    function cadastraDadosServidor(){
+    function cadastraDadosServidor()
+    {
 
         $dadosServidor = $_POST['cadastraDadosServidor'];
 
         $insert = $this->model_functions->insereInfoArqServer($dadosServidor);
-        
+
         echo json_encode($insert);
     }
 
-    function cadastraDadosItemServidor(){
+    function cadastraDadosItemServidor()
+    {
         $dadosServidor = $_POST['cadastraDadosItemServidor'];
 
-        $insert = $this->model_functions->insereInfoItemArqServer($dadosServidor);
-    
+        $insert["data"] = $this->model_functions->insereInfoItemArqServer($dadosServidor);
+
         echo json_encode($insert);
     }
 
-    function deletaIdServidor(){
+    function deletaIdServidor()
+    {
 
         $dadosServidor = $_POST['deletaIdServidor'];
 
         $delete = $this->model_functions->deletaInfoArqServer($dadosServidor);
-        
-        echo json_encode($delete);
 
+        echo json_encode($delete);
     }
 
-    function deletaInfoItemArqServer(){
+    function deletaInfoItemArqServer()
+    {
         $dadosServidor = $_POST['deletaInfoItemArqServer'];
 
         $delete_item = $this->model_functions->deletaInfoItemArqServer($dadosServidor);
@@ -64,73 +69,41 @@ class ArqServers_controller extends Helpers{
         echo json_encode($delete_item);
     }
 
-    function updateIdServidor(){
+    function updateIdServidor()
+    {
 
         $dadosServidor = $_POST['updateIdServidor'];
 
         $update = $this->model_functions->updateInfoArqServer($dadosServidor);
-    
+
         echo json_encode($update);
     }
 
-    function updateIdServidorSubItem(){
+    function updateIdServidorSubItem()
+    {
         $dadosServidor = $_POST['updateIdServidorSubItem'];
 
         $update = $this->model_functions->updateItemInfoArqServer($dadosServidor);
-    
+
         echo json_encode($update);
     }
 
-    function buscaSubItemsServidor(){
+    function buscaSubItemsServidor()
+    {
         $dadosServidor = $_GET['buscaSubItemsServer'];
 
-        $data_array['dados']= $this->model_functions->retornaSubItemsServer($dadosServidor);
+        $data_array['dados'] = $this->model_functions->retornaSubItemsServer($dadosServidor);
 
         echo json_encode($data_array);
-
     }
 
-    function retornaExcelServidor(){
+    function retornaExcelServidor()
+    {
         $data_servidores_web = $this->model_functions->retornaServerExcel();
+        $td_header_web = array('NOME', 'OBJETIVO', 'LINGUAGEM', 'ATIVO', 'DATA_INSERT');
 
-        $nome_do_arquivo = "servidores_web_" . date("Y_m_d_H_i_s") . ".xls";
-        $conteudo_excel = " <table>
-                                <thead>
-                                    <tr>
-                                        <td>NOME</td>
-                                        <td>OBJETIVO</td>
-                                        <td>LINGUAGEM</td>
-                                        <td>ATIVO</td>
-                                        <td>DATA_INSERT</td>
-                                    </tr>
-                                </thead>
-                            ";
+        $result_excel = $this->retornaExcelExportacaoGeral('as', 'Relatório de servidores WEB - IESB', $td_header_web, $data_servidores_web);
 
-        $conteudo_excel .= " <tbody>";
-        
-        foreach($data_servidores_web as $linha){
-            $conteudo_excel .= "<tr>";
-                $conteudo_excel .= "<td>" . utf8_decode($linha['NOME']) . "</td>";
-                $conteudo_excel .= "<td>" . utf8_decode($linha['OBJETIVO']) . "</td>";
-                $conteudo_excel .= "<td>" . utf8_decode($linha['LINGUAGEM']) . "</td>";
-                $conteudo_excel .= "<td>" . utf8_decode($linha['ATIVO']) . "</td>";
-                $conteudo_excel .= "<td>" . utf8_decode($linha['DATA_INSERT']) . "</td>";
-            $conteudo_excel .= "</tr>";
-        }
-
-        $conteudo_excel .= " </tbody>";
-        $conteudo_excel .= " </table>";
-
-        header('Content-type: application/ms-excel');
-        header('Content-Disposition: attachment; filename='.$nome_do_arquivo);
-
-        echo $conteudo_excel;
-
+        echo $result_excel;
     }
-
-
 }
-
-
-
-?>

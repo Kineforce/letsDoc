@@ -1,2 +1,6 @@
 src/model/database.db
 src/uploads_anexos
+src/model/conn.php
+src/model/CREATE_TABLES
+
+

@@ -565,25 +565,25 @@
                         <textarea type="text" class="form-control" name="descricao" id="ms_descricao_mapsis" placeholder="Descricao do registro"></textarea>
                     </div>
                     <div class="mb-3">
-                        <input type="file" class="form-control" name="anexo" id="ms_anexo_mapsis"/>
+                        <input type="text" class="form-control" name="database" id="ms_database_mapsis" placeholder="Banco de dados"/>
                     </div>
                     <div class="mb-3">
-                        <input type="text" class="form-control" name="database" id="ms_database_mapsis" placeholder="Database do registro"/>
+                        <textarea type="text" class="form-control" name="servidor" id="ms_servidor_mapsis" placeholder="Servidor hospedado"></textarea>
                     </div>
                     <div class="mb-3">
-                        <textarea type="text" class="form-control" name="servidor" id="ms_servidor_mapsis" placeholder="Servidor do registro"></textarea>
+                        <textarea type="text" class="form-control" name="setor" id="ms_setor_mapsis" placeholder="Setor responsável"></textarea>
                     </div>
                     <div class="mb-3">
-                        <textarea type="text" class="form-control" name="setor" id="ms_setor_mapsis" placeholder="Setor do registro"></textarea>
+                        <textarea type="text" class="form-control" name="ocorrencia" id="ms_ocorrencia_mapsis" placeholder="Recorrência de utilização"></textarea>
                     </div>
-                    <div class="mb-3">
-                        <textarea type="text" class="form-control" name="ocorrencia" id="ms_ocorrencia_mapsis" placeholder="Ocorrência do registro"></textarea>
-                    </div>
-                    <select class="form-select" id="ms_ativo_mapsis">
+                    <select class="mb-3 form-select" id="ms_ativo_mapsis">
                         <option value="" selected disabled>Ativo?</option>
                         <option value="S">Sim</option>
                         <option value="N">Não</option>
-                    </select>                    
+                    </select> 
+                    <div class="mb-3">
+                        <input type="file" class="form-control" name="anexo" id="ms_anexo_mapsis"/>
+                    </div>                   
                 </div>
                 <div class="modal-footer">
                     <button type="submit" class="btn btn-primary" id="ms_cadastra">Cadastrar</button>
@@ -609,25 +609,25 @@
                         <textarea type="text" class="form-control" name="descricao" id="ms_descricao_mapsis_update" placeholder="Descricao do registro"></textarea>
                     </div>
                     <div class="mb-3">
-                        <input type="file" class="form-control" id="ms_anexo_mapsis_update" />
+                        <input type="text" class="form-control" name="database" id="ms_database_mapsis_update" placeholder="Banco de dados"/>
                     </div>
                     <div class="mb-3">
-                        <input type="text" class="form-control" name="database" id="ms_database_mapsis_update" placeholder="Database do registro"/>
+                        <textarea type="text" class="form-control" name="servidor" id="ms_servidor_mapsis_update" placeholder="Servidor hospedado"></textarea>
                     </div>
                     <div class="mb-3">
-                        <textarea type="text" class="form-control" name="servidor" id="ms_servidor_mapsis_update" placeholder="Servidor do registro"></textarea>
+                        <textarea type="text" class="form-control" name="setor" id="ms_setor_mapsis_update" placeholder="Setor responsável"></textarea>
                     </div>
                     <div class="mb-3">
-                        <textarea type="text" class="form-control" name="setor" id="ms_setor_mapsis_update" placeholder="Setor do registro"></textarea>
+                        <textarea type="text" class="form-control" name="ocorrencia" id="ms_ocorrencia_mapsis_update" placeholder="Recorrência de utilização"></textarea>
                     </div>
-                    <div class="mb-3">
-                        <textarea type="text" class="form-control" name="ocorrencia" id="ms_ocorrencia_mapsis_update" placeholder="Ocorrência do registro"></textarea>
-                    </div>
-                    <select class="form-select" id="ms_ativo_mapsis_update">
+                    <select class="mb-3 form-select" id="ms_ativo_mapsis_update">
                         <option value="" selected disabled>Ativo?</option>
                         <option value="S">Sim</option>
                         <option value="N">Não</option>
-                    </select>                    
+                    </select>     
+                    <div class="mb-3">
+                        <input type="file" class="form-control" id="ms_anexo_mapsis_update" />
+                    </div>               
                 </div>
                 <div class="modal-footer">
                     <button type="submit" class="btn btn-primary" id="ms_update">Atualizar</button>

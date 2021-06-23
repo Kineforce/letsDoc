@@ -242,7 +242,7 @@ function carregaAnexoModal(event) {
     }
 
     // Cria o embed com o nome do arquivo para ser mostrado
-    let embed_html = `<embed id="ms_display_anexo" src="${urlServidor}src/uploads_anexos/${nome_arquivo}" alt="ms_anexo_selecionado" width="100%" height="750">`;
+    let embed_html = `<embed id="ms_display_anexo" src="${urlServidor}src/uploads_anexos/${nome_arquivo}" alt="ms_anexo_selecionado" width="100%" height="750px">`;
 
     // Insere o embed na modal popup
     $("#insert_embed").html(embed_html);

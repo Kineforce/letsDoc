@@ -20,7 +20,7 @@ class MapSistemas_model {
     function retornaTotalMapSistemas(){
 
         $sql_count_total = "    SELECT      COUNT(*) AS TOTAL
-                                FROM        MAP_SISTEMAS
+                                FROM        Aplicacoes.GovTi.MAP_SISTEMAS
                             ";
 
         $stmt_count_total = $this->pdo->query($sql_count_total)->fetchAll(PDO::FETCH_ASSOC);
@@ -34,7 +34,7 @@ class MapSistemas_model {
     function retornaExcelMapSistemas(){
 
         $sql_count_total = "    SELECT      *
-                                FROM        MAP_SISTEMAS
+                                FROM        Aplicacoes.GovTi.MAP_SISTEMAS
                             ";
 
         $stmt_count_total = $this->pdo->query($sql_count_total)->fetchAll(PDO::FETCH_ASSOC);
@@ -44,23 +44,21 @@ class MapSistemas_model {
     /**
      * Retorna informação com um parâmetro de filtro
      */
-    function retornaInfoMapSistemasFiltro($palavraBuscada, $limit){
+    function retornaInfoMapSistemasFiltro($palavraBuscada, $top){
 
         $palavraBuscada = htmlspecialchars(strtolower($palavraBuscada));
 
         $search = "%$palavraBuscada%";
 
-        $sql = "    SELECT      DISTINCT MS.*
-                    FROM        MAP_SISTEMAS AS MS 
+        $sql = "    SELECT      DISTINCT $top MS.*
+                    FROM        Aplicacoes.GovTi.MAP_SISTEMAS AS MS 
                     WHERE       lower(MS.NOME) LIKE :palavra_buscada
                     OR          lower(MS.DESCRICAO) LIKE :palavra_buscada
                     OR          lower(MS.ANEXO) LIKE :palavra_buscada
-                    OR          lower(MS.DATABASE) LIKE :palavra_buscada
+                    OR          lower(MS.[DATABASE]) LIKE :palavra_buscada
                     OR          lower(MS.SERVIDOR) LIKE :palavra_buscada
                     OR          lower(MS.SETOR) LIKE :palavra_buscada
-                    OR          lower(MS.OCORRENCIA) LIKE :palavra_buscada
-                    $limit
-                
+                    OR          lower(MS.OCORRENCIA) LIKE :palavra_buscada                
                 ";
 
         $stmt = $this->pdo->prepare($sql);
@@ -76,7 +74,7 @@ class MapSistemas_model {
     function buscaAnexoAtualMapSistemas($id){
 
         $sql = "    SELECT  ANEXO
-                    FROM    MAP_SISTEMAS
+                    FROM    Aplicacoes.GovTi.MAP_SISTEMAS
                     WHERE   ID = ? ";
 
         $stmt = $this->pdo->prepare($sql);
@@ -99,10 +97,10 @@ class MapSistemas_model {
         $ativo = htmlspecialchars($dados_map_sistemas['ativo']);
         $nome_anexo = htmlspecialchars( (is_null($nome_anexo) ? '': $nome_anexo) );
 
-        $sql = "    INSERT INTO MAP_SISTEMAS (NOME, DESCRICAO, ANEXO, [DATABASE], SERVIDOR, SETOR, OCORRENCIA, ATIVO, DATA_INSERT)
+        $sql = "    INSERT INTO Aplicacoes.GovTi.MAP_SISTEMAS (NOME, DESCRICAO, ANEXO, [DATABASE], SERVIDOR, SETOR, OCORRENCIA, ATIVO, DATA_INSERT)
                     VALUES  (?, ?, ?, ?, ?, ?, ?, ?, CURRENT_TIMESTAMP)";
 
-        $sql_log = "    INSERT INTO MAP_SISTEMAS_LOG (
+        $sql_log = "    INSERT INTO Aplicacoes.GovTi.MAP_SISTEMAS_LOG (
                                                          OPERACAO
                                                         ,DATA_OPERACAO
                                                         ,USUARIO
@@ -129,7 +127,7 @@ class MapSistemas_model {
                                 ,OCORRENCIA
                                 ,ATIVO
                                 ,DATA_INSERT
-                        FROM    MAP_SISTEMAS
+                        FROM    Aplicacoes.GovTi.MAP_SISTEMAS
                         WHERE   ID = ?
                         
         ";
@@ -139,7 +137,7 @@ class MapSistemas_model {
         
         $stmt_log = $this->pdo->prepare($sql_log);
 
-        $ultimo_registro_tabela = $this->pdo->query("SELECT IDENT_CURRENT('MAP_SISTEMAS') AS ID")->fetchAll(PDO::FETCH_ASSOC);
+        $ultimo_registro_tabela = $this->pdo->query("SELECT IDENT_CURRENT('Aplicacoes.GovTi.MAP_SISTEMAS') AS ID")->fetchAll(PDO::FETCH_ASSOC);
         $ultimo_id_tabela = intval($ultimo_registro_tabela[0]['ID']);
 
         $stmt_log->execute(array($ultimo_id_tabela)); 
@@ -153,10 +151,10 @@ class MapSistemas_model {
 
         $id = htmlspecialchars($id_map_sistemas['id_map_sistemas']);
 
-        $sql = "    DELETE FROM MAP_SISTEMAS
+        $sql = "    DELETE FROM Aplicacoes.GovTi.MAP_SISTEMAS
                     WHERE   ID = ?";
 
-        $sql_log = "    INSERT INTO MAP_SISTEMAS_LOG (
+        $sql_log = "    INSERT INTO Aplicacoes.GovTi.MAP_SISTEMAS_LOG (
                                                          OPERACAO
                                                         ,DATA_OPERACAO
                                                         ,USUARIO
@@ -183,7 +181,7 @@ class MapSistemas_model {
                                 ,OCORRENCIA
                                 ,ATIVO
                                 ,DATA_INSERT
-                        FROM    MAP_SISTEMAS
+                        FROM    Aplicacoes.GovTi.MAP_SISTEMAS
                         WHERE   ID = ?
                         
         ";
@@ -215,7 +213,7 @@ class MapSistemas_model {
         if (!empty($nome_anexo)){
 
 
-            $sql_update = "    UPDATE MAP_SISTEMAS SET     NOME = ?,
+            $sql_update = "    UPDATE Aplicacoes.GovTi.MAP_SISTEMAS SET     NOME = ?,
                                                             DESCRICAO = ?,
                                                             ANEXO = ?,
                                                             [DATABASE] = ?,
@@ -234,7 +232,7 @@ class MapSistemas_model {
 
         if ($controla){
 
-            $sql = "    UPDATE MAP_SISTEMAS SET NOME = ?,
+            $sql = "    UPDATE Aplicacoes.GovTi.MAP_SISTEMAS SET NOME = ?,
                                             DESCRICAO = ?,
                                             [DATABASE] = ?,
                                             SERVIDOR = ?,
@@ -249,7 +247,7 @@ class MapSistemas_model {
 
         }
 
-        $sql_log = "    INSERT INTO MAP_SISTEMAS_LOG (
+        $sql_log = "    INSERT INTO Aplicacoes.GovTi.MAP_SISTEMAS_LOG (
                                                          OPERACAO
                                                         ,DATA_OPERACAO
                                                         ,USUARIO
@@ -276,7 +274,7 @@ class MapSistemas_model {
                                 ,OCORRENCIA
                                 ,ATIVO
                                 ,DATA_INSERT
-                        FROM    MAP_SISTEMAS
+                        FROM    Aplicacoes.GovTi.MAP_SISTEMAS
                         WHERE   ID = ?
                         
         ";
