@@ -20,8 +20,8 @@ class ArqDatabase_model {
     function retornaTotalDatabase(){
 
         $sql_count_total = "    SELECT      COUNT(*) AS TOTAL
-                                FROM        Aplicacoes.GovTi.ARQ_DATABASE AS C_DB
-                                LEFT JOIN   Aplicacoes.GovTi.SUBITEMS_ARQ_DATABASE C_SUB ON C_SUB.ID_DATABASE = C_DB.ID
+                                FROM        aplicacoes.govti.ARQ_DATABASE AS C_DB
+                                LEFT JOIN   aplicacoes.govti.SUBITEMS_ARQ_DATABASE C_SUB ON C_SUB.ID_DATABASE = C_DB.ID
                             ";
 
         $stmt_count_total = $this->pdo->query($sql_count_total)->fetchAll(PDO::FETCH_ASSOC);
@@ -35,8 +35,8 @@ class ArqDatabase_model {
     function retornaExcelDatabase(){
 
         $sql_count_total = "    SELECT      C_DB.*
-                                FROM        Aplicacoes.GovTi.ARQ_DATABASE AS C_DB
-                                LEFT JOIN   Aplicacoes.GovTi.SUBITEMS_ARQ_DATABASE C_SUB ON C_SUB.ID_DATABASE = C_DB.ID
+                                FROM        aplicacoes.govti.ARQ_DATABASE AS C_DB
+                                LEFT JOIN   aplicacoes.govti.SUBITEMS_ARQ_DATABASE C_SUB ON C_SUB.ID_DATABASE = C_DB.ID
                             ";
 
         $stmt_count_total = $this->pdo->query($sql_count_total)->fetchAll(PDO::FETCH_ASSOC);
@@ -47,19 +47,20 @@ class ArqDatabase_model {
      /**
      * Retorna informação dos servidores de database com um parâmetro de filtro
      */
-    function retornaInfoDatabaseFiltro($palavraBuscada, $top){
+    function retornaInfoDatabaseFiltro($palavraBuscada, $limit){
 
         $palavraBuscada = htmlspecialchars(strtolower($palavraBuscada));
 
         $search = "%$palavraBuscada%";
 
-        $sql = "    SELECT      DISTINCT $top DB.*
-                    FROM        Aplicacoes.GovTi.ARQ_DATABASE AS DB 
-                    LEFT JOIN   Aplicacoes.GovTi.SUBITEMS_ARQ_DATABASE SUB ON SUB.ID_DATABASE = DB.ID
+        $sql = "    SELECT      DISTINCT DB.*
+                    FROM        aplicacoes.govti.ARQ_DATABASE AS DB 
+                    LEFT JOIN   aplicacoes.govti.SUBITEMS_ARQ_DATABASE SUB ON SUB.ID_DATABASE = DB.ID
                     WHERE       lower(DB.NOME) LIKE :palavra_buscada
                     OR          lower(DB.DESCRICAO) LIKE :palavra_buscada
                     OR          lower(SUB.NOME) LIKE :palavra_buscada
                     OR          lower(SUB.DESCRICAO) LIKE :palavra_buscada
+                    $limit
                 ";
 
         $stmt = $this->pdo->prepare($sql);
@@ -81,12 +82,12 @@ class ArqDatabase_model {
         $ambiente   = htmlspecialchars($dadosDatabase['ambiente']);
         $ativo      = htmlspecialchars($dadosDatabase['ativo']);
 
-        $sql = "    INSERT INTO Aplicacoes.GovTi.ARQ_DATABASE (NOME, DESCRICAO, AMBIENTE, ATIVO, DATA_INSERT)
+        $sql = "    INSERT INTO aplicacoes.govti.ARQ_DATABASE (NOME, DESCRICAO, AMBIENTE, ATIVO, DATA_INSERT)
                     VALUES ( :nome, :descricao, :ambiente, :ativo, CURRENT_TIMESTAMP);  
                     
                     ";
         
-        $sql_log = "    INSERT INTO Aplicacoes.GovTi.ARQ_DATABASE_LOG (   OPERACAO
+        $sql_log = "    INSERT INTO aplicacoes.govti.ARQ_DATABASE_LOG (   OPERACAO
                                                         ,DATA_OPERACAO
                                                         ,USUARIO
                                                         ,CAMPO_NOME
@@ -103,7 +104,7 @@ class ArqDatabase_model {
                                 ,ATIVO
                                 ,AMBIENTE
                                 ,DATA_INSERT
-                        FROM    Aplicacoes.GovTi.ARQ_DATABASE 
+                        FROM    aplicacoes.govti.ARQ_DATABASE 
                         WHERE   ID = ?
 
                     ";
@@ -118,7 +119,7 @@ class ArqDatabase_model {
 
         $stmt_log  = $this->pdo->prepare($sql_log);
 
-        $ultimo_registro_tabela = $this->pdo->query("SELECT IDENT_CURRENT('Aplicacoes.GovTi.ARQ_DATABASE') AS ID")->fetchAll(PDO::FETCH_ASSOC);
+        $ultimo_registro_tabela = $this->pdo->query("SELECT IDENT_CURRENT('aplicacoes.govti.ARQ_DATABASE') AS ID")->fetchAll(PDO::FETCH_ASSOC);
         $ultimo_id_tabela = intval($ultimo_registro_tabela[0]['ID']);
 
         $stmt_log->execute(array($ultimo_id_tabela));
@@ -133,17 +134,17 @@ class ArqDatabase_model {
 
         $id_database = htmlspecialchars($dadosDatabase['id_database']);
 
-        $sql = "    DELETE  FROM Aplicacoes.GovTi.ARQ_DATABASE
+        $sql = "    DELETE  FROM aplicacoes.govti.ARQ_DATABASE
                     WHERE   ID = :id_database;
 
                 ";
 
-        $sql_del_subitem = "    DELETE FROM Aplicacoes.GovTi.SUBITEMS_ARQ_DATABASE
+        $sql_del_subitem = "    DELETE FROM aplicacoes.govti.SUBITEMS_ARQ_DATABASE
                                 WHERE  ID_DATABASE = :id_database;
         
                             ";
 
-        $sql_log = "    INSERT INTO Aplicacoes.GovTi.ARQ_DATABASE_LOG (   OPERACAO
+        $sql_log = "    INSERT INTO aplicacoes.govti.ARQ_DATABASE_LOG (   OPERACAO
                                                         ,DATA_OPERACAO
                                                         ,USUARIO
                                                         ,CAMPO_NOME
@@ -160,12 +161,12 @@ class ArqDatabase_model {
                                 ,ATIVO
                                 ,AMBIENTE
                                 ,DATA_INSERT
-                        FROM    Aplicacoes.GovTi.ARQ_DATABASE
+                        FROM    aplicacoes.govti.ARQ_DATABASE
                         WHERE   ID = ? 
 
         ";
 
-        $sql_log_subitems = "    INSERT INTO Aplicacoes.GovTi.SUBITEMS_ARQ_DATABASE_LOG (  OPERACAO
+        $sql_log_subitems = "    INSERT INTO aplicacoes.govti.SUBITEMS_ARQ_DATABASE_LOG (  OPERACAO
                                                                         ,DATA_OPERACAO
                                                                         ,USUARIO
                                                                         ,CAMPO_ID_DATABASE
@@ -181,7 +182,7 @@ class ArqDatabase_model {
                                         ,NOME
                                         ,DESCRICAO
                                         ,DATA_INSERT
-                                FROM    Aplicacoes.GovTi.SUBITEMS_ARQ_DATABASE
+                                FROM    aplicacoes.govti.SUBITEMS_ARQ_DATABASE
                                 WHERE   ID_DATABASE = ?
 
                         ";
@@ -209,11 +210,11 @@ class ArqDatabase_model {
 
         $id_item = htmlspecialchars($dadosDatabase['id_item_database']);
 
-        $sql = "    DELETE  FROM Aplicacoes.GovTi.SUBITEMS_ARQ_DATABASE
+        $sql = "    DELETE  FROM aplicacoes.govti.SUBITEMS_ARQ_DATABASE
                     WHERE   id = ?
                 ";
 
-        $sql_log = "    INSERT INTO Aplicacoes.GovTi.SUBITEMS_ARQ_DATABASE_LOG (  OPERACAO
+        $sql_log = "    INSERT INTO aplicacoes.govti.SUBITEMS_ARQ_DATABASE_LOG (  OPERACAO
                                                                 ,DATA_OPERACAO
                                                                 ,USUARIO
                                                                 ,CAMPO_ID_DATABASE
@@ -229,7 +230,7 @@ class ArqDatabase_model {
                                 ,NOME
                                 ,DESCRICAO
                                 ,DATA_INSERT
-                        FROM    Aplicacoes.GovTi.SUBITEMS_ARQ_DATABASE
+                        FROM    aplicacoes.govti.SUBITEMS_ARQ_DATABASE
                         WHERE   ID = ?
 
                         ";
@@ -256,14 +257,14 @@ class ArqDatabase_model {
         $ambiente       = htmlspecialchars($dadosDatabase['ambiente']);
         $ativo          = htmlspecialchars($dadosDatabase['ativo']);
 
-        $sql = "    UPDATE Aplicacoes.GovTi.ARQ_DATABASE SET      NOME = ?
+        $sql = "    UPDATE aplicacoes.govti.ARQ_DATABASE SET      NOME = ?
                                                 ,DESCRICAO = ?
                                                 ,AMBIENTE = ?
                                                 ,ATIVO = ?
                     WHERE   ID = ?
         ";
 
-        $sql_log = "    INSERT INTO Aplicacoes.GovTi.ARQ_DATABASE_LOG    (    OPERACAO
+        $sql_log = "    INSERT INTO aplicacoes.govti.ARQ_DATABASE_LOG    (    OPERACAO
                                                             ,DATA_OPERACAO
                                                             ,USUARIO
                                                             ,CAMPO_NOME
@@ -282,7 +283,7 @@ class ArqDatabase_model {
                                 ,AMBIENTE
                                 ,DATA_INSERT
 
-                        FROM    Aplicacoes.GovTi.ARQ_DATABASE
+                        FROM    aplicacoes.govti.ARQ_DATABASE
                         WHERE   ID = ?
                         ";
 
@@ -306,12 +307,12 @@ class ArqDatabase_model {
         $nome       = htmlspecialchars($dadosDatabase['nome']);
         $descricao  = htmlspecialchars($dadosDatabase['descricao']);
 
-        $sql = "    UPDATE Aplicacoes.GovTi.SUBITEMS_ARQ_DATABASE SET     NOME = ?
+        $sql = "    UPDATE aplicacoes.govti.SUBITEMS_ARQ_DATABASE SET     NOME = ?
                                                         ,DESCRICAO = ?
                     WHERE   ID = ?
         ";
 
-        $sql_log = "    INSERT INTO Aplicacoes.GovTi.SUBITEMS_ARQ_DATABASE_LOG (  OPERACAO
+        $sql_log = "    INSERT INTO aplicacoes.govti.SUBITEMS_ARQ_DATABASE_LOG (  OPERACAO
                                                                 ,DATA_OPERACAO
                                                                 ,USUARIO
                                                                 ,CAMPO_ID_DATABASE
@@ -327,7 +328,7 @@ class ArqDatabase_model {
                                 ,NOME
                                 ,DESCRICAO
                                 ,DATA_INSERT
-                        FROM    Aplicacoes.GovTi.SUBITEMS_ARQ_DATABASE
+                        FROM    aplicacoes.govti.SUBITEMS_ARQ_DATABASE
                         WHERE   ID = ?
 
                         ";
@@ -351,7 +352,7 @@ class ArqDatabase_model {
         $id_database = htmlspecialchars($dadosDatabase['id_database']);
 
         $sql = "    SELECT  *
-                    FROM    Aplicacoes.GovTi.SUBITEMS_ARQ_DATABASE
+                    FROM    aplicacoes.govti.SUBITEMS_ARQ_DATABASE
                     WHERE   ID_DATABASE = ?
                 ";
 
@@ -373,10 +374,10 @@ class ArqDatabase_model {
         $nome            = htmlspecialchars($dadosDatabase['nome']);
         $descricao       = htmlspecialchars($dadosDatabase['descricao']);
 
-        $sql = "    INSERT INTO Aplicacoes.GovTi.SUBITEMS_ARQ_DATABASE (ID_DATABASE, NOME, DESCRICAO, DATA_INSERT)
+        $sql = "    INSERT INTO aplicacoes.govti.SUBITEMS_ARQ_DATABASE (ID_DATABASE, NOME, DESCRICAO, DATA_INSERT)
                     VALUES ( ?, ?, ?, CURRENT_TIMESTAMP)";
 
-        $sql_log = "    INSERT INTO Aplicacoes.GovTi.SUBITEMS_ARQ_DATABASE_LOG (  OPERACAO
+        $sql_log = "    INSERT INTO aplicacoes.govti.SUBITEMS_ARQ_DATABASE_LOG (  OPERACAO
                                                                 ,DATA_OPERACAO
                                                                 ,USUARIO
                                                                 ,CAMPO_ID_DATABASE
@@ -392,7 +393,7 @@ class ArqDatabase_model {
                                 ,NOME
                                 ,DESCRICAO
                                 ,DATA_INSERT
-                        FROM    Aplicacoes.GovTi.SUBITEMS_ARQ_DATABASE
+                        FROM    aplicacoes.govti.SUBITEMS_ARQ_DATABASE
                         WHERE   ID = ?
                         ";
 
@@ -401,7 +402,7 @@ class ArqDatabase_model {
 
         $stmt_log = $this->pdo->prepare($sql_log);
 
-        $ultimo_registro_tabela = $this->pdo->query("SELECT IDENT_CURRENT('Aplicacoes.GovTi.SUBITEMS_ARQ_DATABASE') AS ID")->fetchAll(PDO::FETCH_ASSOC);
+        $ultimo_registro_tabela = $this->pdo->query("SELECT IDENT_CURRENT('aplicacoes.govti.SUBITEMS_ARQ_DATABASE') AS ID")->fetchAll(PDO::FETCH_ASSOC);
         $ultimo_id_tabela = intval($ultimo_registro_tabela[0]['ID']);
 
         $stmt_log->execute(array($ultimo_id_tabela));
