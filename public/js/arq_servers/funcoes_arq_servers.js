@@ -43,11 +43,11 @@ function retornaDadosServidor(event, value_load_demand) {
 
         data.dados.map((linha) => {
           as_cards_html += retornaCardHtml(
-            linha.ID,
-            linha.ATIVO,
-            linha.NOME,
-            linha.OBJETIVO,
-            linha.LINGUAGEM
+            linha.id,
+            linha.ativo,
+            linha.nome,
+            linha.objetivo,
+            linha.linguagem
           );
 
           count_searched += 1;
@@ -62,7 +62,7 @@ function retornaDadosServidor(event, value_load_demand) {
         );
       }
 
-      let count_search_as_html = `Mostrando <span class="text-primary">${count_searched}</span> de <span class="text-primary">${data.count[0].TOTAL}</span> resultados`;
+      let count_search_as_html = `Mostrando <span class="text-primary">${count_searched}</span> de <span class="text-primary">${data.count[0].total}</span> resultados`;
       $("#info_count_as").html(count_search_as_html);
     },
     error: (data) => {
@@ -333,10 +333,10 @@ function mostraSubItemsServidor(event) {
 
       parsed_response.dados.map((linha) => {
         sub_card_html += retornaSubCardHtml(
-          linha.ID,
-          linha.ATIVO,
-          linha.ITEM,
-          linha.DESCRICAO
+          linha.id,
+          linha.ativo,
+          linha.item,
+          linha.descricao
         );
       });
 

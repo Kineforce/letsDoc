@@ -21,7 +21,7 @@ class JobTrigger_model {
     function retornaTotalJobTrigger(){
 
         $sql_count_total = "    SELECT      COUNT(*) AS TOTAL
-                                FROM        aplicacoes.govti.MAP_JOB_TRIGGER
+                                FROM        aplicacoes.govti.map_job_trigger
                             ";
 
         $stmt_count_total = $this->pdo->query($sql_count_total)->fetchAll(PDO::FETCH_ASSOC);
@@ -35,7 +35,7 @@ class JobTrigger_model {
     function retornaExcelJobTrigger(){
 
         $sql_count_total = "    SELECT      *
-                                FROM        aplicacoes.govti.MAP_JOB_TRIGGER
+                                FROM        aplicacoes.govti.map_job_trigger
                             ";
 
         $stmt_count_total = $this->pdo->query($sql_count_total)->fetchAll(PDO::FETCH_ASSOC);
@@ -53,11 +53,11 @@ class JobTrigger_model {
         $search = "%$palavraBuscada%";
 
         $sql = "    SELECT      DISTINCT JB.*
-                    FROM        aplicacoes.govti.MAP_JOB_TRIGGER AS JB 
+                    FROM        aplicacoes.govti.map_job_trigger AS JB 
                     WHERE       lower(JB.NOME) LIKE :palavra_buscada
                     OR          lower(JB.DESCRICAO) LIKE :palavra_buscada
                     OR          lower(JB.TABELA) LIKE :palavra_buscada
-                    OR          lower(JB.[DATABASE]) LIKE :palavra_buscada
+                    OR          lower(JB.DATABASE) LIKE :palavra_buscada
                     $limit
                 ";
 
@@ -78,7 +78,7 @@ class JobTrigger_model {
         $database = htmlspecialchars($dados_job_trigger['database']);
         $ativo = htmlspecialchars($dados_job_trigger['ativo']);
 
-        $sql = "    INSERT INTO aplicacoes.govti.map_job_trigger (NOME, DESCRICAO, ATIVO, TABELA, [DATABASE], DATA_INSERT)
+        $sql = "    INSERT INTO aplicacoes.govti.map_job_trigger (NOME, DESCRICAO, ATIVO, TABELA, DATABASE, DATA_INSERT)
                     VALUES  (?, ?, ?, ?, ?, CURRENT_TIMESTAMP)";
 
         $sql_log = "    INSERT INTO aplicacoes.govti.map_job_trigger_log (
@@ -100,7 +100,7 @@ class JobTrigger_model {
                                 ,DESCRICAO
                                 ,ATIVO
                                 ,TABELA
-                                ,[DATABASE]
+                                ,DATABASE
                                 ,DATA_INSERT
                         FROM    aplicacoes.govti.map_job_trigger
                         WHERE   ID = ?
@@ -125,10 +125,10 @@ class JobTrigger_model {
 
         $id = htmlspecialchars($id_job_trigger['id_jobtrigger']);
 
-        $sql = "    DELETE FROM aplicacoes.govti.MAP_JOB_TRIGGER
+        $sql = "    DELETE FROM aplicacoes.govti.map_job_trigger
                     WHERE   ID = ?";
 
-        $sql_log = "    INSERT INTO aplicacoes.govti.MAP_JOB_TRIGGER_LOG (
+        $sql_log = "    INSERT INTO aplicacoes.govti.map_job_trigger_log (
                                                              OPERACAO
                                                             ,DATA_OPERACAO
                                                             ,USUARIO
@@ -147,9 +147,9 @@ class JobTrigger_model {
                                 ,DESCRICAO
                                 ,ATIVO
                                 ,TABELA
-                                ,[DATABASE]
+                                ,DATABASE
                                 ,DATA_INSERT
-                        FROM    aplicacoes.govti.MAP_JOB_TRIGGER
+                        FROM    aplicacoes.govti.map_job_trigger
                         WHERE   ID = ?
                         
         ";
@@ -173,15 +173,15 @@ class JobTrigger_model {
         $database = htmlspecialchars($dados_job_trigger['database']);
         $ativo = htmlspecialchars($dados_job_trigger['ativo']);
 
-        $sql = "    UPDATE aplicacoes.govti.MAP_JOB_TRIGGER SET  NOME = ?,
+        $sql = "    UPDATE aplicacoes.govti.map_job_trigger SET  NOME = ?,
                                                 DESCRICAO = ?,
                                                 ATIVO = ?,
                                                 TABELA = ?,
-                                                [DATABASE] = ?
+                                                DATABASE = ?
 
                     WHERE   ID = ?";
 
-        $sql_log = "    INSERT INTO aplicacoes.govti.MAP_JOB_TRIGGER_LOG (
+        $sql_log = "    INSERT INTO aplicacoes.govti.map_job_trigger_log (
                                                              OPERACAO
                                                             ,DATA_OPERACAO
                                                             ,USUARIO
@@ -200,9 +200,9 @@ class JobTrigger_model {
                                 ,DESCRICAO
                                 ,ATIVO
                                 ,TABELA
-                                ,[DATABASE]
+                                ,DATABASE
                                 ,DATA_INSERT
-                        FROM    aplicacoes.govti.MAP_JOB_TRIGGER
+                        FROM    aplicacoes.govti.map_job_trigger
                         WHERE   ID = ?
                         
         ";

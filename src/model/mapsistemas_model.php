@@ -20,7 +20,7 @@ class MapSistemas_model {
     function retornaTotalMapSistemas(){
 
         $sql_count_total = "    SELECT      COUNT(*) AS TOTAL
-                                FROM        aplicacoes.govti.MAP_SISTEMAS
+                                FROM        aplicacoes.govti.map_sistemas
                             ";
 
         $stmt_count_total = $this->pdo->query($sql_count_total)->fetchAll(PDO::FETCH_ASSOC);
@@ -34,7 +34,7 @@ class MapSistemas_model {
     function retornaExcelMapSistemas(){
 
         $sql_count_total = "    SELECT      *
-                                FROM        aplicacoes.govti.MAP_SISTEMAS
+                                FROM        aplicacoes.govti.map_sistemas
                             ";
 
         $stmt_count_total = $this->pdo->query($sql_count_total)->fetchAll(PDO::FETCH_ASSOC);
@@ -51,11 +51,11 @@ class MapSistemas_model {
         $search = "%$palavraBuscada%";
 
         $sql = "    SELECT      DISTINCT MS.*
-                    FROM        aplicacoes.govti.MAP_SISTEMAS AS MS 
+                    FROM        aplicacoes.govti.map_sistemas AS MS 
                     WHERE       lower(MS.NOME) LIKE :palavra_buscada
                     OR          lower(MS.DESCRICAO) LIKE :palavra_buscada
                     OR          lower(MS.ANEXO) LIKE :palavra_buscada
-                    OR          lower(MS.[DATABASE]) LIKE :palavra_buscada
+                    OR          lower(MS.DATABASE) LIKE :palavra_buscada
                     OR          lower(MS.SERVIDOR) LIKE :palavra_buscada
                     OR          lower(MS.SETOR) LIKE :palavra_buscada
                     OR          lower(MS.OCORRENCIA) LIKE :palavra_buscada  
@@ -75,7 +75,7 @@ class MapSistemas_model {
     function buscaAnexoAtualMapSistemas($id){
 
         $sql = "    SELECT  ANEXO
-                    FROM    aplicacoes.govti.MAP_SISTEMAS
+                    FROM    aplicacoes.govti.map_sistemas
                     WHERE   ID = ? ";
 
         $stmt = $this->pdo->prepare($sql);
@@ -98,10 +98,10 @@ class MapSistemas_model {
         $ativo = htmlspecialchars($dados_map_sistemas['ativo']);
         $nome_anexo = htmlspecialchars( (is_null($nome_anexo) ? '': $nome_anexo) );
 
-        $sql = "    INSERT INTO aplicacoes.govti.MAP_SISTEMAS (NOME, DESCRICAO, ANEXO, [DATABASE], SERVIDOR, SETOR, OCORRENCIA, ATIVO, DATA_INSERT)
+        $sql = "    INSERT INTO aplicacoes.govti.map_sistemas (NOME, DESCRICAO, ANEXO, DATABASE, SERVIDOR, SETOR, OCORRENCIA, ATIVO, DATA_INSERT)
                     VALUES  (?, ?, ?, ?, ?, ?, ?, ?, CURRENT_TIMESTAMP)";
 
-        $sql_log = "    INSERT INTO aplicacoes.govti.MAP_SISTEMAS_LOG (
+        $sql_log = "    INSERT INTO aplicacoes.govti.map_sistemas_log (
                                                          OPERACAO
                                                         ,DATA_OPERACAO
                                                         ,USUARIO
@@ -122,13 +122,13 @@ class MapSistemas_model {
                                 ,NOME
                                 ,DESCRICAO
                                 ,ANEXO
-                                ,[DATABASE]
+                                ,DATABASE
                                 ,SERVIDOR
                                 ,SETOR
                                 ,OCORRENCIA
                                 ,ATIVO
                                 ,DATA_INSERT
-                        FROM    aplicacoes.govti.MAP_SISTEMAS
+                        FROM    aplicacoes.govti.map_sistemas
                         WHERE   ID = ?
                         
         ";
@@ -151,10 +151,10 @@ class MapSistemas_model {
 
         $id = htmlspecialchars($id_map_sistemas['id_map_sistemas']);
 
-        $sql = "    DELETE FROM aplicacoes.govti.MAP_SISTEMAS
+        $sql = "    DELETE FROM aplicacoes.govti.map_sistemas
                     WHERE   ID = ?";
 
-        $sql_log = "    INSERT INTO aplicacoes.govti.MAP_SISTEMAS_LOG (
+        $sql_log = "    INSERT INTO aplicacoes.govti.map_sistemas_log (
                                                          OPERACAO
                                                         ,DATA_OPERACAO
                                                         ,USUARIO
@@ -175,13 +175,13 @@ class MapSistemas_model {
                                 ,NOME
                                 ,DESCRICAO
                                 ,ANEXO
-                                ,[DATABASE]
+                                ,DATABASE
                                 ,SERVIDOR
                                 ,SETOR
                                 ,OCORRENCIA
                                 ,ATIVO
                                 ,DATA_INSERT
-                        FROM    aplicacoes.govti.MAP_SISTEMAS
+                        FROM    aplicacoes.govti.map_sistemas
                         WHERE   ID = ?
                         
         ";
@@ -213,10 +213,10 @@ class MapSistemas_model {
         if (!empty($nome_anexo)){
 
 
-            $sql_update = "    UPDATE aplicacoes.govti.MAP_SISTEMAS SET     NOME = ?,
+            $sql_update = "    UPDATE aplicacoes.govti.map_sistemas SET     NOME = ?,
                                                             DESCRICAO = ?,
                                                             ANEXO = ?,
-                                                            [DATABASE] = ?,
+                                                            DATABASE = ?,
                                                             SERVIDOR = ?,
                                                             SETOR = ?,
                                                             OCORRENCIA = ?,
@@ -232,9 +232,9 @@ class MapSistemas_model {
 
         if ($controla){
 
-            $sql = "    UPDATE aplicacoes.govti.MAP_SISTEMAS SET NOME = ?,
+            $sql = "    UPDATE aplicacoes.govti.map_sistemas SET NOME = ?,
                                             DESCRICAO = ?,
-                                            [DATABASE] = ?,
+                                            DATABASE = ?,
                                             SERVIDOR = ?,
                                             SETOR = ?,
                                             OCORRENCIA = ?,
@@ -247,7 +247,7 @@ class MapSistemas_model {
 
         }
 
-        $sql_log = "    INSERT INTO aplicacoes.govti.MAP_SISTEMAS_LOG (
+        $sql_log = "    INSERT INTO aplicacoes.govti.map_sistemas_log (
                                                          OPERACAO
                                                         ,DATA_OPERACAO
                                                         ,USUARIO
@@ -268,13 +268,13 @@ class MapSistemas_model {
                                 ,NOME
                                 ,DESCRICAO
                                 ,ANEXO
-                                ,[DATABASE]
+                                ,DATABASE
                                 ,SERVIDOR
                                 ,SETOR
                                 ,OCORRENCIA
                                 ,ATIVO
                                 ,DATA_INSERT
-                        FROM    aplicacoes.govti.MAP_SISTEMAS
+                        FROM    aplicacoes.govti.map_sistemas
                         WHERE   ID = ?
                         
         ";

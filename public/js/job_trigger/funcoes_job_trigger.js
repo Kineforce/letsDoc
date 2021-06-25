@@ -43,12 +43,12 @@ function retornaDadosJobTrigger(event, value_load_demand) {
 
         data.dados.map((linha) => {
           mj_cards_html += retornaCardJobTrigger(
-            linha.ID,
-            linha.ATIVO,
-            linha.NOME,
-            linha.DESCRICAO,
-            linha.TABELA,
-            linha.DATABASE
+            linha.id,
+            linha.ativo,
+            linha.nome,
+            linha.descricao,
+            linha.tabela,
+            linha.database
           );
           count_searched += 1;
         });
@@ -62,7 +62,7 @@ function retornaDadosJobTrigger(event, value_load_demand) {
         );
       }
 
-      let count_search_mt_html = `Mostrando <span class="text-primary">${count_searched}</span> de <span class="text-primary">${data.count[0].TOTAL}</span> resultados`;
+      let count_search_mt_html = `Mostrando <span class="text-primary">${count_searched}</span> de <span class="text-primary">${data.count[0].total}</span> resultados`;
       $("#info_count_mt").html(count_search_mt_html);
     },
     error: (data) => {

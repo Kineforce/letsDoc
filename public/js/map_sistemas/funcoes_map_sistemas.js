@@ -46,15 +46,15 @@ function retornaDadosMapSistemas(event, value_load_demand) {
 
         data.dados.map((linha) => {
           ms_cards_html += retornaCardMapSistemas(
-            linha.ID,
-            linha.ATIVO,
-            linha.NOME,
-            linha.DESCRICAO,
-            linha.ANEXO,
-            linha.DATABASE,
-            linha.SERVIDOR,
-            linha.SETOR,
-            linha.OCORRENCIA
+            linha.id,
+            linha.ativo,
+            linha.nome,
+            linha.descricao,
+            linha.anexo,
+            linha.database,
+            linha.servidor,
+            linha.setor,
+            linha.ocorrencia
           );
           count_searched += 1;
         });
@@ -68,7 +68,7 @@ function retornaDadosMapSistemas(event, value_load_demand) {
         );
       }
 
-      let count_search_ms_html = `Mostrando <span class="text-primary">${count_searched}</span> de <span class="text-primary">${data.count[0].TOTAL}</span> resultados`;
+      let count_search_ms_html = `Mostrando <span class="text-primary">${count_searched}</span> de <span class="text-primary">${data.count[0].total}</span> resultados`;
       $("#info_count_ms").html(count_search_ms_html);
     },
     error: (data) => {

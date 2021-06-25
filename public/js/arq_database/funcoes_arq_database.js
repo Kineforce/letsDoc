@@ -43,11 +43,11 @@ function retornaDadosDatabase(event, value_load_demand) {
 
         data.dados.map((linha) => {
           db_cards_html += retornaCardDatabaseHtml(
-            linha.ID,
-            linha.ATIVO,
-            linha.NOME,
-            linha.DESCRICAO,
-            linha.AMBIENTE
+            linha.id,
+            linha.ativo,
+            linha.nome,
+            linha.descricao,
+            linha.ambiente
           );
           count_searched += 1;
         });
@@ -61,7 +61,7 @@ function retornaDadosDatabase(event, value_load_demand) {
         );
       }
 
-      let count_search_db_html = `Mostrando <span class="text-primary">${count_searched}</span> de <span class="text-primary">${data.count[0].TOTAL}</span> resultados`;
+      let count_search_db_html = `Mostrando <span class="text-primary">${count_searched}</span> de <span class="text-primary">${data.count[0].total}</span> resultados`;
       $("#info_count_db").html(count_search_db_html);
     },
     error: (data) => {
@@ -277,9 +277,9 @@ function mostraSubItemsDatabase(event) {
 
       parsed_response.dados.map((linha) => {
         sub_card_html += retornaSubCardHtmlDatabase(
-          linha.ID,
-          linha.NOME,
-          linha.DESCRICAO
+          linha.id,
+          linha.nome,
+          linha.descricao
         );
       });
 
