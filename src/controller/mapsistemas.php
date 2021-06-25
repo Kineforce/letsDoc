@@ -18,7 +18,7 @@ class MapSistemas_controller extends Helpers{
 
         $qtd_resultados = htmlspecialchars((isset($dados_map_sistemas['qtd'])) ? $dados_map_sistemas['qtd'] : '');
 
-        $top = $qtd_resultados != "all" ? "TOP " . $qtd_resultados : "";
+        $top = $qtd_resultados != "all" ? "LIMIT " . $qtd_resultados : "";
 
         $data_array['dados'] = $this->model_functions->retornaInfoMapSistemasFiltro($palavraBuscada, $top);
         $data_array['count'] = $this->model_functions->retornaTotalMapSistemas();

@@ -138,8 +138,7 @@ class MapSistemas_model {
         
         $stmt_log = $this->pdo->prepare($sql_log);
 
-        $ultimo_registro_tabela = $this->pdo->query("SELECT IDENT_CURRENT('aplicacoes.govti.MAP_SISTEMAS') AS ID")->fetchAll(PDO::FETCH_ASSOC);
-        $ultimo_id_tabela = intval($ultimo_registro_tabela[0]['ID']);
+        $ultimo_id_tabela = $this->pdo->lastInsertId();
 
         $stmt_log->execute(array($ultimo_id_tabela)); 
 

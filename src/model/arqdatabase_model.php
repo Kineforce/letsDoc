@@ -119,8 +119,7 @@ class ArqDatabase_model {
 
         $stmt_log  = $this->pdo->prepare($sql_log);
 
-        $ultimo_registro_tabela = $this->pdo->query("SELECT IDENT_CURRENT('aplicacoes.govti.ARQ_DATABASE') AS ID")->fetchAll(PDO::FETCH_ASSOC);
-        $ultimo_id_tabela = intval($ultimo_registro_tabela[0]['ID']);
+        $ultimo_id_tabela = $this->pdo->lastInsertId();
 
         $stmt_log->execute(array($ultimo_id_tabela));
 
@@ -402,8 +401,8 @@ class ArqDatabase_model {
 
         $stmt_log = $this->pdo->prepare($sql_log);
 
-        $ultimo_registro_tabela = $this->pdo->query("SELECT IDENT_CURRENT('aplicacoes.govti.SUBITEMS_ARQ_DATABASE') AS ID")->fetchAll(PDO::FETCH_ASSOC);
-        $ultimo_id_tabela = intval($ultimo_registro_tabela[0]['ID']);
+        $ultimo_id_tabela = $this->pdo->lastInsertId();
+
 
         $stmt_log->execute(array($ultimo_id_tabela));
 

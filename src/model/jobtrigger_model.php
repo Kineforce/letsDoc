@@ -78,10 +78,10 @@ class JobTrigger_model {
         $database = htmlspecialchars($dados_job_trigger['database']);
         $ativo = htmlspecialchars($dados_job_trigger['ativo']);
 
-        $sql = "    INSERT INTO aplicacoes.govti.MAP_JOB_TRIGGER (NOME, DESCRICAO, ATIVO, TABELA, [DATABASE], DATA_INSERT)
+        $sql = "    INSERT INTO aplicacoes.govti.map_job_trigger (NOME, DESCRICAO, ATIVO, TABELA, [DATABASE], DATA_INSERT)
                     VALUES  (?, ?, ?, ?, ?, CURRENT_TIMESTAMP)";
 
-        $sql_log = "    INSERT INTO aplicacoes.govti.MAP_JOB_TRIGGER_LOG (
+        $sql_log = "    INSERT INTO aplicacoes.govti.map_job_trigger_log (
                                                              OPERACAO
                                                             ,DATA_OPERACAO
                                                             ,USUARIO
@@ -102,7 +102,7 @@ class JobTrigger_model {
                                 ,TABELA
                                 ,[DATABASE]
                                 ,DATA_INSERT
-                        FROM    aplicacoes.govti.MAP_JOB_TRIGGER
+                        FROM    aplicacoes.govti.map_job_trigger
                         WHERE   ID = ?
                         
         ";
@@ -112,8 +112,7 @@ class JobTrigger_model {
         
         $stmt_log = $this->pdo->prepare($sql_log);
 
-        $ultimo_registro_tabela = $this->pdo->query("SELECT IDENT_CURRENT('aplicacoes.govti.MAP_JOB_TRIGGER') AS ID")->fetchAll(PDO::FETCH_ASSOC);
-        $ultimo_id_tabela = intval($ultimo_registro_tabela[0]['ID']);
+        $ultimo_id_tabela = $this->pdo->lastInsertId();
 
         $stmt_log->execute(array($ultimo_id_tabela)); 
 

@@ -23,7 +23,7 @@ class ArqServers_controller extends Helpers
 
         $qtd_resultados = htmlspecialchars((isset($dados_servidor['qtd'])) ? $dados_servidor['qtd'] : '');
 
-        $top = $qtd_resultados != "all" ? "TOP " . $qtd_resultados : "";
+        $top = $qtd_resultados != "all" ? "LIMIT " . $qtd_resultados : "";
 
         $data_array['dados'] = $this->model_functions->retornaInfoArqServerFiltro($palavraBuscada, $top);
         $data_array['count'] = $this->model_functions->retornaTotalArqServer();
