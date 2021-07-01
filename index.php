@@ -20,6 +20,7 @@
 <body class="d-flex h-100">
 
     <?php
+        // MINHA ALTERAÇÂO CUSTOMIZADA
 
         // error_reporting(E_ALL | E_WARNING | E_NOTICE);
         // ini_set('display_errors', 1);
