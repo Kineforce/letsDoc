@@ -86,4 +86,6 @@ class Helpers
 
         return $conteudo_excel;
     }
+
+    public function lets(){}
 }
