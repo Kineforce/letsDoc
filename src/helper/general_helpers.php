@@ -1,5 +1,5 @@
 <?php
-
+require_once('../session_auth/session.php');
 
 class Helpers
 {
@@ -11,6 +11,7 @@ class Helpers
      * @param string $caption Titulo da table que irá ser gerada no .xls
      * @param array $array_td_header Array contendo os TD's respectivos a serem gerados nas TR do THEADER
      * @param array $array_td_body Array contendo os TD's respectivos a serem gerados nas TR do TBODY 
+     * @author Lucas Souza Martins <lucas.martins@iesb.br>
      * 
      * @return string
      */
@@ -87,5 +88,22 @@ class Helpers
         return $conteudo_excel;
     }
 
-    public function lets(){}
+    /**
+     * Converte um array retornado pelo PDO em UTF-8
+     */
+    function outputFormatado($dados_array){
+
+        $array_utf8 = array();
+        $array_aux = array();
+
+        foreach ($dados_array as $arr_row){
+            foreach($arr_row as $key => $value){                
+                $array_aux[$key] = utf8_encode(htmlspecialchars($value));
+            }
+            array_push($array_utf8, $array_aux);
+        }
+
+        return $array_utf8;
+
+    }
 }

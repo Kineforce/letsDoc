@@ -1,5 +1,40 @@
+<?php
+
+/**
+ * =======================================================================
+ *  GOVTI - SISTEMA DE DOCUMENTAÇÃO DOS SISTEMAS DO IESB
+ * =======================================================================
+ * 
+ * Autor: Lucas Souza Martins
+ * Email: lucas.martins@iesb.br / lucas-sm2010@hotmail.com
+ * Data: 23/06/2021
+ * 
+ * A aplicação funciona como uma espécie de MVC
+ * No arquivo src/routes são adicionados as rotas da aplicação
+ * Que são direcionadas para os controllers e por fim invocando 
+ * Ou não as models.
+ * 
+ */
+
+// Inicializando sessão para integrar com a sessão do GOnline
+if (!isset($_SESSION)) {
+    session_start();
+}
+
+$_SESSION['login'] = 'promitere';
+
+// Se não existe uma variável login na sessão (herdada no login no GOnline), então o usuário não está autenticado
+if (!isset($_SESSION['login'])) {
+    // Redirecionar para o site do IESB
+    header("Location: http://iesb.br");
+    die();
+}
+
+?>
+
 <!DOCTYPE html>
 <html lang="en" class="h-100">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -17,29 +52,13 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
     <title>govTI</title>
 </head>
+
 <body class="d-flex h-100">
-
-    <?php
-
-        // error_reporting(E_ALL | E_WARNING | E_NOTICE);
-        // ini_set('display_errors', 1);
-
-        // // Inicializando sessão
-        // session_start();
-
-        // // Se não existe uma variável login na sessão (herdada no login no GOnline), então o usuário não está autenticado
-        // if(!isset($_SESSION['login'])){
-        //     // Redirecionar para o site do IESB
-        //     echo '<script>alert("Em construção!")</script>';
-        //     exit();
-        // }
-
-    ?>
     <header class="p-3 bg-light bg-gradient" style="display: none">
         <nav class="d-flex flex-column justify-content-around h-100">
             <div id="logo_menu" class="d-flex position-relative">
                 <figure class="d-flex flex-column">
-                    <img src="./iesb-logo.png" id="logo-iesb" class="figure-img img-fluid rounded w-50 align-self-center"/>
+                    <img src="./iesb-logo.png" id="logo-iesb" class="figure-img img-fluid rounded w-50 align-self-center" />
                     <figcaption class="text-center fs-5 mt-3">Documentação de sistemas do IESB</figcaption>
                 </figure>
                 <i class="fa fa-times btn position-absolute end-0 ms-2" id="btn-oculta-menu" aria-hidden="true"></i>
@@ -68,7 +87,7 @@
     </header>
 
     <main class="container-fluid p-3 bg-light bg-gradient d-flex align-items-stretch">
-        <div class="container-fluid"> 
+        <div class="container-fluid">
             <div id="tela-home" class="painel show_pannel d-flex align-self-stretch h-100">
                 <div class="container-fluid border border-2 rounded d-flex flex-column p-3">
                     <h2 class="text-center">Bem vindo ao govTI, aplicação com o objetivo de auxiliar na documentação dos sistemas do IESB.</h2>
@@ -80,7 +99,7 @@
                     <div class="as-label_busca_dinamica">
                         <form id="as-form_busca_dinamica" class="form-group d-flex flex-column">
                             <label for="as-input_busca_dinamica" id="as-label-busca-dinamica" class="form-label">Busque qualquer palavra: </label>
-                            <input type="text" id="as_input_busca_dinamica" class="form-control" value=""/>
+                            <input type="text" id="as_input_busca_dinamica" class="form-control" value="" />
                             <span>
                                 <button type="submit" class="btn btn-primary mt-2 ms-2" onclick="retornaDadosServidor(event)">Pesquisar</button>
                             </span>
@@ -96,13 +115,13 @@
                         </select>
                         <div class="d-flex ms-auto">
                             <div class="me-3 h2 align-self-center">
-                                <img class="span-menu-generico export_excel" style="cursor:pointer" src="./public/Icons/excel.png"/ width="40px" height="40px" title="Exportar para excel" table="as">
+                                <img class="span-menu-generico export_excel" style="cursor:pointer" src="./public/Icons/excel.png" / width="40px" height="40px" title="Exportar para excel" table="as">
                             </div>
                             <div class="align-self-center" id="info_count_as">
                             </div>
                         </div>
                     </div>
-                    <div class="as-content content-geral d-flex flex-column p-2 border align-self-stretch overflow-auto h-100">  
+                    <div class="as-content content-geral d-flex flex-column p-2 border align-self-stretch overflow-auto h-100">
                     </div>
                     <span>
                         <button type="button" class="btn btn-primary mt-2 ms-2" data-bs-toggle="modal" data-bs-target="#as_modal_cria_server">Adicionar servidor</button>
@@ -114,7 +133,7 @@
                     <div class="db-label_busca_dinamica">
                         <form id="db-form_busca_dinamica" class="form-group d-flex flex-column">
                             <label for="db-input_busca_dinamica" id="db-label-busca-dinamica" class="form-label">Busque qualquer palavra: </label>
-                            <input type="text" id="db_input_busca_dinamica" class="form-control" value=""/>
+                            <input type="text" id="db_input_busca_dinamica" class="form-control" value="" />
                             <span>
                                 <input type="submit" class="btn btn-primary mt-2 ms-2" onclick="retornaDadosDatabase(event)" value="Pesquisar" />
                             </span>
@@ -130,13 +149,13 @@
                         </select>
                         <div class="d-flex ms-auto">
                             <div class="me-3 h2 align-self-center">
-                                <img class="span-menu-generico export_excel" style="cursor:pointer" src="./public/Icons/excel.png"/ width="40px" height="40px" title="Exportar para excel" table="db">
+                                <img class="span-menu-generico export_excel" style="cursor:pointer" src="./public/Icons/excel.png" / width="40px" height="40px" title="Exportar para excel" table="db">
                             </div>
                             <div class="align-self-center" id="info_count_db">
                             </div>
                         </div>
                     </div>
-                    <div class="db-content content-geral d-flex flex-column p-2 border align-self-stretch overflow-auto h-100">  
+                    <div class="db-content content-geral d-flex flex-column p-2 border align-self-stretch overflow-auto h-100">
                     </div>
                     <span>
                         <button type="button" class="btn btn-primary mt-2 ms-2" data-bs-toggle="modal" data-bs-target="#db_modal_cria_database">Adicionar servidor de database</button>
@@ -148,7 +167,7 @@
                     <div class="mj-label_busca_dinamica">
                         <form id="mj-form_busca_dinamica" class="form-group d-flex flex-column">
                             <label for="mj-input_busca_dinamica" id="mj-label-busca-dinamica" class="form-label">Busque qualquer palavra: </label>
-                            <input type="text" id="mj_input_busca_dinamica" class="form-control" value=""/>
+                            <input type="text" id="mj_input_busca_dinamica" class="form-control" value="" />
                             <span>
                                 <input type="submit" class="btn btn-primary mt-2 ms-2" onclick="retornaDadosJobTrigger(event)" value="Pesquisar" />
                             </span>
@@ -164,13 +183,13 @@
                         </select>
                         <div class="d-flex ms-auto">
                             <div class="me-3 h2 align-self-center">
-                                <img class="span-menu-generico export_excel" style="cursor:pointer" src="./public/Icons/excel.png"/ width="40px" height="40px" title="Exportar para excel" table="mt">
+                                <img class="span-menu-generico export_excel" style="cursor:pointer" src="./public/Icons/excel.png" / width="40px" height="40px" title="Exportar para excel" table="mt">
                             </div>
                             <div class="align-self-center" id="info_count_mt">
                             </div>
                         </div>
                     </div>
-                    <div class="mj-content content-geral d-flex flex-column p-2 border align-self-stretch overflow-auto h-100">  
+                    <div class="mj-content content-geral d-flex flex-column p-2 border align-self-stretch overflow-auto h-100">
                     </div>
                     <span>
                         <button type="button" class="btn btn-primary mt-2 ms-2" data-bs-toggle="modal" data-bs-target="#mj_modal_cria_jobtrigger">Adicionar Job ou Trigger</button>
@@ -182,7 +201,7 @@
                     <div class="ms-label_busca_dinamica">
                         <form id="ms-form_busca_dinamica" class="form-group d-flex flex-column">
                             <label for="ms-input_busca_dinamica" id="ms-label-busca-dinamica" class="form-label">Busque qualquer palavra: </label>
-                            <input type="text" id="ms_input_busca_dinamica" class="form-control" value=""/>
+                            <input type="text" id="ms_input_busca_dinamica" class="form-control" value="" />
                             <span>
                                 <input type="submit" class="btn btn-primary mt-2 ms-2" onclick="retornaDadosMapSistemas(event)" value="Pesquisar" />
                             </span>
@@ -198,13 +217,13 @@
                         </select>
                         <div class="d-flex ms-auto">
                             <div class="me-3 h2 align-self-center">
-                                <img class="span-menu-generico export_excel" style="cursor:pointer" src="./public/Icons/excel.png"/ width="40px" height="40px" title="Exportar para excel" table="ms">
+                                <img class="span-menu-generico export_excel" style="cursor:pointer" src="./public/Icons/excel.png" / width="40px" height="40px" title="Exportar para excel" table="ms">
                             </div>
                             <div class="align-self-center" id="info_count_ms">
                             </div>
                         </div>
                     </div>
-                    <div class="ms-content content-geral d-flex flex-column p-2 border align-self-stretch overflow-auto h-100">  
+                    <div class="ms-content content-geral d-flex flex-column p-2 border align-self-stretch overflow-auto h-100">
                     </div>
                     <span>
                         <button type="button" class="btn btn-primary mt-2 ms-2" data-bs-toggle="modal" data-bs-target="#ms_modal_cria_mapsis">Adicionar sistema ou processo</button>
@@ -222,10 +241,10 @@
             </div>
         </div>
     </div>
-    
 
-        
-<!-- Modals para o painel de arquitetura de servidores --> 
+
+
+    <!-- Modals para o painel de arquitetura de servidores -->
 
     <!-- Modal para insert de dados servidor -->
     <div class="modal fade" id="as_modal_cria_server" tabindex="-1">
@@ -237,20 +256,20 @@
                 </div>
                 <div class="modal-body">
                     <div class="mb-3">
-                        <input type="text" class="form-control" name="nome" id="as_nome_servidor" placeholder="Nome do servidor"/>
+                        <input type="text" class="form-control" name="nome" id="as_nome_servidor" placeholder="Nome do servidor" />
                     </div>
                     <div class="mb-3">
                         <textarea type="text" class="form-control" name="objetivo" id="as_objetivo_servidor" placeholder="Objetivo do servidor"></textarea>
                     </div>
                     <div class="mb-3">
-                        <input type="text" class="form-control" name="linguagem" id="as_linguagem_servidor" placeholder="Linguagem do servidor"/>
+                        <input type="text" class="form-control" name="linguagem" id="as_linguagem_servidor" placeholder="Linguagem do servidor" />
                     </div>
 
                     <select class="form-select" id="as_ativo_servidor">
                         <option value="" selected disabled>Ativo?</option>
                         <option value="S">Sim</option>
                         <option value="N">Não</option>
-                    </select>                    
+                    </select>
                 </div>
                 <div class="modal-footer">
                     <button type="submit" class="btn btn-primary" id="as_cadastra">Cadastrar</button>
@@ -270,7 +289,7 @@
                 <div class="modal-body">
                     <input type="hidden" id="id_servidor_subitem" value="" />
                     <div class="mb-3">
-                        <input type="text" class="form-control" name="nome" id="as_nome_servidor_subitem" placeholder="Nome do item"/>
+                        <input type="text" class="form-control" name="nome" id="as_nome_servidor_subitem" placeholder="Nome do item" />
                     </div>
                     <div class="mb-3">
                         <textarea type="text" class="form-control" name="descricao" id="as_descricao_servidor_subitem" placeholder="Descrição do item"></textarea>
@@ -279,7 +298,7 @@
                         <option value="" selected disabled>Ativo?</option>
                         <option value="S">Sim</option>
                         <option value="N">Não</option>
-                    </select>                    
+                    </select>
                 </div>
                 <div class="modal-footer">
                     <button type="submit" class="btn btn-primary" id="as_cadastra_subitem">Cadastrar</button>
@@ -299,20 +318,20 @@
                 <div class="modal-body">
                     <input type="hidden" name="id" id="as_id_update" value="" />
                     <div class="mb-3">
-                        <input type="text" class="form-control" name="nome" id="as_nome_servidor_update" placeholder="Nome do servidor"/>
+                        <input type="text" class="form-control" name="nome" id="as_nome_servidor_update" placeholder="Nome do servidor" />
                     </div>
                     <div class="mb-3">
                         <textarea type="text" class="form-control" name="objetivo" id="as_objetivo_servidor_update" placeholder="Objetivo do servidor"></textarea>
                     </div>
                     <div class="mb-3">
-                        <input type="text" class="form-control" name="linguagem" id="as_linguagem_servidor_update" placeholder="Linguagem do servidor"/>
+                        <input type="text" class="form-control" name="linguagem" id="as_linguagem_servidor_update" placeholder="Linguagem do servidor" />
                     </div>
 
                     <select class="form-select" id="as_ativo_servidor_update">
                         <option value="" selected disabled>Ativo?</option>
                         <option value="S">Sim</option>
                         <option value="N">Não</option>
-                    </select>                    
+                    </select>
                 </div>
                 <div class="modal-footer">
                     <button type="submit" class="btn btn-primary" id="as_update">Atualizar</button>
@@ -332,7 +351,7 @@
                 <div class="modal-body">
                     <input type="hidden" name="id" id="as_id_update_subitem" value="" />
                     <div class="mb-3">
-                        <input type="text" class="form-control" name="nome" id="as_nome_update_subitem" placeholder="Nome do item"/>
+                        <input type="text" class="form-control" name="nome" id="as_nome_update_subitem" placeholder="Nome do item" />
                     </div>
                     <div class="mb-3">
                         <textarea type="text" class="form-control" name="objetivo" id="as_descricao_update_subitem" placeholder="Descrição do item"></textarea>
@@ -341,7 +360,7 @@
                         <option value="" selected disabled>Ativo?</option>
                         <option value="S">Sim</option>
                         <option value="N">Não</option>
-                    </select>                    
+                    </select>
                 </div>
                 <div class="modal-footer">
                     <button type="submit" class="btn btn-primary" id="as_update_subitem">Atualizar</button>
@@ -351,7 +370,7 @@
         </div>
     </div>
 
-<!-- Modals para o painel de arquitetura de databases -->
+    <!-- Modals para o painel de arquitetura de databases -->
 
     <!-- Modal para insert de dados database -->
     <div class="modal fade" id="db_modal_cria_database" tabindex="-1">
@@ -363,7 +382,7 @@
                 </div>
                 <div class="modal-body">
                     <div class="mb-3">
-                        <input type="text" class="form-control" name="nome" id="db_nome_database" placeholder="Nome do servidor"/>
+                        <input type="text" class="form-control" name="nome" id="db_nome_database" placeholder="Nome do servidor" />
                     </div>
                     <div class="mb-3">
                         <textarea type="text" class="form-control" name="descricao" id="db_descricao_database" placeholder="Descricao do servidor"></textarea>
@@ -380,7 +399,7 @@
                         <option value="" selected disabled>Ativo?</option>
                         <option value="S">Sim</option>
                         <option value="N">Não</option>
-                    </select>                    
+                    </select>
                 </div>
                 <div class="modal-footer">
                     <button type="submit" class="btn btn-primary" id="db_cadastra">Cadastrar</button>
@@ -400,7 +419,7 @@
                 <div class="modal-body">
                     <input type="hidden" name="id" id="db_id_update" value="" />
                     <div class="mb-3">
-                        <input type="text" class="form-control" name="nome" id="db_nome_database_update" placeholder="Nome do servidor"/>
+                        <input type="text" class="form-control" name="nome" id="db_nome_database_update" placeholder="Nome do servidor" />
                     </div>
                     <div class="mb-3">
                         <textarea type="text" class="form-control" name="descricao" id="db_descricao_update" placeholder="Descrição do servidor"></textarea>
@@ -417,7 +436,7 @@
                         <option value="" selected disabled>Ativo?</option>
                         <option value="S">Sim</option>
                         <option value="N">Não</option>
-                    </select>                    
+                    </select>
                 </div>
                 <div class="modal-footer">
                     <button type="submit" class="btn btn-primary" id="db_update">Atualizar</button>
@@ -437,11 +456,11 @@
                 <div class="modal-body">
                     <input type="hidden" id="db_database_subitem" value="" />
                     <div class="mb-3">
-                        <input type="text" class="form-control" name="nome" id="db_nome_database_subitem" placeholder="Nome da tabela"/>
+                        <input type="text" class="form-control" name="nome" id="db_nome_database_subitem" placeholder="Nome da tabela" />
                     </div>
                     <div class="mb-3">
                         <textarea type="text" class="form-control" name="descricao" id="db_descricao_database_subitem" placeholder="Descrição da tabela"></textarea>
-                    </div>               
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <button type="submit" class="btn btn-primary" id="db_cadastra_subitem">Cadastrar</button>
@@ -452,31 +471,31 @@
     </div>
     <!-- Modal para update de dados subitem database -->
     <div class="modal fade" id="db_modal_update_database_subitem" tabindex="-1">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title">Atualizar registro atual</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Atualizar registro atual</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <input type="hidden" name="id" id="db_id_update_subitem" value="" />
+                    <div class="mb-3">
+                        <input type="text" class="form-control" name="nome" id="db_nome_update_subitem" placeholder="Nome do item" />
                     </div>
-                    <div class="modal-body">
-                        <input type="hidden" name="id" id="db_id_update_subitem" value="" />
-                        <div class="mb-3">
-                            <input type="text" class="form-control" name="nome" id="db_nome_update_subitem" placeholder="Nome do item"/>
-                        </div>
-                        <div class="mb-3">
-                            <textarea type="text" class="form-control" name="objetivo" id="db_descricao_update_subitem" placeholder="Descrição do item"></textarea>
-                        </div>
+                    <div class="mb-3">
+                        <textarea type="text" class="form-control" name="objetivo" id="db_descricao_update_subitem" placeholder="Descrição do item"></textarea>
                     </div>
-                    <div class="modal-footer">
-                        <button type="submit" class="btn btn-primary" id="db_update_subitem_database">Atualizar</button>
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
-                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary" id="db_update_subitem_database">Atualizar</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
                 </div>
             </div>
         </div>
     </div>
+    </div>
 
-<!-- Modals para o painel de mapeamento de jobs e triggers -->
+    <!-- Modals para o painel de mapeamento de jobs e triggers -->
 
     <!-- Modal para insert de dados job/trigger -->
     <div class="modal fade" id="mj_modal_cria_jobtrigger" tabindex="-1">
@@ -488,22 +507,22 @@
                 </div>
                 <div class="modal-body">
                     <div class="mb-3">
-                        <input type="text" class="form-control" name="nome" id="mj_nome_jobtrigger" placeholder="Nome do registro"/>
+                        <input type="text" class="form-control" name="nome" id="mj_nome_jobtrigger" placeholder="Nome do registro" />
                     </div>
                     <div class="mb-3">
                         <textarea type="text" class="form-control" name="descricao" id="mj_descricao_jobtrigger" placeholder="Descricao do registro"></textarea>
                     </div>
                     <div class="mb-3">
-                        <input type="text" class="form-control" name="tabela" id="mj_tabela" placeholder="Tabela do registro"/>
+                        <input type="text" class="form-control" name="tabela" id="mj_tabela" placeholder="Tabela do registro" />
                     </div>
                     <div class="mb-3">
-                        <input type="text" class="form-control" name="database" id="mj_database" placeholder="Database do registro"/>
+                        <input type="text" class="form-control" name="database" id="mj_database" placeholder="Database do registro" />
                     </div>
                     <select class="form-select" id="mj_ativo_jobtrigger">
                         <option value="" selected disabled>Ativo?</option>
                         <option value="S">Sim</option>
                         <option value="N">Não</option>
-                    </select>                    
+                    </select>
                 </div>
                 <div class="modal-footer">
                     <button type="submit" class="btn btn-primary" id="mj_cadastra">Cadastrar</button>
@@ -523,7 +542,7 @@
                 <div class="modal-body">
                     <input type="hidden" name="id" id="mj_id_update" value="" />
                     <div class="mb-3">
-                        <input type="text" class="form-control" name="nome" id="mj_nome_jobtrigger_update" placeholder="Nome do registro"/>
+                        <input type="text" class="form-control" name="nome" id="mj_nome_jobtrigger_update" placeholder="Nome do registro" />
                     </div>
                     <div class="mb-3">
                         <textarea type="text" class="form-control" name="descricao" id="mj_descricao_update" placeholder="Descrição do registro"></textarea>
@@ -538,7 +557,7 @@
                         <option value="" selected disabled>Ativo?</option>
                         <option value="S">Sim</option>
                         <option value="N">Não</option>
-                    </select>                    
+                    </select>
                 </div>
                 <div class="modal-footer">
                     <button type="submit" class="btn btn-primary" id="mj_update">Atualizar</button>
@@ -547,8 +566,8 @@
             </div>
         </div>
     </div>
-<!-- Modals para o painel de mapeamento de sistemas -->
-    
+    <!-- Modals para o painel de mapeamento de sistemas -->
+
     <!-- Modal para insert de dados de sistema ou processo -->
     <div class="modal fade" id="ms_modal_cria_mapsis" tabindex="-1">
         <div class="modal-dialog">
@@ -559,13 +578,13 @@
                 </div>
                 <div class="modal-body">
                     <div class="mb-3">
-                        <input type="text" class="form-control" name="nome" id="ms_nome_mapsis" placeholder="Nome do registro"/>
+                        <input type="text" class="form-control" name="nome" id="ms_nome_mapsis" placeholder="Nome do registro" />
                     </div>
                     <div class="mb-3">
                         <textarea type="text" class="form-control" name="descricao" id="ms_descricao_mapsis" placeholder="Descricao do registro"></textarea>
                     </div>
                     <div class="mb-3">
-                        <input type="text" class="form-control" name="database" id="ms_database_mapsis" placeholder="Banco de dados"/>
+                        <input type="text" class="form-control" name="database" id="ms_database_mapsis" placeholder="Banco de dados" />
                     </div>
                     <div class="mb-3">
                         <textarea type="text" class="form-control" name="servidor" id="ms_servidor_mapsis" placeholder="Servidor hospedado"></textarea>
@@ -580,10 +599,10 @@
                         <option value="" selected disabled>Ativo?</option>
                         <option value="S">Sim</option>
                         <option value="N">Não</option>
-                    </select> 
+                    </select>
                     <div class="mb-3">
-                        <input type="file" class="form-control" name="anexo" id="ms_anexo_mapsis"/>
-                    </div>                   
+                        <input type="file" class="form-control" name="anexo" id="ms_anexo_mapsis" />
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <button type="submit" class="btn btn-primary" id="ms_cadastra">Cadastrar</button>
@@ -603,13 +622,13 @@
                 <div class="modal-body">
                     <input type="hidden" name="id" id="ms_id_update" value="" />
                     <div class="mb-3">
-                        <input type="text" class="form-control" name="nome" id="ms_nome_mapsis_update" placeholder="Nome do registro"/>
+                        <input type="text" class="form-control" name="nome" id="ms_nome_mapsis_update" placeholder="Nome do registro" />
                     </div>
                     <div class="mb-3">
                         <textarea type="text" class="form-control" name="descricao" id="ms_descricao_mapsis_update" placeholder="Descricao do registro"></textarea>
                     </div>
                     <div class="mb-3">
-                        <input type="text" class="form-control" name="database" id="ms_database_mapsis_update" placeholder="Banco de dados"/>
+                        <input type="text" class="form-control" name="database" id="ms_database_mapsis_update" placeholder="Banco de dados" />
                     </div>
                     <div class="mb-3">
                         <textarea type="text" class="form-control" name="servidor" id="ms_servidor_mapsis_update" placeholder="Servidor hospedado"></textarea>
@@ -624,10 +643,10 @@
                         <option value="" selected disabled>Ativo?</option>
                         <option value="S">Sim</option>
                         <option value="N">Não</option>
-                    </select>     
+                    </select>
                     <div class="mb-3">
                         <input type="file" class="form-control" id="ms_anexo_mapsis_update" />
-                    </div>               
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <button type="submit" class="btn btn-primary" id="ms_update">Atualizar</button>
@@ -637,9 +656,9 @@
         </div>
     </div>
 
-<!-- Javascript -->
+    <!-- Javascript -->
     <!-- Jquery 3.6.0 -->
-    <script src="./public/jquery/jquery-3.6.0.min.js"></script>    
+    <script src="./public/jquery/jquery-3.6.0.min.js"></script>
     <!-- Scripts utilizados nos paineis -->
     <script src="./public/js/scripts_paineis.js"></script>
     <!-- Scripts para a tela de arquitetura de servidores -->
@@ -660,4 +679,5 @@
     <script src="./public/bootstrap5/js/bootstrap.bundle.min.js"></script>
 
 </body>
+
 </html>

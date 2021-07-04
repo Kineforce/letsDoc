@@ -1,5 +1,6 @@
 <?php
 
+require_once('../session_auth/session.php');
 require_once('../helper/general_helpers.php');
 
 class ArqServers_controller extends Helpers
@@ -23,9 +24,9 @@ class ArqServers_controller extends Helpers
 
         $qtd_resultados = htmlspecialchars((isset($dados_servidor['qtd'])) ? $dados_servidor['qtd'] : '');
 
-        $top = $qtd_resultados != "all" ? "LIMIT " . $qtd_resultados : "";
+        $limit = $qtd_resultados != "all" ? "LIMIT " . $qtd_resultados : "";
 
-        $data_array['dados'] = $this->model_functions->retornaInfoArqServerFiltro($palavraBuscada, $top);
+        $data_array['dados'] = $this->outputFormatado($this->model_functions->retornaInfoArqServerFiltro($palavraBuscada, $limit));
         $data_array['count'] = $this->model_functions->retornaTotalArqServer();
 
         echo json_encode($data_array);
@@ -92,7 +93,7 @@ class ArqServers_controller extends Helpers
     {
         $dadosServidor = $_GET['buscaSubItemsServer'];
 
-        $data_array['dados'] = $this->model_functions->retornaSubItemsServer($dadosServidor);
+        $data_array['dados'] =  $this->outputFormatado($this->model_functions->retornaSubItemsServer($dadosServidor));
 
         echo json_encode($data_array);
     }
@@ -100,9 +101,11 @@ class ArqServers_controller extends Helpers
     function retornaExcelServidor()
     {
         $data_servidores_web = $this->model_functions->retornaServerExcel();
-        $td_header_web = array('NOME', 'OBJETIVO', 'LINGUAGEM', 'ATIVO', 'DATA_INSERT');
+        $td_header_web = array(
+            'NOME_SERVER', 'OBJETIVO_SERVER', 'LINGUAGEM_SERVER', 'ATIVO_SERVER', 'DT_INSERT_SERVER', 'ITEM_SERVER', 'DESCRICAO_ITEM', 'ATIVO_ITEM', 'DT_INSERT_ITEM'
+        );
 
-        $result_excel = $this->retornaExcelExportacaoGeral('as', 'Relatório de servidores WEB - IESB', $td_header_web, $data_servidores_web);
+        $result_excel = $this->retornaExcelExportacaoGeral('as', 'Relatório de Servidores WEB - IESB', $td_header_web, $data_servidores_web);
 
         echo $result_excel;
     }
